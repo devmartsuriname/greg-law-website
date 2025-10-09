@@ -1,5 +1,5 @@
-import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       </Helmet>
 
       {/* Banner Section Two */}
-      <section className="banner-section-two" style={{ backgroundImage: 'url(/images/main-slider/2.jpg)' }}>
+      <section className="banner-section-two" style={{ backgroundImage: "url(/images/main-slider/2.jpg)" }}>
         <div className="left-side">
           <div className="icon-image"></div>
         </div>
@@ -27,11 +27,11 @@ export default function Home() {
                   <div className="content-column col-lg-5 col-md-12 col-sm-12">
                     <div className="inner-column">
                       <h2>
-                        Assign <br /> lawsight <br /> for Satisfaction
+                        Assign <br /> lawsightss <br /> for Satisfaction
                       </h2>
                       <div className="text">
-                        Introduce with LawSight, Lorem ipsum dolor sit amet, <br /> consectetuer adipiscing elit.
-                        Aenean commodo <br /> ligula eget dolor.
+                        Introduce with LawSight, Lorem ipsum dolor sit amet, <br /> consectetuer adipiscing elit. Aenean
+                        commodo <br /> ligula eget dolor.
                       </div>
                       <Link to="/contact" className="theme-btn btn-style-one">
                         Contact us today
@@ -58,7 +58,7 @@ export default function Home() {
                       <span className="icon flaticon-calendar"></span>
                     </div>
                     <div className="title">Book an</div>
-                    <h4>Appointment</h4>
+                    <h4>Appointmentss</h4>
                   </div>
                 </div>
               </div>
@@ -108,13 +108,13 @@ export default function Home() {
 
                 <div className="text">
                   <p>
-                    The argument in favor of using filler text goes something like this: If you use real content in
-                    the <span>design process,</span> anytime you reach a review point you'll end up reviewing and
+                    The argument in favor of using filler text goes something like this: If you use real content in the{" "}
+                    <span>design process,</span> anytime you reach a review point you'll end up reviewing and
                     negotiating the content itself and not the design.
                   </p>
                   <p>
-                    Aenean tincidunt id mauris id auctor. Donec at ligula lacus. Nulla dignissim mi quis neque
-                    interdum, quis porta sem finibus.
+                    Aenean tincidunt id mauris id auctor. Donec at ligula lacus. Nulla dignissim mi quis neque interdum,
+                    quis porta sem finibus.
                   </p>
                 </div>
                 <div className="row clearfix">
@@ -140,7 +140,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="question">
-                  Call to ask <a href="#">any question</a> <strong>540-325-1523</strong> <span className="or">or</span>{' '}
+                  Call to ask <a href="#">any question</a> <strong>540-325-1523</strong> <span className="or">or</span>{" "}
                   <strong>540-328-1265</strong>
                 </div>
                 <div className="signature">
@@ -159,10 +159,7 @@ export default function Home() {
                   <figure className="video-image">
                     <img src="/images/resource/video-img.jpg" alt="" />
                   </figure>
-                  <a
-                    href="https://www.youtube.com/watch?v=kxPCFljwJws"
-                    className="lightbox-image overlay-box"
-                  >
+                  <a href="https://www.youtube.com/watch?v=kxPCFljwJws" className="lightbox-image overlay-box">
                     <span className="flaticon-play-button"></span>
                   </a>
                 </div>
@@ -188,8 +185,7 @@ export default function Home() {
                             <span className="count-text" data-speed="3500" data-stop="1402">
                               0
                             </span>
-                            +
-                            <div className="counter-title">Completed works</div>
+                            +<div className="counter-title">Completed works</div>
                             <div className="text">connstur adicing</div>
                           </div>
                         </div>
@@ -221,10 +217,10 @@ export default function Home() {
           <div className="inner-container">
             <div className="row clearfix">
               {[
-                { year: '2016', title: 'Started Journey' },
-                { year: '2017', title: 'We employed lawyers' },
-                { year: '2018', title: 'Winning best awards' },
-                { year: '2019', title: 'Improved team' },
+                { year: "2016", title: "Started Journey" },
+                { year: "2017", title: "We employed lawyers" },
+                { year: "2018", title: "Winning best awards" },
+                { year: "2019", title: "Improved team" },
               ].map((item, index) => (
                 <div key={index} className="feature-block-two col-lg-3 col-md-6 col-sm-12">
                   <div className="fill-line"></div>
@@ -245,7 +241,7 @@ export default function Home() {
       {/* Subscribe Section */}
       <section className="subscribe-section style-two">
         <div className="container">
-          <div className="inner-container" style={{ backgroundImage: 'url(/images/background/3.jpg)' }}>
+          <div className="inner-container" style={{ backgroundImage: "url(/images/background/3.jpg)" }}>
             <h2>
               Subscribe Your Email for Newsletter <br /> & Promotion
             </h2>
