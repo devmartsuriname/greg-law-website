@@ -4,7 +4,7 @@ import PageTitle from '../components/PageTitle';
 const blogPosts = [
   {
     id: 'legal-rights-family-law',
-    title: 'Strategy for Norway's Pension Fund Global',
+    title: "Strategy for Norway's Pension Fund Global",
     image: '/images/resource/news-4.jpg',
     author: 'Admin',
     date: 'September 12, 2019',
