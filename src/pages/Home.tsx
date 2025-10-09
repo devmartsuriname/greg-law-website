@@ -103,48 +103,48 @@ export default function Home() {
             <div className="content-column col-lg-6 col-md-12 col-sm-12">
               <div className="inner-column">
                 <div className="section-title">
-                  <div className="title">about us</div>
+                  <div className="title">About Gregory</div>
                   <h3>
-                    We are here to fight against any violence with <span>experience</span>
+                    Serving Suriname with <span>vision & integrity</span>
                   </h3>
                 </div>
 
                 <div className="text">
                   <p>
-                    The argument in favor of using filler text goes something like this: If you use real content in the{" "}
-                    <span>design process,</span> anytime you reach a review point you'll end up reviewing and
-                    negotiating the content itself and not the design.
+                    I am Gregory Allan Rusland, Vice President of Suriname. With decades of experience in governance and{" "}
+                    <span>public service,</span> I dedicate my work to advancing Suriname's development and creating
+                    opportunities for all citizens.
                   </p>
                   <p>
-                    Aenean tincidunt id mauris id auctor. Donec at ligula lacus. Nulla dignissim mi quis neque interdum,
-                    quis porta sem finibus.
+                    Through collaborative leadership and strategic vision, we work together to build a stronger, more
+                    prosperous Suriname that serves every community and every generation.
                   </p>
                 </div>
                 <div className="row clearfix">
                   <div className="column col-lg-6 col-md-6 col-sm-12">
                     <ul className="list-style-one">
-                      <li>Praesent feugiat sem mattis.</li>
+                      <li>Economic development and growth.</li>
                     </ul>
                   </div>
                   <div className="column col-lg-6 col-md-6 col-sm-12">
                     <ul className="list-style-one">
-                      <li>A wonderful serenity.</li>
+                      <li>Youth empowerment and education.</li>
                     </ul>
                   </div>
                   <div className="column col-lg-6 col-md-6 col-sm-12">
                     <ul className="list-style-one">
-                      <li>Premium services beyond you.</li>
+                      <li>International partnerships.</li>
                     </ul>
                   </div>
                   <div className="column col-lg-6 col-md-6 col-sm-12">
                     <ul className="list-style-one">
-                      <li>Set a link back to this photo.</li>
+                      <li>Sustainable development initiatives</li>
                     </ul>
                   </div>
                 </div>
                 <div className="question">
-                  Call to ask <a href="#">any question</a> <strong>540-325-1523</strong> <span className="or">or</span>{" "}
-                  <strong>540-328-1265</strong>
+                  Contact the <a href="#">VP Office</a> <strong>+ 597 472-000</strong> <span className="or">or</span>{" "}
+                  <strong>+597 472-001</strong>
                 </div>
                 <div className="signature">
                   <div className="signature-img">
