@@ -237,6 +237,316 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services Section Three */}
+      <section className="services-section-three">
+        <div className="icon-one wow fadeInLeft" data-wow-delay="250ms" data-wow-duration="1500ms" style={{ backgroundImage: "url(/images/icons/icon-6.png)" }}></div>
+        <div className="icon-two wow fadeInRight" data-wow-delay="500ms" data-wow-duration="1500ms" style={{ backgroundImage: "url(/images/icons/icon-7.png)" }}></div>
+        <div className="container">
+          <div className="row clearfix">
+            <div className="blocks-column col-lg-8 col-md-12 col-sm-12">
+              <div className="inner-column">
+                <div className="row clearfix">
+                  {[
+                    { icon: "fa fa-bullhorn", title: "Market Law", slug: "market-law" },
+                    { icon: "fa fa-suitcase", title: "Business Planning", slug: "business-planning" },
+                    { icon: "fa fa-area-chart", title: "Investment Trade", slug: "investment-trade" },
+                    { icon: "fa fa-coffee", title: "Fund Law", slug: "fund-law" },
+                    { icon: "fa fa-building", title: "Home Law", slug: "home-law" },
+                    { icon: "fa fa-pie-chart", title: "Insurance Law", slug: "insurance-law" },
+                  ].map((service, index) => (
+                    <div key={index} className="services-block-three col-lg-6 col-md-6 col-sm-12">
+                      <div className="inner-box wow fadeInUp" data-wow-delay={`${(index % 2) * 300}ms`} data-wow-duration="1500ms">
+                        <div className="border-one"></div>
+                        <div className="border-two"></div>
+                        <div className="content">
+                          <div className="icon-box">
+                            <span className={`icon ${service.icon}`}></span>
+                          </div>
+                          <h6>
+                            <Link to={`/services/${service.slug}`}>{service.title}</Link>
+                          </h6>
+                          <div className="text">Expert legal consultation and representation for your {service.title.toLowerCase()} needs.</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="image-column col-lg-4 col-md-12 col-sm-12">
+              <div className="inner-column clearfix">
+                <div className="image">
+                  <img src="/images/resource/about-2.jpg" alt="Legal Services Experience" />
+                  <div className="overlay-box">
+                    <div className="overlay-inner">
+                      <div className="content">
+                        <h2>35 <span>years of experience</span></h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial Section */}
+      <section className="testimonial-section">
+        <div className="container">
+          <div className="section-title">
+            <div className="title">Testimonial</div>
+            <h3>Clients are very satisfied <br /> to work with <span>us</span></h3>
+          </div>
+
+          <div className="testimonial-carousel owl-carousel owl-theme">
+            {[
+              { name: "Andrew Rob", position: "Business Owner", image: "/images/resource/author-3.jpg" },
+              { name: "Nelli Johnson", position: "CEO", image: "/images/resource/author-4.jpg" },
+              { name: "Michael Davis", position: "Entrepreneur", image: "/images/resource/author-3.jpg" },
+            ].map((testimonial, index) => (
+              <div key={index} className="testimonial-block-two">
+                <div className="inner-box">
+                  <div className="text">
+                    Professional legal services with exceptional results. The team at Greg Law provided expert guidance throughout our case and achieved outstanding outcomes. Highly recommended for their dedication and expertise.
+                  </div>
+                  <div className="author-post">
+                    <div className="author-inner">
+                      <div className="image">
+                        <img src={testimonial.image} alt={testimonial.name} />
+                      </div>
+                      <h3>{testimonial.name}</h3>
+                      <div className="designation">{testimonial.position}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="team-section">
+        <div className="container">
+          <div className="section-title light">
+            <div className="clearfix">
+              <div className="pull-left">
+                <div className="title">Our Team</div>
+                <h3>We feel very proud for our <br /> great <span>achievement</span></h3>
+              </div>
+              <div className="pull-right">
+                <div className="text">
+                  Our experienced legal professionals are dedicated to providing exceptional service and achieving the best possible outcomes for our clients.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="clearfix">
+            {[
+              { name: "Gregory Law", position: "Senior Attorney", image: "/images/resource/team-1.jpg" },
+              { name: "Sarah Mitchell", position: "Family Law Specialist", image: "/images/resource/team-2.jpg" },
+              { name: "Robert Chen", position: "Corporate Lawyer", image: "/images/resource/team-3.jpg" },
+              { name: "Jessica Brown", position: "Criminal Defense Attorney", image: "/images/resource/team-4.jpg" },
+            ].map((member, index) => (
+              <div key={index} className="team-block col-lg-3 col-md-6 col-sm-12">
+                <div className="inner-box wow fadeInUp" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
+                  <div className="image">
+                    <a href="#">
+                      <img src={member.image} alt={member.name} />
+                    </a>
+                  </div>
+                  <div className="lower-content">
+                    <h3><a href="#">{member.name}</a></h3>
+                    <div className="designation">{member.position}</div>
+                    <div className="overlay-box">
+                      <div className="overlay-content">
+                        <div className="title">Contact info</div>
+                        <ul className="social-icons">
+                          <li><a href="#"><span className="fa fa-facebook"></span></a></li>
+                          <li><a href="#"><span className="fa fa-twitter"></span></a></li>
+                          <li><a href="#"><span className="fa fa-linkedin"></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* News Section */}
+      <section className="news-section style-two">
+        <div className="container">
+          <div className="section-title">
+            <div className="clearfix">
+              <div className="pull-left">
+                <div className="title">News</div>
+                <h3>Learn something more from <br /> our latest <span>news</span></h3>
+              </div>
+              <div className="pull-right">
+                <div className="text">
+                  Stay informed with the latest legal insights, case studies, and updates from our team of experienced attorneys.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row clearfix">
+            {[
+              { 
+                title: "Understanding Your Legal Rights in Family Law Cases", 
+                image: "/images/resource/news-1.jpg",
+                date: "December 15, 2024",
+                slug: "family-law-rights"
+              },
+              { 
+                title: "Corporate Law Updates: What Businesses Need to Know", 
+                image: "/images/resource/news-2.jpg",
+                date: "December 10, 2024",
+                slug: "corporate-law-updates"
+              },
+              { 
+                title: "Protecting Your Interests in Real Estate Transactions", 
+                image: "/images/resource/news-3.jpg",
+                date: "December 5, 2024",
+                slug: "real-estate-protection"
+              },
+            ].map((news, index) => (
+              <div key={index} className="news-block col-lg-4 col-md-6 col-sm-12">
+                <div className="inner-box wow fadeInLeft" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
+                  <div className="image">
+                    <img src={news.image} alt={news.title} />
+                    <div className="overlay-box">
+                      <a href={news.image} data-fancybox="news" data-caption="" className="plus flaticon-plus"></a>
+                    </div>
+                  </div>
+                  <div className="lower-content">
+                    <ul className="post-meta">
+                      <li><span className="fa fa-calendar"></span>{news.date}</li>
+                      <li><span className="fa fa-user"></span>Admin</li>
+                    </ul>
+                    <h5>
+                      <Link to={`/blog/${news.slug}`}>{news.title}</Link>
+                    </h5>
+                    <Link to={`/blog/${news.slug}`} className="theme-btn btn-style-two">View more</Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Counter Section */}
+      <section className="counter-section">
+        <div className="container">
+          <div className="fact-counter style-three">
+            <div className="row clearfix">
+              {[
+                { icon: "fa fa-briefcase", count: "1825", title: "Completed works" },
+                { icon: "flaticon-teamwork", count: "532", title: "Satisfied clients" },
+                { icon: "flaticon-ribbon-badge-award", count: "69", title: "Winning awards" },
+                { icon: "flaticon-multiple-users-silhouette", count: "32", title: "Team members" },
+              ].map((counter, index) => (
+                <div key={index} className="column counter-column col-lg-3 col-md-6 col-sm-12">
+                  <div className="inner wow fadeInLeft" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
+                    <div className="count-outer count-box">
+                      <div className={`icon ${counter.icon}`}></div>
+                      <span className="count-text" data-speed="3000" data-stop={counter.count}>0</span>+
+                      <div className="counter-title">{counter.title}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form Section */}
+      <section className="contact-form-section">
+        <div className="map-section">
+          <div className="map-outer">
+            <div 
+              className="map-canvas"
+              data-zoom="12"
+              data-lat="-37.817085"
+              data-lng="144.955631"
+              data-type="roadmap"
+              data-hue="#ffc400"
+              data-title="Greg Law"
+              data-icon-path="/images/icons/map-marker.png"
+              data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@greglaw.com'>info@greglaw.com</a>"
+            ></div>
+          </div>
+        </div>
+        <div className="container">
+          <div className="inner-container">
+            <div className="upper-content">
+              <div className="row clearfix">
+                <div className="title-column col-lg-5 col-md-12 col-sm-12">
+                  <div className="inner-column">
+                    <div className="section-title">
+                      <div className="title">Contact us</div>
+                      <h3>Feel free to ask any <br /> question to <span>Us</span></h3>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="info-column col-lg-7 col-md-12 col-sm-12">
+                  <div className="inner-column">
+                    <div className="row clearfix">
+                      <div className="column col-lg-6 col-md-6 col-sm-12">
+                        <ul className="list-style-two style-two">
+                          <li><span className="icon flaticon-placeholder-1"></span>380 St Kilda Road, Melbourne VIC 3004, Australia</li>
+                        </ul>
+                      </div>
+                      <div className="column col-lg-6 col-md-6 col-sm-12">
+                        <ul className="list-style-two style-two">
+                          <li><span className="icon flaticon-phone-call"></span>+123 (4567) 890</li>
+                          <li><span className="icon flaticon-chat"></span>info@greglaw.com</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="default-form style-two">
+              <form method="post" action="/contact">
+                <div className="row clearfix">
+                  <div className="form-group col-lg-4 col-md-6 col-sm-12">
+                    <input type="text" name="firstname" placeholder="First name.." required />
+                  </div>
+                  
+                  <div className="form-group col-lg-4 col-md-6 col-sm-12">
+                    <input type="text" name="lastname" placeholder="Last name.." required />
+                  </div>
+                  
+                  <div className="form-group col-lg-4 col-md-12 col-sm-12">
+                    <input type="email" name="email" placeholder="Email Address.." required />
+                  </div>
+                  
+                  <div className="form-group col-lg-12 col-md-12 col-sm-12">
+                    <textarea name="message" placeholder="Write your message..."></textarea>
+                  </div>
+                  
+                  <div className="form-group col-lg-12 col-md-12 col-sm-12">
+                    <button type="submit" className="theme-btn btn-style-one">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Subscribe Section */}
       <section className="subscribe-section style-two">
         <div className="container">
