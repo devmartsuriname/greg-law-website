@@ -65,8 +65,9 @@ export default function Contact() {
               <div className="info-column col-lg-7 col-md-12 col-sm-12">
                 <div className="inner-column">
                   <div className="text">
-                    Please contact us using the information below. For additional information on our legal services,
-                    please visit the appropriate page on our site.
+                    The Office of the Vice President is committed to maintaining open communication with citizens,
+                    organizations, and international partners. Reach out to us for inquiries, appointments, or official
+                    matters.
                   </div>
                   <ul className="list-style-six">
                     <li>
