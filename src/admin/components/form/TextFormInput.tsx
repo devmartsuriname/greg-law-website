@@ -1,7 +1,7 @@
 import { type InputHTMLAttributes } from 'react';
 import { FormControl, FormGroup, FormLabel, type FormControlProps } from 'react-bootstrap';
 import Feedback from 'react-bootstrap/esm/Feedback';
-import { Controller, type Control, type FieldPath, type FieldValues, type PathValue } from 'react-hook-form';
+import { Controller, type Control, type FieldPath, type FieldValues } from 'react-hook-form';
 
 type FormInputProps<TFieldValues extends FieldValues = FieldValues> = {
   name: FieldPath<TFieldValues>;
@@ -12,7 +12,7 @@ type FormInputProps<TFieldValues extends FieldValues = FieldValues> = {
   noValidate?: boolean;
 };
 
-const TextFormInput = <TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>>({
+const TextFormInput = <TFieldValues extends FieldValues = FieldValues>({
   name,
   containerClassName: containerClass,
   control,
@@ -23,9 +23,9 @@ const TextFormInput = <TFieldValues extends FieldValues = FieldValues, TName ext
   ...other
 }: FormInputProps<TFieldValues> & FormControlProps & InputHTMLAttributes<HTMLInputElement>) => {
   return (
-    <Controller<TFieldValues, TName>
-      name={name as TName}
-      defaultValue={'' as PathValue<TFieldValues, TName>}
+    <Controller
+      name={name}
+      defaultValue={'' as any}
       control={control}
       render={({ field, fieldState }) => (
         <FormGroup className={containerClass}>
