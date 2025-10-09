@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Container, Dropdown } from 'react-bootstrap';
 import LeftSideBarToggle from './LeftSideBarToggle';
+import ThemeModeToggle from './ThemeModeToggle';
 import IconifyIcon from './wrapper/IconifyIcon';
 
 export const Topbar = () => {
@@ -27,6 +28,7 @@ export const Topbar = () => {
             </div>
             
             <div className="d-flex align-items-center gap-2">
+              <ThemeModeToggle />
               <Dropdown className="topbar-item">
                 <Dropdown.Toggle
                   as={'button'}
