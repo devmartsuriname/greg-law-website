@@ -1,13 +1,22 @@
-import { useState, FormEvent, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, Form, Button, Alert } from 'react-bootstrap';
+import { Card, CardBody, Col, Row, Alert } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import TextFormInput from '../components/form/TextFormInput';
+
+const loginFormSchema = yup.object({
+  email: yup.string().email('Please enter a valid email').required('Please enter your email'),
+  password: yup.string().required('Please enter your password'),
+});
+
+type LoginFormFields = yup.InferType<typeof loginFormSchema>;
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     document.body.classList.add('authentication-bg');
@@ -16,14 +25,21 @@ const Login = () => {
     };
   }, []);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const { control, handleSubmit } = useForm({
+    resolver: yupResolver(loginFormSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = handleSubmit(async (values: LoginFormFields) => {
     setError('');
     setLoading(true);
 
     // Mock login - TODO: Replace with actual auth
     setTimeout(() => {
-      if (email && password) {
+      if (values.email && values.password) {
         localStorage.setItem('adminToken', 'dev');
         navigate('/admin');
       } else {
@@ -31,60 +47,63 @@ const Login = () => {
         setLoading(false);
       }
     }, 500);
-  };
+  });
 
   return (
-    <div className="account-pages py-5 min-vh-100 d-flex align-items-center">
+    <div className="account-pages py-5">
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-6 col-lg-5">
+        <Row className="justify-content-center">
+          <Col md={6} lg={5}>
             <Card className="border-0 shadow-lg">
-              <Card.Body className="p-5">
-                <div className="text-center mb-4">
-                  <h4 className="fw-bold text-dark mb-2">Admin Login</h4>
-                  <p className="text-muted">Sign in to access the dashboard</p>
+              <CardBody className="p-5">
+                <div className="text-center">
+                  <div className="mx-auto mb-4 text-center auth-logo">
+                    <h3 className="fw-bold text-dark">Law Admin</h3>
+                  </div>
+                  <h4 className="fw-bold text-dark mb-2">Welcome Back!</h4>
+                  <p className="text-muted">Sign in to your account to continue</p>
                 </div>
 
-                {error && <Alert variant="danger">{error}</Alert>}
+                {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
 
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Email Address</Form.Label>
-                    <Form.Control
+                <form onSubmit={onSubmit} className="mt-4">
+                  <div className="mb-3">
+                    <TextFormInput
+                      control={control}
+                      name="email"
                       type="email"
                       placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
+                      className="form-control"
+                      label="Email Address"
                     />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
+                  </div>
+                  <div className="mb-3">
+                    <TextFormInput
+                      control={control}
+                      name="password"
                       type="password"
                       placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
+                      className="form-control"
+                      label="Password"
                     />
-                  </Form.Group>
-
-                  <div className="d-grid">
-                    <Button
-                      variant="dark"
-                      size="lg"
-                      type="submit"
-                      disabled={loading}
-                    >
-                      {loading ? 'Signing in...' : 'Sign In'}
-                    </Button>
                   </div>
-                </Form>
-              </Card.Body>
+
+                  <div className="form-check mb-3">
+                    <input type="checkbox" className="form-check-input" id="remember-me" />
+                    <label className="form-check-label" htmlFor="remember-me">
+                      Remember me
+                    </label>
+                  </div>
+                  <div className="d-grid">
+                    <button disabled={loading} className="btn btn-dark btn-lg fw-medium" type="submit">
+                      {loading ? 'Signing in...' : 'Sign In'}
+                    </button>
+                  </div>
+                </form>
+              </CardBody>
             </Card>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );
