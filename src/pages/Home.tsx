@@ -6,7 +6,10 @@ export default function Home() {
     <>
       <Helmet>
         <title>Greg Law - Expert Legal Services | Home</title>
-        <meta name="description" content="Professional legal services and consultation with experienced attorneys dedicated to your success" />
+        <meta
+          name="description"
+          content="Professional legal services and consultation with experienced attorneys dedicated to your success"
+        />
       </Helmet>
 
       {/* Banner Section Two */}
@@ -27,13 +30,14 @@ export default function Home() {
                   <div className="content-column col-lg-5 col-md-12 col-sm-12">
                     <div className="inner-column">
                       <h2>
-                        Professional <br /> Legal Services <br /> for Your Success
+                        Gregory Allan Rusland <br /> Vice President of the Republic of Suriname <br /> for Your Success
                       </h2>
                       <div className="text">
-                        Expert legal representation with a commitment to protecting your rights and achieving your goals.
+                        Serving Suriname with integrity, vision, and commitment to progress. Together we build a
+                        stronger nation for every generation.
                       </div>
                       <Link to="/contact" className="theme-btn btn-style-one">
-                        Contact us today
+                        ABOUT GREGORY
                       </Link>
                     </div>
                   </div>
@@ -239,8 +243,18 @@ export default function Home() {
 
       {/* Services Section Three */}
       <section className="services-section-three">
-        <div className="icon-one wow fadeInLeft" data-wow-delay="250ms" data-wow-duration="1500ms" style={{ backgroundImage: "url(/images/icons/icon-6.png)" }}></div>
-        <div className="icon-two wow fadeInRight" data-wow-delay="500ms" data-wow-duration="1500ms" style={{ backgroundImage: "url(/images/icons/icon-7.png)" }}></div>
+        <div
+          className="icon-one wow fadeInLeft"
+          data-wow-delay="250ms"
+          data-wow-duration="1500ms"
+          style={{ backgroundImage: "url(/images/icons/icon-6.png)" }}
+        ></div>
+        <div
+          className="icon-two wow fadeInRight"
+          data-wow-delay="500ms"
+          data-wow-duration="1500ms"
+          style={{ backgroundImage: "url(/images/icons/icon-7.png)" }}
+        ></div>
         <div className="container">
           <div className="row clearfix">
             <div className="blocks-column col-lg-8 col-md-12 col-sm-12">
@@ -255,7 +269,11 @@ export default function Home() {
                     { icon: "fa fa-pie-chart", title: "Insurance Law", slug: "insurance-law" },
                   ].map((service, index) => (
                     <div key={index} className="services-block-three col-lg-6 col-md-6 col-sm-12">
-                      <div className="inner-box wow fadeInUp" data-wow-delay={`${(index % 2) * 300}ms`} data-wow-duration="1500ms">
+                      <div
+                        className="inner-box wow fadeInUp"
+                        data-wow-delay={`${(index % 2) * 300}ms`}
+                        data-wow-duration="1500ms"
+                      >
                         <div className="border-one"></div>
                         <div className="border-two"></div>
                         <div className="content">
@@ -265,7 +283,9 @@ export default function Home() {
                           <h6>
                             <Link to={`/services/${service.slug}`}>{service.title}</Link>
                           </h6>
-                          <div className="text">Expert legal consultation and representation for your {service.title.toLowerCase()} needs.</div>
+                          <div className="text">
+                            Expert legal consultation and representation for your {service.title.toLowerCase()} needs.
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -281,7 +301,9 @@ export default function Home() {
                   <div className="overlay-box">
                     <div className="overlay-inner">
                       <div className="content">
-                        <h2>35 <span>years of experience</span></h2>
+                        <h2>
+                          35 <span>years of experience</span>
+                        </h2>
                       </div>
                     </div>
                   </div>
@@ -297,7 +319,9 @@ export default function Home() {
         <div className="container">
           <div className="section-title">
             <div className="title">Testimonial</div>
-            <h3>Clients are very satisfied <br /> to work with <span>us</span></h3>
+            <h3>
+              Clients are very satisfied <br /> to work with <span>us</span>
+            </h3>
           </div>
 
           <div className="testimonial-carousel owl-carousel owl-theme">
@@ -309,7 +333,9 @@ export default function Home() {
               <div key={index} className="testimonial-block-two">
                 <div className="inner-box">
                   <div className="text">
-                    Professional legal services with exceptional results. The team at Greg Law provided expert guidance throughout our case and achieved outstanding outcomes. Highly recommended for their dedication and expertise.
+                    Professional legal services with exceptional results. The team at Greg Law provided expert guidance
+                    throughout our case and achieved outstanding outcomes. Highly recommended for their dedication and
+                    expertise.
                   </div>
                   <div className="author-post">
                     <div className="author-inner">
@@ -334,11 +360,14 @@ export default function Home() {
             <div className="clearfix">
               <div className="pull-left">
                 <div className="title">Our Team</div>
-                <h3>We feel very proud for our <br /> great <span>achievement</span></h3>
+                <h3>
+                  We feel very proud for our <br /> great <span>achievement</span>
+                </h3>
               </div>
               <div className="pull-right">
                 <div className="text">
-                  Our experienced legal professionals are dedicated to providing exceptional service and achieving the best possible outcomes for our clients.
+                  Our experienced legal professionals are dedicated to providing exceptional service and achieving the
+                  best possible outcomes for our clients.
                 </div>
               </div>
             </div>
@@ -359,15 +388,29 @@ export default function Home() {
                     </a>
                   </div>
                   <div className="lower-content">
-                    <h3><a href="#">{member.name}</a></h3>
+                    <h3>
+                      <a href="#">{member.name}</a>
+                    </h3>
                     <div className="designation">{member.position}</div>
                     <div className="overlay-box">
                       <div className="overlay-content">
                         <div className="title">Contact info</div>
                         <ul className="social-icons">
-                          <li><a href="#"><span className="fa fa-facebook"></span></a></li>
-                          <li><a href="#"><span className="fa fa-twitter"></span></a></li>
-                          <li><a href="#"><span className="fa fa-linkedin"></span></a></li>
+                          <li>
+                            <a href="#">
+                              <span className="fa fa-facebook"></span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <span className="fa fa-twitter"></span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="#">
+                              <span className="fa fa-linkedin"></span>
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -386,11 +429,14 @@ export default function Home() {
             <div className="clearfix">
               <div className="pull-left">
                 <div className="title">News</div>
-                <h3>Learn something more from <br /> our latest <span>news</span></h3>
+                <h3>
+                  Learn something more from <br /> our latest <span>news</span>
+                </h3>
               </div>
               <div className="pull-right">
                 <div className="text">
-                  Stay informed with the latest legal insights, case studies, and updates from our team of experienced attorneys.
+                  Stay informed with the latest legal insights, case studies, and updates from our team of experienced
+                  attorneys.
                 </div>
               </div>
             </div>
@@ -398,27 +444,31 @@ export default function Home() {
 
           <div className="row clearfix">
             {[
-              { 
-                title: "Understanding Your Legal Rights in Family Law Cases", 
+              {
+                title: "Understanding Your Legal Rights in Family Law Cases",
                 image: "/images/resource/news-1.jpg",
                 date: "December 15, 2024",
-                slug: "family-law-rights"
+                slug: "family-law-rights",
               },
-              { 
-                title: "Corporate Law Updates: What Businesses Need to Know", 
+              {
+                title: "Corporate Law Updates: What Businesses Need to Know",
                 image: "/images/resource/news-2.jpg",
                 date: "December 10, 2024",
-                slug: "corporate-law-updates"
+                slug: "corporate-law-updates",
               },
-              { 
-                title: "Protecting Your Interests in Real Estate Transactions", 
+              {
+                title: "Protecting Your Interests in Real Estate Transactions",
                 image: "/images/resource/news-3.jpg",
                 date: "December 5, 2024",
-                slug: "real-estate-protection"
+                slug: "real-estate-protection",
               },
             ].map((news, index) => (
               <div key={index} className="news-block col-lg-4 col-md-6 col-sm-12">
-                <div className="inner-box wow fadeInLeft" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
+                <div
+                  className="inner-box wow fadeInLeft"
+                  data-wow-delay={`${index * 300}ms`}
+                  data-wow-duration="1500ms"
+                >
                   <div className="image">
                     <img src={news.image} alt={news.title} />
                     <div className="overlay-box">
@@ -427,13 +477,20 @@ export default function Home() {
                   </div>
                   <div className="lower-content">
                     <ul className="post-meta">
-                      <li><span className="fa fa-calendar"></span>{news.date}</li>
-                      <li><span className="fa fa-user"></span>Admin</li>
+                      <li>
+                        <span className="fa fa-calendar"></span>
+                        {news.date}
+                      </li>
+                      <li>
+                        <span className="fa fa-user"></span>Admin
+                      </li>
                     </ul>
                     <h5>
                       <Link to={`/blog/${news.slug}`}>{news.title}</Link>
                     </h5>
-                    <Link to={`/blog/${news.slug}`} className="theme-btn btn-style-two">View more</Link>
+                    <Link to={`/blog/${news.slug}`} className="theme-btn btn-style-two">
+                      View more
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -457,8 +514,10 @@ export default function Home() {
                   <div className="inner wow fadeInLeft" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
                     <div className="count-outer count-box">
                       <div className={`icon ${counter.icon}`}></div>
-                      <span className="count-text" data-speed="3000" data-stop={counter.count}>0</span>+
-                      <div className="counter-title">{counter.title}</div>
+                      <span className="count-text" data-speed="3000" data-stop={counter.count}>
+                        0
+                      </span>
+                      +<div className="counter-title">{counter.title}</div>
                     </div>
                   </div>
                 </div>
@@ -472,7 +531,7 @@ export default function Home() {
       <section className="contact-form-section">
         <div className="map-section">
           <div className="map-outer">
-            <div 
+            <div
               className="map-canvas"
               data-zoom="12"
               data-lat="-37.817085"
@@ -493,7 +552,9 @@ export default function Home() {
                   <div className="inner-column">
                     <div className="section-title">
                       <div className="title">Contact us</div>
-                      <h3>Feel free to ask any <br /> question to <span>Us</span></h3>
+                      <h3>
+                        Feel free to ask any <br /> question to <span>Us</span>
+                      </h3>
                     </div>
                   </div>
                 </div>
@@ -503,13 +564,20 @@ export default function Home() {
                     <div className="row clearfix">
                       <div className="column col-lg-6 col-md-6 col-sm-12">
                         <ul className="list-style-two style-two">
-                          <li><span className="icon flaticon-placeholder-1"></span>380 St Kilda Road, Melbourne VIC 3004, Australia</li>
+                          <li>
+                            <span className="icon flaticon-placeholder-1"></span>380 St Kilda Road, Melbourne VIC 3004,
+                            Australia
+                          </li>
                         </ul>
                       </div>
                       <div className="column col-lg-6 col-md-6 col-sm-12">
                         <ul className="list-style-two style-two">
-                          <li><span className="icon flaticon-phone-call"></span>+123 (4567) 890</li>
-                          <li><span className="icon flaticon-chat"></span>info@greglaw.com</li>
+                          <li>
+                            <span className="icon flaticon-phone-call"></span>+123 (4567) 890
+                          </li>
+                          <li>
+                            <span className="icon flaticon-chat"></span>info@greglaw.com
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -524,21 +592,23 @@ export default function Home() {
                   <div className="form-group col-lg-4 col-md-6 col-sm-12">
                     <input type="text" name="firstname" placeholder="First name.." required />
                   </div>
-                  
+
                   <div className="form-group col-lg-4 col-md-6 col-sm-12">
                     <input type="text" name="lastname" placeholder="Last name.." required />
                   </div>
-                  
+
                   <div className="form-group col-lg-4 col-md-12 col-sm-12">
                     <input type="email" name="email" placeholder="Email Address.." required />
                   </div>
-                  
+
                   <div className="form-group col-lg-12 col-md-12 col-sm-12">
                     <textarea name="message" placeholder="Write your message..."></textarea>
                   </div>
-                  
+
                   <div className="form-group col-lg-12 col-md-12 col-sm-12">
-                    <button type="submit" className="theme-btn btn-style-one">Submit</button>
+                    <button type="submit" className="theme-btn btn-style-one">
+                      Submit
+                    </button>
                   </div>
                 </div>
               </form>
