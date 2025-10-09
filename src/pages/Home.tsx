@@ -220,18 +220,31 @@ export default function Home() {
           <div className="inner-container">
             <div className="row clearfix">
               {[
-                { year: "2005-2010", title: "Minister of Natural Resources" },
-                { year: "2010-2015", title: "Member of Parliament, NPS" },
-                { year: "2020-Present", title: "Vice President of Suriname" },
+                {
+                  year: "2005-2010",
+                  title: "Minister of Natural Resources",
+                  content:
+                    "Led national resource management and sustainable development initiatives for Suriname's growth.",
+                },
+                {
+                  year: "2010-2015",
+                  title: "Member of Parliament, NPS",
+                  content:
+                    "Represented constituents and championed key legislative initiatives for national development.",
+                },
+                {
+                  year: "2020-Present",
+                  title: "Vice President of Suriname",
+                  content:
+                    "Leading national development initiatives and strengthening international partnerships for Suriname.",
+                },
               ].map((item, index) => (
                 <div key={index} className="feature-block-two col-lg-4 col-md-6 col-sm-12">
                   <div className="fill-line"></div>
                   <div className="inner-box">
                     <div className="year">{item.year}</div>
                     <h3>{item.title}</h3>
-                    <div className="text">
-                      Lorem ipsum dolor sit amet, con sectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-                    </div>
+                    <div className="text">{item.content}</div>
                   </div>
                 </div>
               ))}
