@@ -348,7 +348,7 @@ export default function Home() {
                     <div className="overlay-inner">
                       <div className="content">
                         <h2>
-                          35 <span>years of experience</span>
+                          15 <span>years of public service experience</span>
                         </h2>
                       </div>
                     </div>
@@ -364,30 +364,35 @@ export default function Home() {
       <section className="testimonial-section">
         <div className="container">
           <div className="section-title">
-            <div className="title">Testimonial</div>
+            <div className="title">Leadership Vision</div>
             <h3>
-              Clients are very satisfied <br /> to work with <span>us</span>
+              Words that guide our<span>vision</span>
             </h3>
           </div>
 
           <div className="testimonial-carousel owl-carousel owl-theme">
             {[
-              { name: "Andrew Rob", position: "Business Owner", image: "/images/resource/author-3.jpg" },
-              { name: "Nelli Johnson", position: "CEO", image: "/images/resource/author-4.jpg" },
-              { name: "Michael Davis", position: "Entrepreneur", image: "/images/resource/author-3.jpg" },
+              {
+                name: "Gregory Allan Rusland",
+                position: "Vice President of Suriname",
+                content: "Leadership means serving people with vision, trust, and responsibility.",
+              },
+              {
+                name: "Gregory Allan Rusland",
+                position: "Vice President of Suriname",
+                content: "Together we build a Suriname that offers opportunities for every generation.",
+              },
+              {
+                name: "Gregory Allan Rusland",
+                position: "Vice President of Suriname",
+                content: "Together we build a Suriname that offers opportunities for every generation.",
+              },
             ].map((testimonial, index) => (
               <div key={index} className="testimonial-block-two">
                 <div className="inner-box">
-                  <div className="text">
-                    Professional legal services with exceptional results. The team at Greg Law provided expert guidance
-                    throughout our case and achieved outstanding outcomes. Highly recommended for their dedication and
-                    expertise.
-                  </div>
+                  <div className="text">{testimonial.content}</div>
                   <div className="author-post">
                     <div className="author-inner">
-                      <div className="image">
-                        <img src={testimonial.image} alt={testimonial.name} />
-                      </div>
                       <h3>{testimonial.name}</h3>
                       <div className="designation">{testimonial.position}</div>
                     </div>
