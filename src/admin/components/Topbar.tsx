@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { Dropdown } from 'react-bootstrap';
-import { Icon } from '@iconify/react';
+import { Container, Dropdown } from 'react-bootstrap';
+import LeftSideBarToggle from './LeftSideBarToggle';
+import IconifyIcon from './wrapper/IconifyIcon';
 
 export const Topbar = () => {
   const navigate = useNavigate();
@@ -11,41 +12,41 @@ export const Topbar = () => {
   };
 
   return (
-    <div className="app-topbar">
-      <div className="navbar-header">
-        <div className="d-flex align-items-center">
-          <button
-            type="button"
-            className="btn btn-sm btn-icon topbar-button"
-            id="sidebar-toggle"
-          >
-            <Icon icon="mingcute:menu-line" width={24} />
-          </button>
-        </div>
-
-        <div className="d-flex align-items-center gap-2">
-          <Dropdown align="end">
-            <Dropdown.Toggle
-              as="button"
-              className="btn btn-sm btn-icon topbar-button"
-            >
-              <Icon icon="mingcute:user-3-line" width={20} />
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item href="/admin/settings">
-                <Icon icon="mingcute:settings-3-line" className="me-2" />
-                Settings
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item onClick={handleLogout}>
-                <Icon icon="mingcute:exit-line" className="me-2" />
-                Logout
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+    <header className="app-topbar">
+      <div>
+        <Container fluid>
+          <div className="navbar-header">
+            <div className="d-flex align-items-center gap-2">
+              <LeftSideBarToggle />
+              <form className="app-search d-none d-md-block me-auto">
+                <div className="position-relative">
+                  <input type="search" className="form-control" placeholder="Search..." autoComplete="off" />
+                  <IconifyIcon icon="solar:magnifer-outline" className="search-widget-icon" />
+                </div>
+              </form>
+            </div>
+            
+            <div className="d-flex align-items-center gap-2">
+              <Dropdown className="topbar-item">
+                <Dropdown.Toggle
+                  as={'button'}
+                  type="button"
+                  className="topbar-button"
+                  id="page-header-user-dropdown"
+                >
+                  <IconifyIcon icon="mingcute:user-3-line" className="fs-22 align-middle" />
+                </Dropdown.Toggle>
+                <Dropdown.Menu align="end">
+                  <Dropdown.Item onClick={handleLogout}>
+                    <IconifyIcon icon="mingcute:exit-line" className="me-2" />
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          </div>
+        </Container>
       </div>
-    </div>
+    </header>
   );
 };
