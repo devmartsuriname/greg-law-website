@@ -13,8 +13,8 @@ export default function PortfolioMasonry() {
       <PageTitle
         title="Portfolio Masonry"
         breadcrumbs={[{ label: 'Portfolio' }, { label: 'Masonry' }]}
-        metaTitle="Portfolio Masonry | LawSight"
-        metaDescription="Our portfolio of successful cases"
+        metaTitle="Portfolio Masonry | Greg Law"
+        metaDescription="Our portfolio showcasing successful legal cases and client victories"
       />
 
       <section className="gallery-section">

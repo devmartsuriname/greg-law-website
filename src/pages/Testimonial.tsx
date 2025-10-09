@@ -7,8 +7,8 @@ export default function Testimonial() {
       <PageTitle
         title="Testimonial"
         breadcrumbs={[{ label: 'Testimonial' }]}
-        metaTitle="Testimonials | LawSight"
-        metaDescription="What our clients say about us"
+        metaTitle="Testimonials | Greg Law"
+        metaDescription="Read what our satisfied clients have to say about our legal services"
       />
 
       <section className="testimonial-page-section">

@@ -4,15 +4,28 @@ export default function Preloader() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Hide preloader after a short delay to allow content to load
-    const timer = setTimeout(() => {
+    // Multiple safety nets to hide preloader
+    const hidePreloader = () => {
       setIsVisible(false);
-    }, 500);
+    };
 
-    return () => clearTimeout(timer);
+    // Hide after content loads
+    const timer = setTimeout(hidePreloader, 500);
+
+    // Also hide on window load
+    window.addEventListener('load', hidePreloader);
+
+    // Failsafe: always hide after 3 seconds max
+    const failsafe = setTimeout(hidePreloader, 3000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(failsafe);
+      window.removeEventListener('load', hidePreloader);
+    };
   }, []);
 
   if (!isVisible) return null;
 
-  return <div className="preloader"></div>;
+  return <div className="preloader" id="preloader"></div>;
 }

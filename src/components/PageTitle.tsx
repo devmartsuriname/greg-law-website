@@ -19,7 +19,7 @@ export default function PageTitle({
   return (
     <>
       <Helmet>
-        <title>{metaTitle || `${title} | LawSight`}</title>
+        <title>{metaTitle || `${title} | Greg Law`}</title>
         {metaDescription && <meta name="description" content={metaDescription} />}
       </Helmet>
       <section className="page-title" style={{ backgroundImage: `url(${backgroundImage})` }}>

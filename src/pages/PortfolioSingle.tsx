@@ -23,7 +23,7 @@ export default function PortfolioSingle() {
           { label: 'Portfolio', path: '/portfolio/masonry' },
           { label: portfolio.title },
         ]}
-        metaTitle={`${portfolio.title} | LawSight`}
+        metaTitle={`${portfolio.title} | Greg Law`}
         metaDescription={portfolio.description}
       />
 

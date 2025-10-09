@@ -6,8 +6,8 @@ export default function About() {
       <PageTitle
         title="About Us"
         breadcrumbs={[{ label: 'About Us' }]}
-        metaTitle="About Us | LawSight"
-        metaDescription="Learn about our law firm and our experienced team"
+        metaTitle="About Us | Greg Law"
+        metaDescription="Learn about our law firm and our experienced legal team dedicated to your success"
       />
 
       <section className="about-section">

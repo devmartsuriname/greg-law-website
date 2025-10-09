@@ -37,8 +37,8 @@ export default function Contact() {
       <PageTitle
         title="Contact Us"
         breadcrumbs={[{ label: 'Contact Us' }]}
-        metaTitle="Contact Us | LawSight"
-        metaDescription="Get in touch with our legal team"
+        metaTitle="Contact Us | Greg Law"
+        metaDescription="Get in touch with our experienced legal team for a consultation"
       />
 
       <section className="contact-page-section">
@@ -124,10 +124,10 @@ export default function Contact() {
                     <span className="icon fa fa-phone"></span> +123 (4567) 890
                   </li>
                   <li>
-                    <span className="icon fa fa-envelope"></span> info@lawsight.com
+                    <span className="icon fa fa-envelope"></span> contact@greglaw.com
                   </li>
                   <li>
-                    <span className="icon fa fa-home"></span>380 St Kilda Road, Melbourne VIC 3004, Australia
+                    <span className="icon fa fa-home"></span>123 Legal Plaza, Suite 500
                   </li>
                 </ul>
               </div>

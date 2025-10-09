@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>LawSight - Law Firm Template | Homepage</title>
-        <meta name="description" content="Professional law firm template with modern design" />
+        <title>Greg Law - Expert Legal Services | Home</title>
+        <meta name="description" content="Professional legal services and consultation with experienced attorneys dedicated to your success" />
       </Helmet>
 
       {/* Banner Section Two */}
@@ -21,17 +21,16 @@ export default function Home() {
                 <div className="row clearfix">
                   <div className="image-column col-lg-7 col-md-12 col-sm-12">
                     <div className="image">
-                      <img src="/images/main-slider/content-image-1.png" alt="LawSight" />
+                      <img src="/images/main-slider/content-image-1.png" alt="Greg Law Legal Services" />
                     </div>
                   </div>
                   <div className="content-column col-lg-5 col-md-12 col-sm-12">
                     <div className="inner-column">
                       <h2>
-                        Assign <br /> LawSight <br /> for Satisfaction
+                        Professional <br /> Legal Services <br /> for Your Success
                       </h2>
                       <div className="text">
-                        Introduce with LawSight, Lorem ipsum dolor sit amet, <br /> consectetuer adipiscing elit. Aenean
-                        commodo <br /> ligula eget dolor.
+                        Expert legal representation with a commitment to protecting your rights and achieving your goals.
                       </div>
                       <Link to="/contact" className="theme-btn btn-style-one">
                         Contact us today

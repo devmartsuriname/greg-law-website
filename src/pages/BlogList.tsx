@@ -21,8 +21,8 @@ export default function BlogList() {
       <PageTitle
         title="Blog"
         breadcrumbs={[{ label: 'Blog' }]}
-        metaTitle="Blog | LawSight"
-        metaDescription="Latest news and updates from our law firm"
+        metaTitle="Blog | Greg Law"
+        metaDescription="Latest legal insights, news and updates from our experienced attorneys"
       />
 
       <div className="sidebar-page-container">

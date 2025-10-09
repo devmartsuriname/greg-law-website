@@ -27,8 +27,8 @@ export default function BlogSingle() {
       <PageTitle
         title={post.title}
         breadcrumbs={[{ label: 'Blog', path: '/blog' }, { label: post.title }]}
-        metaTitle={`${post.title} | LawSight`}
-        metaDescription="Blog post content"
+        metaTitle={`${post.title} | Greg Law`}
+        metaDescription="Legal insights and expert analysis"
       />
 
       <div className="sidebar-page-container">

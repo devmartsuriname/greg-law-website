@@ -8,8 +8,8 @@ export default function Services() {
       <PageTitle
         title="Services"
         breadcrumbs={[{ label: 'Services' }]}
-        metaTitle="Our Services | LawSight"
-        metaDescription="Professional legal services for all your needs"
+        metaTitle="Our Services | Greg Law"
+        metaDescription="Comprehensive legal services tailored to your specific needs and goals"
       />
 
       <section className="services-section-two" style={{ backgroundImage: 'url(/images/background/1.jpg)' }}>

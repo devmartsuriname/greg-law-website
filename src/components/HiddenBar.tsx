@@ -12,51 +12,42 @@ export default function HiddenBar() {
         <div className="inner-box">
           <div className="logo">
             <Link to="/">
-              <img src="/images/sidebar-logo.png" alt="LawSight" />
+              <img src="/images/sidebar-logo.png" alt="Greg Law" />
             </Link>
           </div>
           <div className="text">
-            Lorem ipsum, or lipsum as it is sometimes the known, is dummy text used in laying out print, graphic or web
-            designs. The passage
+            Professional legal services and consultation with experienced attorneys dedicated to protecting your rights and interests.
           </div>
           <ul className="list-style-four">
             <li>
-              <span className="icon flaticon-house"></span> <strong>Collins Street</strong>West Victoria 8007 Australia
+              <span className="icon flaticon-house"></span> <strong>Office Location</strong>123 Legal Plaza, Suite 500
             </li>
             <li>
-              <span className="icon flaticon-phone-call"></span> <strong>Call us!</strong>124-3254-325
+              <span className="icon flaticon-phone-call"></span> <strong>Call us!</strong>540-325-1523
             </li>
             <li>
               <span className="icon flaticon-talk"></span>
-              <strong>Mail address</strong>info@domain.com
+              <strong>Email</strong>contact@greglaw.com
             </li>
           </ul>
           <div className="lower-box">
             <ul className="social-icons">
               <li className="facebook">
-                <a href="#">
+                <a href="#" aria-label="Facebook">
                   <span className="fa fa-facebook"></span>
                 </a>
               </li>
               <li className="twitter">
-                <a href="#">
+                <a href="#" aria-label="Twitter">
                   <span className="fa fa-twitter"></span>
                 </a>
               </li>
               <li className="pinterest">
-                <a href="#">
-                  <span className="fa fa-pinterest-p"></span>
-                </a>
-              </li>
-              <li className="vimeo">
-                <a href="#">
-                  <span className="fa fa-vimeo"></span>
+                <a href="#" aria-label="LinkedIn">
+                  <span className="fa fa-linkedin"></span>
                 </a>
               </li>
             </ul>
-            <a href="#" className="theme-btn buy-btn">
-              Buy LawSight today!
-            </a>
           </div>
         </div>
       </div>

@@ -2,11 +2,15 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { serveStaticPlugin } from './vite-plugin-serve-static';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(async ({ mode }) => {
-  const plugins = [react()];
+  const plugins = [
+    react(),
+    serveStaticPlugin(),
+  ];
   
   // Dynamically import lovable-tagger only in development mode
   if (mode === 'development') {
@@ -16,7 +20,8 @@ export default defineConfig(async ({ mode }) => {
   
   return {
     plugins,
-    publicDir: false, // We'll handle static files via fs.allow
+    base: '/',
+    publicDir: 'public',
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -26,19 +31,10 @@ export default defineConfig(async ({ mode }) => {
       host: '::',
       port: 8080,
       open: true,
-      fs: {
-        allow: ['.'],
-        strict: false
-      }
     },
     build: {
       outDir: 'dist',
       sourcemap: true,
-      rollupOptions: {
-        input: {
-          main: path.resolve(__dirname, 'index-react.html'),
-        },
-      },
     },
   };
 });

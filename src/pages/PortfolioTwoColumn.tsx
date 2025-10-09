@@ -13,8 +13,8 @@ export default function PortfolioTwoColumn() {
       <PageTitle
         title="Portfolio Two Column"
         breadcrumbs={[{ label: 'Portfolio' }, { label: 'Two Column' }]}
-        metaTitle="Portfolio Two Column | LawSight"
-        metaDescription="Our portfolio of successful cases"
+        metaTitle="Portfolio Two Column | Greg Law"
+        metaDescription="Our portfolio showcasing successful legal cases and client victories"
       />
 
       <section className="gallery-section">

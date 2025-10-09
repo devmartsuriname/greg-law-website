@@ -1,4 +1,4 @@
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, Navigate, Link } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
 import { services } from '../data/services';
 
@@ -13,9 +13,9 @@ export default function ServicesDetail() {
   return (
     <>
       <PageTitle
-        title={service.title}
+        title="Services Detail"
         breadcrumbs={[{ label: 'Services', path: '/services' }, { label: service.title }]}
-        metaTitle={`${service.title} | LawSight`}
+        metaTitle={`${service.title} | Greg Law`}
         metaDescription={service.description}
       />
 
@@ -51,10 +51,10 @@ export default function ServicesDetail() {
                     <ul className="service-list">
                       {services.map((s) => (
                         <li key={s.id} className={s.id === service.id ? 'current' : ''}>
-                          <a href={`/services/${s.id}`}>
+                          <Link to={`/services/${s.id}`}>
                             <span className={s.icon}></span>
                             {s.title}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>

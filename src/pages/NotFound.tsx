@@ -5,8 +5,8 @@ export default function NotFound() {
   return (
     <>
       <Helmet>
-        <title>404 - Page Not Found | LawSight</title>
-        <meta name="description" content="The page you're looking for doesn't exist" />
+        <title>404 - Page Not Found | Greg Law</title>
+        <meta name="description" content="The page you are looking for does not exist" />
       </Helmet>
 
       <section className="error-section">
