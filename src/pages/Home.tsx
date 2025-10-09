@@ -224,7 +224,7 @@ export default function Home() {
                 { year: "2010-2015", title: "Member of Parliament, NPS" },
                 { year: "2020-Present", title: "Vice President of Suriname" },
               ].map((item, index) => (
-                <div key={index} className="feature-block-two col-lg-3 col-md-6 col-sm-12">
+                <div key={index} className="feature-block-two col-lg-4 col-md-6 col-sm-12">
                   <div className="fill-line"></div>
                   <div className="inner-box">
                     <div className="year">{item.year}</div>
