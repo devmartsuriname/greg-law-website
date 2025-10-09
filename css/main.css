@@ -1518,7 +1518,9 @@ img {
   z-index: 1;
   width: 90px;
 }
-
+img.logo-img {
+  width: 90px;
+}
 .header-style-two .main-menu:before {
   display: none;
 }
