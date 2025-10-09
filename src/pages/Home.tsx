@@ -103,55 +103,55 @@ export default function Home() {
             <div className="content-column col-lg-6 col-md-12 col-sm-12">
               <div className="inner-column">
                 <div className="section-title">
-                  <div className="title">About Gregory</div>
+                  <div className="title">about us</div>
                   <h3>
-                    Serving Suriname with <span>vision & integrity</span>
+                    We are here to fight against any violence with <span>experience</span>
                   </h3>
                 </div>
 
                 <div className="text">
                   <p>
-                    I am Gregory Allan Rusland, Vice President of Suriname. With decades of experience in governance and{" "}
-                    <span>public service,</span> I dedicate my work to advancing Suriname's development and creating
-                    opportunities for all citizens.
+                    The argument in favor of using filler text goes something like this: If you use real content in the{" "}
+                    <span>design process,</span> anytime you reach a review point you'll end up reviewing and
+                    negotiating the content itself and not the design.
                   </p>
                   <p>
-                    Through collaborative leadership and strategic vision, we work together to build a stronger, more
-                    prosperous Suriname that serves every community and every generation.
+                    Aenean tincidunt id mauris id auctor. Donec at ligula lacus. Nulla dignissim mi quis neque interdum,
+                    quis porta sem finibus.
                   </p>
                 </div>
                 <div className="row clearfix">
                   <div className="column col-lg-6 col-md-6 col-sm-12">
                     <ul className="list-style-one">
-                      <li>Economic development and growth.</li>
+                      <li>Praesent feugiat sem mattis.</li>
                     </ul>
                   </div>
                   <div className="column col-lg-6 col-md-6 col-sm-12">
                     <ul className="list-style-one">
-                      <li>Youth empowerment and education.</li>
+                      <li>A wonderful serenity.</li>
                     </ul>
                   </div>
                   <div className="column col-lg-6 col-md-6 col-sm-12">
                     <ul className="list-style-one">
-                      <li>International partnerships.</li>
+                      <li>Premium services beyond you.</li>
                     </ul>
                   </div>
                   <div className="column col-lg-6 col-md-6 col-sm-12">
                     <ul className="list-style-one">
-                      <li>Sustainable development initiatives</li>
+                      <li>Set a link back to this photo.</li>
                     </ul>
                   </div>
                 </div>
                 <div className="question">
-                  Contact the <a href="#">VP Office</a> <strong>+ 597 472-000</strong> <span className="or">or</span>{" "}
-                  <strong>+597 472-001</strong>
+                  Call to ask <a href="#">any question</a> <strong>540-325-1523</strong> <span className="or">or</span>{" "}
+                  <strong>540-328-1265</strong>
                 </div>
                 <div className="signature">
                   <div className="signature-img">
                     <img src="/images/icons/signature.png" alt="" />
                   </div>
-                  <h5>Natalia Duke</h5>
-                  <div className="designation">(Chairman and founder)</div>
+                  <h5>Gregory AllanRusland</h5>
+                  <div className="designation">(Vice President)</div>
                 </div>
               </div>
             </div>
