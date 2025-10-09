@@ -30,7 +30,7 @@ export default function Home() {
                   <div className="content-column col-lg-5 col-md-12 col-sm-12">
                     <div className="inner-column">
                       <h2>
-                        Gregory Allan Rusland <br /> Vice President of the Republic of Suriname <br /> for Your Success
+                        Gregory Allan Rusland <br /> Vice President of the Republic of Suriname
                       </h2>
                       <div className="text">
                         Serving Suriname with integrity, vision, and commitment to progress. Together we build a
