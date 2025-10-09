@@ -220,10 +220,9 @@ export default function Home() {
           <div className="inner-container">
             <div className="row clearfix">
               {[
-                { year: "2016", title: "Started Journey" },
-                { year: "2017", title: "We employed lawyers" },
-                { year: "2018", title: "Winning best awards" },
-                { year: "2019", title: "Improved team" },
+                { year: "2005-2010", title: "Minister of Natural Resources" },
+                { year: "2010-2015", title: "Member of Parliament, NPS" },
+                { year: "2020-Present", title: "Vice President of Suriname" },
               ].map((item, index) => (
                 <div key={index} className="feature-block-two col-lg-3 col-md-6 col-sm-12">
                   <div className="fill-line"></div>
