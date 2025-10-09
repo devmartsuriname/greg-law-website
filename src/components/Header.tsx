@@ -1,9 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
-import { navigationItems } from '../data/navigation';
+import { Link, useLocation } from "react-router-dom";
+import { navigationItems } from "../data/navigation";
 
 export default function Header() {
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const isHome = location.pathname === "/";
 
   const isActive = (path?: string, children?: typeof navigationItems) => {
     if (path && location.pathname === path) return true;
@@ -14,14 +14,14 @@ export default function Header() {
   };
 
   return (
-    <header className={`main-header ${isHome ? 'header-style-two' : ''}`}>
+    <header className={`main-header ${isHome ? "header-style-two" : ""}`}>
       <div className="header-upper">
-        <div className={isHome ? 'outer-container' : 'container'}>
+        <div className={isHome ? "outer-container" : "container"}>
           <div className="clearfix">
             <div className="pull-left logo-box">
               <div className="logo">
                 <Link to="/">
-                  <img src={isHome ? '/images/logo-2.png' : '/images/logo.png'} alt="LawSight" title="LawSight" / style="width:100px">
+                  <img src={isHome ? "/images/logo-2.png" : "/images/logo.png"} alt="LawSight" title="LawSight" />
                 </Link>
               </div>
             </div>
@@ -55,8 +55,8 @@ export default function Header() {
                     {navigationItems.map((item, index) => (
                       <li
                         key={index}
-                        className={`${item.children ? 'dropdown' : ''} ${
-                          isActive(item.path, item.children) ? 'current' : ''
+                        className={`${item.children ? "dropdown" : ""} ${
+                          isActive(item.path, item.children) ? "current" : ""
                         }`}
                       >
                         {item.children ? (
@@ -65,13 +65,13 @@ export default function Header() {
                             <ul>
                               {item.children.map((child, childIndex) => (
                                 <li key={childIndex}>
-                                  <Link to={child.path || '#'}>{child.label}</Link>
+                                  <Link to={child.path || "#"}>{child.label}</Link>
                                 </li>
                               ))}
                             </ul>
                           </>
                         ) : (
-                          <Link to={item.path || '#'}>{item.label}</Link>
+                          <Link to={item.path || "#"}>{item.label}</Link>
                         )}
                       </li>
                     ))}
@@ -151,8 +151,8 @@ export default function Header() {
                   {navigationItems.map((item, index) => (
                     <li
                       key={index}
-                      className={`${item.children ? 'dropdown' : ''} ${
-                        isActive(item.path, item.children) ? 'current' : ''
+                      className={`${item.children ? "dropdown" : ""} ${
+                        isActive(item.path, item.children) ? "current" : ""
                       }`}
                     >
                       {item.children ? (
@@ -161,13 +161,13 @@ export default function Header() {
                           <ul>
                             {item.children.map((child, childIndex) => (
                               <li key={childIndex}>
-                                <Link to={child.path || '#'}>{child.label}</Link>
+                                <Link to={child.path || "#"}>{child.label}</Link>
                               </li>
                             ))}
                           </ul>
                         </>
                       ) : (
-                        <Link to={item.path || '#'}>{item.label}</Link>
+                        <Link to={item.path || "#"}>{item.label}</Link>
                       )}
                     </li>
                   ))}
