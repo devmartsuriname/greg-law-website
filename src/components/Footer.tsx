@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -16,17 +16,19 @@ export default function Footer() {
                       </Link>
                     </div>
                     <div className="text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                      Office of the Vice President of the Republic of Suriname. Serving the nation with integrity,
+                      vision, and commitment to progress for all citizens.
                     </div>
                     <ul className="list-style-three">
                       <li>
-                        <span className="icon fa fa-phone"></span> +123 (4567) 890
+                        <span className="icon fa fa-phone"></span> +597 472-000
                       </li>
                       <li>
-                        <span className="icon fa fa-envelope"></span> info@lawsight.com
+                        <span className="icon fa fa-envelope"></span> office@president.gov.sr
                       </li>
                       <li>
-                        <span className="icon fa fa-home"></span>380 St Kilda Road, Melbourne <br /> VIC 3004, Australia
+                        <span className="icon fa fa-home"></span>Presidential Palace, <br />
+                        Onafhankelijkheidsplein, Paramaribo, Suriname
                       </li>
                     </ul>
                   </div>
@@ -119,9 +121,7 @@ export default function Footer() {
         <div className="container">
           <div className="row clearfix">
             <div className="copyright-column col-lg-6 col-md-6 col-sm-12">
-              <div className="copyright">
-                © {new Date().getFullYear()} Greg Law. All rights reserved.
-              </div>
+              <div className="copyright">© {new Date().getFullYear()} Greg Law. All rights reserved.</div>
             </div>
 
             <div className="social-column col-lg-6 col-md-6 col-sm-12">
