@@ -366,7 +366,7 @@ export default function Home() {
           <div className="section-title">
             <div className="title">Leadership Vision</div>
             <h3>
-              Words that guide our<span>vision</span>
+              Words that guide our<span> vision</span>
             </h3>
           </div>
 
