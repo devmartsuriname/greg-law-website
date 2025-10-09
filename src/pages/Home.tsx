@@ -260,12 +260,12 @@ export default function Home() {
               <div className="inner-column">
                 <div className="row clearfix">
                   {[
-                    { icon: "fa fa-bullhorn", title: "Market Law", slug: "market-law" },
-                    { icon: "fa fa-suitcase", title: "Business Planning", slug: "business-planning" },
-                    { icon: "fa fa-area-chart", title: "Investment Trade", slug: "investment-trade" },
-                    { icon: "fa fa-coffee", title: "Fund Law", slug: "fund-law" },
-                    { icon: "fa fa-building", title: "Home Law", slug: "home-law" },
-                    { icon: "fa fa-pie-chart", title: "Insurance Law", slug: "insurance-law" },
+                    { icon: "fa fa-bullhorn", title: "Economic Development", slug: "economic-development" },
+                    { icon: "fa fa-suitcase", title: "Social Projects", slug: "social-projects" },
+                    { icon: "fa fa-area-chart", title: "Youth & Education", slug: "youth-education" },
+                    { icon: "fa fa-coffee", title: "International Relations", slug: "international-relation" },
+                    { icon: "fa fa-building", title: "Sustainable Development", slug: "sustainable-development" },
+                    { icon: "fa fa-pie-chart", title: "Public Service Excellence", slug: "public-services" },
                   ].map((service, index) => (
                     <div key={index} className="services-block-three col-lg-6 col-md-6 col-sm-12">
                       <div
@@ -296,12 +296,12 @@ export default function Home() {
             <div className="image-column col-lg-4 col-md-12 col-sm-12">
               <div className="inner-column clearfix">
                 <div className="image">
-                  <img src="/images/resource/about-2.jpg" alt="Legal Services Experience" />
+                  <img src="/images/resource/about-2.jpg" alt="public service" />
                   <div className="overlay-box">
                     <div className="overlay-inner">
                       <div className="content">
                         <h2>
-                          35 <span>years of experience</span>
+                          15 <span>years of public service experience </span>
                         </h2>
                       </div>
                     </div>
@@ -317,25 +317,28 @@ export default function Home() {
       <section className="testimonial-section">
         <div className="container">
           <div className="section-title">
-            <div className="title">Testimonial</div>
+            <div className="title">Leadership Vision</div>
             <h3>
-              Clients are very satisfied <br /> to work with <span>us</span>
+              Words that guide our <span>vision</span>
             </h3>
           </div>
 
           <div className="testimonial-carousel owl-carousel owl-theme">
             {[
-              { name: "Andrew Rob", position: "Business Owner", image: "/images/resource/author-3.jpg" },
-              { name: "Nelli Johnson", position: "CEO", image: "/images/resource/author-4.jpg" },
-              { name: "Michael Davis", position: "Entrepreneur", image: "/images/resource/author-3.jpg" },
+              {
+                name: "Gregory Allan Rusland",
+                position: "Vice President of Suriname",
+                image: "/images/resource/author-3.jpg",
+              },
+              {
+                name: "Gregory Allan Rusland",
+                position: "Vice President of Suriname",
+                image: "/images/resource/author-4.jpg",
+              },
             ].map((testimonial, index) => (
               <div key={index} className="testimonial-block-two">
                 <div className="inner-box">
-                  <div className="text">
-                    Professional legal services with exceptional results. The team at Greg Law provided expert guidance
-                    throughout our case and achieved outstanding outcomes. Highly recommended for their dedication and
-                    expertise.
-                  </div>
+                  <div className="text">Leadership means serving people with vision, trust, and responsibility.</div>
                   <div className="author-post">
                     <div className="author-inner">
                       <div className="image">
