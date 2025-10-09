@@ -21,7 +21,7 @@ export default function Header() {
             <div className="pull-left logo-box">
               <div className="logo">
                 <Link to="/">
-                  <img src={isHome ? '/images/logo-2.png' : '/images/logo.png'} alt="LawSight" title="LawSight" />
+                  <img src={isHome ? '/images/logo-2.png' : '/images/logo.png'} alt="LawSight" title="LawSight" / style="width:100px">
                 </Link>
               </div>
             </div>
