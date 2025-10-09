@@ -131,7 +131,7 @@ export default function Header() {
         <div className="container clearfix">
           <div className="logo pull-left">
             <Link to="/" className="img-responsive">
-              <img src="/images/logo-small.png" alt="LawSight" title="LawSight" />
+              <img src="/images/logo-small.png" alt="LawSight" title="LawSight" className="logo-img" />
             </Link>
           </div>
 
