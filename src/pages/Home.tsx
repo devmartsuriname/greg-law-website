@@ -273,12 +273,48 @@ export default function Home() {
               <div className="inner-column">
                 <div className="row clearfix">
                   {[
-                    { icon: "fa fa-bullhorn", title: "Market Law", slug: "market-law" },
-                    { icon: "fa fa-suitcase", title: "Business Planning", slug: "business-planning" },
-                    { icon: "fa fa-area-chart", title: "Investment Trade", slug: "investment-trade" },
-                    { icon: "fa fa-coffee", title: "Fund Law", slug: "fund-law" },
-                    { icon: "fa fa-building", title: "Home Law", slug: "home-law" },
-                    { icon: "fa fa-pie-chart", title: "Insurance Law", slug: "insurance-law" },
+                    {
+                      icon: "fa fa-bullhorn",
+                      title: "Economic Development",
+                      slug: "economic-development",
+                      content:
+                        "Driving sustainable growth and creating opportunities for all citizens through strategic economic initiatives.",
+                    },
+                    {
+                      icon: "fa fa-suitcase",
+                      title: "Social Projects",
+                      slug: "social-projects",
+                      content:
+                        "Supporting community programs and advancing social welfare initiatives that strengthen our society.",
+                    },
+                    {
+                      icon: "fa fa-area-chart",
+                      title: "Youth & Education",
+                      slug: "youth-education",
+                      content:
+                        "Investing in future leaders through education and youth empowerment programs across Suriname.",
+                    },
+                    {
+                      icon: "fa fa-coffee",
+                      title: "International Relations",
+                      slug: "international-relation",
+                      content:
+                        "Strengthening global partnerships and diplomatic relationships to advance Suriname's interests worldwide.",
+                    },
+                    {
+                      icon: "fa fa-building",
+                      title: "Sustainable Development",
+                      slug: "sustainable-development",
+                      content:
+                        "Promoting green energy and environmental stewardship initiatives for a sustainable future.",
+                    },
+                    {
+                      icon: "fa fa-pie-chart",
+                      title: "Public Service Excellence",
+                      slug: "public-service",
+                      content:
+                        "Enhancing transparency and improving service delivery to citizens through government modernization.",
+                    },
                   ].map((service, index) => (
                     <div key={index} className="services-block-three col-lg-6 col-md-6 col-sm-12">
                       <div
@@ -295,9 +331,7 @@ export default function Home() {
                           <h6>
                             <Link to={`/services/${service.slug}`}>{service.title}</Link>
                           </h6>
-                          <div className="text">
-                            Expert legal consultation and representation for your {service.title.toLowerCase()} needs.
-                          </div>
+                          <div className="text">{service.content}</div>
                         </div>
                       </div>
                     </div>
