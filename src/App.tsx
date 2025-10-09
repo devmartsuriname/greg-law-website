@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import ScrollToTop from './components/ScrollToTop';
 import Preloader from './components/Preloader';
+import { AdminRoutes } from './router/admin';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -24,6 +25,10 @@ function App() {
       <ScrollToTop />
       <Suspense fallback={<Preloader />}>
         <Routes>
+          {/* Admin Routes */}
+          <Route path="/admin/*" element={<AdminRoutes />} />
+          
+          {/* Public Routes */}
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />

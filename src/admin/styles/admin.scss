@@ -1,0 +1,55 @@
+// Admin-only styles (scoped to AdminLayout)
+// Import Darkone SCSS
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import 'gridjs/dist/theme/mermaid.css';
+
+@import "./scss/config/variables";
+@import "./scss/config/variables-dark";
+@import "./scss/config/theme-mode";
+
+@import "bootstrap/scss/bootstrap";
+
+// Structure
+@import "./scss/structure/general";
+@import "./scss/structure/topbar";
+@import "./scss/structure/sidebar";
+@import "./scss/structure/footer";
+@import "./scss/structure/page-title";
+
+// Components
+@import "./scss/components/accordion";
+@import "./scss/components/alerts";
+@import "./scss/components/avatar";
+@import "./scss/components/backgrounds";
+@import "./scss/components/badge";
+@import "./scss/components/breadcrumb";
+@import "./scss/components/buttons";
+@import "./scss/components/card";
+@import "./scss/components/dropdown";
+@import "./scss/components/forms";
+@import "./scss/components/helper";
+@import "./scss/components/list-group";
+@import "./scss/components/modal";
+@import "./scss/components/nav";
+@import "./scss/components/pagination";
+@import "./scss/components/popover";
+@import "./scss/components/print";
+@import "./scss/components/progress";
+@import "./scss/components/reboot";
+@import "./scss/components/switch";
+@import "./scss/components/tables";
+@import "./scss/components/type";
+@import "./scss/components/tooltip";
+@import "./scss/components/widgets";
+
+// Plugins
+@import "./scss/plugins/simplebar";
+@import "./scss/plugins/dropzone";
+@import "./scss/plugins/editors";
+@import "./scss/plugins/gridjs";
+@import "./scss/plugins/apexcharts";
+@import "./scss/plugins/flatpicker";
+
+// Pages
+@import "./scss/pages/authentication";
