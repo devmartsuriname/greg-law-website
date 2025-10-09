@@ -27,7 +27,7 @@ export default function Home() {
                   <div className="content-column col-lg-5 col-md-12 col-sm-12">
                     <div className="inner-column">
                       <h2>
-                        Assign <br /> lawsightss <br /> for Satisfaction
+                        Assign <br /> LawSight <br /> for Satisfaction
                       </h2>
                       <div className="text">
                         Introduce with LawSight, Lorem ipsum dolor sit amet, <br /> consectetuer adipiscing elit. Aenean
@@ -58,7 +58,7 @@ export default function Home() {
                       <span className="icon flaticon-calendar"></span>
                     </div>
                     <div className="title">Book an</div>
-                    <h4>Appointmentss</h4>
+                    <h4>Appointment</h4>
                   </div>
                 </div>
               </div>
@@ -102,7 +102,7 @@ export default function Home() {
                 <div className="section-title">
                   <div className="title">about us</div>
                   <h3>
-                    We are here to fight against any violance with <span>experience</span>
+                    We are here to fight against any violence with <span>experience</span>
                   </h3>
                 </div>
 

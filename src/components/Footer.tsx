@@ -120,7 +120,7 @@ export default function Footer() {
           <div className="row clearfix">
             <div className="copyright-column col-lg-6 col-md-6 col-sm-12">
               <div className="copyright">
-                2019 &copy; All rights reserved by <a href="#">Themexriver</a>
+                {new Date().getFullYear()} &copy; All rights reserved by LawSight
               </div>
             </div>
 
