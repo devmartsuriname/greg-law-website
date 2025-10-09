@@ -60,8 +60,8 @@ export default function Home() {
                     <div className="icon-box">
                       <span className="icon flaticon-calendar"></span>
                     </div>
-                    <div className="title">Book an</div>
-                    <h4>Appointment</h4>
+                    <div className="title">Request a</div>
+                    <h4>Meeting</h4>
                   </div>
                 </div>
               </div>
@@ -73,8 +73,8 @@ export default function Home() {
                     <div className="icon-box">
                       <span className="icon flaticon-link-symbol"></span>
                     </div>
-                    <div className="title">Join our</div>
-                    <h4>Team member</h4>
+                    <div className="title">Citizen</div>
+                    <h4>Services</h4>
                   </div>
                 </div>
               </div>
@@ -86,8 +86,8 @@ export default function Home() {
                     <div className="icon-box">
                       <span className="icon flaticon-calendar"></span>
                     </div>
-                    <div className="title">Book an</div>
-                    <h4>Appointment</h4>
+                    <div className="title">Contact</div>
+                    <h4>VP Office</h4>
                   </div>
                 </div>
               </div>
