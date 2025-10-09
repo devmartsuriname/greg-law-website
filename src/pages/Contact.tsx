@@ -1,31 +1,31 @@
-import { useState, FormEvent } from 'react';
-import PageTitle from '../components/PageTitle';
+import { useState, FormEvent } from "react";
+import PageTitle from "../components/PageTitle";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    firstname: '',
-    email: '',
-    topic: '',
-    message: '',
+    firstname: "",
+    email: "",
+    topic: "",
+    message: "",
   });
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    
-    setStatus('sending');
-    
+
+    setStatus("sending");
+
     try {
       // Mock API call - TODO: Connect to actual backend or Email API
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-      setStatus('success');
-      setFormData({ firstname: '', email: '', topic: '', message: '' });
-      
-      setTimeout(() => setStatus(''), 3000);
+
+      setStatus("success");
+      setFormData({ firstname: "", email: "", topic: "", message: "" });
+
+      setTimeout(() => setStatus(""), 3000);
     } catch (error) {
-      setStatus('error');
-      setTimeout(() => setStatus(''), 3000);
+      setStatus("error");
+      setTimeout(() => setStatus(""), 3000);
     }
   };
 
@@ -33,7 +33,7 @@ export default function Contact() {
     <>
       <PageTitle
         title="Contact Us"
-        breadcrumbs={[{ label: 'Contact Us' }]}
+        breadcrumbs={[{ label: "Contact Us" }]}
         metaTitle="Contact Us | Greg Law"
         metaDescription="Get in touch with our experienced legal team for a consultation"
       />
@@ -42,7 +42,7 @@ export default function Contact() {
       <section className="contact-page-section">
         <div className="map-section">
           <div className="map-outer">
-            <div 
+            <div
               className="map-canvas"
               data-zoom="12"
               data-lat="-37.817085"
@@ -65,17 +65,23 @@ export default function Contact() {
               <div className="info-column col-lg-7 col-md-12 col-sm-12">
                 <div className="inner-column">
                   <div className="text">
-                    Please contact us using the information below. For additional information on our legal services, please visit the appropriate page on our site.
+                    Please contact us using the information below. For additional information on our legal services,
+                    please visit the appropriate page on our site.
                   </div>
                   <ul className="list-style-six">
                     <li>
-                      <span className="icon fa fa-building"></span> 380 St Kilda Road <br /> Melbourne VIC 3004 <br /> Australia
+                      <span className="icon fa fa-building"></span> Presidential Palace,
+                      <br />
+                      Onafhankelijkheidsplein Paamaribo, <br /> Suriname
                     </li>
                     <li>
-                      <span className="icon fa fa-fax"></span> +123 (4567) 890
+                      <span className="icon fa fa-fax"></span> +597 472-000
                     </li>
                     <li>
-                      <span className="icon fa fa-envelope-o"></span>info@greglaw.com
+                      <span className="icon fa fa-fax"></span> +597 472-001
+                    </li>
+                    <li>
+                      <span className="icon fa fa-envelope-o"></span>office@president.gov.sr
                     </li>
                   </ul>
                 </div>
@@ -109,7 +115,7 @@ export default function Contact() {
                       </div>
 
                       <div className="form-group">
-                        <select 
+                        <select
                           className="custom-select-box"
                           value={formData.topic}
                           onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
@@ -135,15 +141,15 @@ export default function Contact() {
                       </div>
 
                       <div className="form-group">
-                        <button type="submit" className="theme-btn btn-style-one" disabled={status === 'sending'}>
-                          {status === 'sending' ? 'Sending...' : 'Submit'}
+                        <button type="submit" className="theme-btn btn-style-one" disabled={status === "sending"}>
+                          {status === "sending" ? "Sending..." : "Submit"}
                         </button>
                       </div>
 
-                      {status === 'success' && (
+                      {status === "success" && (
                         <div className="alert alert-success mt-3">Message sent successfully!</div>
                       )}
-                      {status === 'error' && (
+                      {status === "error" && (
                         <div className="alert alert-danger mt-3">Failed to send message. Please try again.</div>
                       )}
                     </form>
@@ -156,7 +162,7 @@ export default function Contact() {
       </section>
 
       {/* Contact Info Section */}
-      <section className="contact-info-section" style={{ backgroundImage: 'url(/images/background/5.jpg)' }}>
+      <section className="contact-info-section" style={{ backgroundImage: "url(/images/background/5.jpg)" }}>
         <div className="container">
           <div className="row clearfix">
             <div className="column col-lg-4 col-md-6 col-sm-12">
