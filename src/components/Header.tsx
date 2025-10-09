@@ -33,7 +33,7 @@ export default function Header() {
 
             {isHome && (
               <div className="phone-number">
-                <span className="icon flaticon-phone-call"></span> +597 8807-551
+                <span className="icon flaticon-phone-call"></span> +597 472 000
               </div>
             )}
 
