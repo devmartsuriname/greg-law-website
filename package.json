@@ -2,6 +2,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@iconify/react": "^5.2.1",
+    "@supabase/supabase-js": "^2.75.0",
     "@types/react": "^18.3.26",
     "@types/react-dom": "^18.3.7",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
