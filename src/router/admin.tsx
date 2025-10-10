@@ -17,6 +17,8 @@ const SpeechesList = lazy(() => import('../admin/pages/speeches/SpeechesList'));
 const SpeechesForm = lazy(() => import('../admin/pages/speeches/SpeechesForm'));
 const MediaLibrary = lazy(() => import('../admin/pages/media/MediaLibrary'));
 const UsersList = lazy(() => import('../admin/pages/users/UsersList'));
+const UsersForm = lazy(() => import('../admin/pages/users/UsersForm'));
+const UserDetail = lazy(() => import('../admin/pages/users/UserDetail'));
 const MenusList = lazy(() => import('../admin/pages/menus/MenusList'));
 const Settings = lazy(() => import('../admin/pages/settings/Settings'));
 const PagesList = lazy(() => import('../admin/pages/pages/PagesList'));
@@ -72,6 +74,9 @@ export const AdminRoutes = () => {
           <Route path="media" element={<MediaLibrary />} />
           <Route path="media/youtube-sync" element={<YouTubeSync />} />
           <Route path="users" element={<UsersList />} />
+          <Route path="users/new" element={<UsersForm />} />
+          <Route path="users/:id" element={<UserDetail />} />
+          <Route path="users/:id/edit" element={<UsersForm />} />
           <Route path="menus" element={<MenusList />} />
           <Route path="settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
