@@ -1,104 +1,120 @@
-import { apiClient } from './client';
+import { supabase } from '@/integrations/supabase/client';
 
 export interface NewsItem {
   id: string;
   title: string;
   content: string;
   excerpt: string;
-  image?: string;
+  slug: string;
+  featured_image?: string;
+  category?: string;
+  tags?: string[];
   published: boolean;
-  publishedAt?: string;
-  createdAt: string;
-  updatedAt: string;
+  featured: boolean;
+  published_at?: string;
+  author_id?: string;
+  created_at: string;
+  updated_at: string;
 }
 
-// Mock data - TODO: Replace with Supabase
-const mockNews: NewsItem[] = [
-  {
-    id: '1',
-    title: 'Legal Victory in High-Profile Case',
-    content: 'Full article content here...',
-    excerpt: 'Our firm secured a major victory...',
-    image: '/assets/admin/news/news-1.jpg',
-    published: true,
-    publishedAt: '2024-01-15',
-    createdAt: '2024-01-15',
-    updatedAt: '2024-01-15',
-  },
-  {
-    id: '2',
-    title: 'New Partner Announcement',
-    content: 'Full article content here...',
-    excerpt: 'We are pleased to announce...',
-    published: false,
-    createdAt: '2024-01-10',
-    updatedAt: '2024-01-10',
-  },
-];
-
 export const newsService = {
-  list: async () => {
-    // Simulate API call
-    return new Promise<NewsItem[]>((resolve) => {
-      setTimeout(() => resolve(mockNews), 300);
-    });
+  list: async (searchTerm?: string, category?: string) => {
+    let query = supabase
+      .from('news')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (searchTerm) {
+      query = query.or(`title.ilike.%${searchTerm}%,content.ilike.%${searchTerm}%`);
+    }
+
+    if (category) {
+      query = query.eq('category', category);
+    }
+
+    const { data, error } = await query;
+
+    if (error) throw error;
+    return data as NewsItem[];
   },
 
   get: async (id: string) => {
-    return new Promise<NewsItem | undefined>((resolve) => {
-      setTimeout(() => {
-        resolve(mockNews.find((item) => item.id === id));
-      }, 300);
-    });
+    const { data, error } = await supabase
+      .from('news')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data as NewsItem;
   },
 
-  create: async (data: Partial<NewsItem>) => {
-    return new Promise<NewsItem>((resolve) => {
-      setTimeout(() => {
-        const newItem: NewsItem = {
-          id: String(mockNews.length + 1),
-          title: data.title || '',
-          content: data.content || '',
-          excerpt: data.excerpt || '',
-          image: data.image,
-          published: data.published || false,
-          publishedAt: data.published ? new Date().toISOString() : undefined,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        };
-        mockNews.push(newItem);
-        resolve(newItem);
-      }, 300);
-    });
+  create: async (newsData: Partial<NewsItem>) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    const slug = newsData.title
+      ? newsData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+      : '';
+
+    const { data, error } = await supabase
+      .from('news')
+      .insert({
+        ...newsData,
+        slug,
+        author_id: user?.id,
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data as NewsItem;
   },
 
-  update: async (id: string, data: Partial<NewsItem>) => {
-    return new Promise<NewsItem | undefined>((resolve) => {
-      setTimeout(() => {
-        const index = mockNews.findIndex((item) => item.id === id);
-        if (index !== -1) {
-          mockNews[index] = {
-            ...mockNews[index],
-            ...data,
-            updatedAt: new Date().toISOString(),
-          };
-          resolve(mockNews[index]);
-        } else {
-          resolve(undefined);
-        }
-      }, 300);
-    });
+  update: async (id: string, newsData: Partial<NewsItem>) => {
+    const updateData: any = { ...newsData };
+    
+    if (newsData.title) {
+      updateData.slug = newsData.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+    }
+
+    const { data, error } = await supabase
+      .from('news')
+      .update(updateData)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data as NewsItem;
   },
 
   remove: async (id: string) => {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        const index = mockNews.findIndex((item) => item.id === id);
-        if (index !== -1) {
-          mockNews.splice(index, 1);
-        }
-        resolve();
-      }, 300);
-    });
+    const { error } = await supabase
+      .from('news')
+      .delete()
+      .eq('id', id);
+
+    if (error) throw error;
+  },
+
+  uploadImage: async (file: File) => {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+    const filePath = `news/${fileName}`;
+
+    const { data, error } = await supabase.storage
+      .from('media-uploads')
+      .upload(filePath, file);
+
+    if (error) throw error;
+
+    const { data: { publicUrl } } = supabase.storage
+      .from('media-uploads')
+      .getPublicUrl(filePath);
+
+    return publicUrl;
   },
 };

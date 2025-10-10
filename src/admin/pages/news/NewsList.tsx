@@ -17,9 +17,14 @@ const NewsList = () => {
 
   const loadNews = async () => {
     setLoading(true);
-    const data = await newsService.list();
-    setNews(data);
-    setLoading(false);
+    try {
+      const data = await newsService.list(searchTerm);
+      setNews(data);
+    } catch (error) {
+      console.error('Error loading news:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (id: string) => {
@@ -45,9 +50,12 @@ const NewsList = () => {
     );
   };
 
-  const filteredNews = news.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      loadNews();
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
 
   return (
     <>
@@ -98,7 +106,7 @@ const NewsList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {filteredNews.map((item) => (
+                      {news.map((item) => (
                         <tr key={item.id}>
                           <td>
                             <Form.Check
@@ -113,8 +121,8 @@ const NewsList = () => {
                               {item.published ? 'Published' : 'Draft'}
                             </Badge>
                           </td>
-                          <td>{item.publishedAt || '-'}</td>
-                          <td>{new Date(item.updatedAt).toLocaleDateString()}</td>
+                          <td>{item.published_at ? new Date(item.published_at).toLocaleDateString() : '-'}</td>
+                          <td>{new Date(item.updated_at).toLocaleDateString()}</td>
                           <td>
                             <Button
                               variant="link"

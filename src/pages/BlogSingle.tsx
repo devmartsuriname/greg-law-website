@@ -1,19 +1,47 @@
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
+import { useNewsArticle } from '../hooks/useNews';
 
 export default function BlogSingle() {
   const { slug } = useParams<{ slug: string }>();
+  const { article, loading } = useNewsArticle(slug || '');
 
-  // Mock blog post data
-  const post = {
-    id: slug,
-    title: 'Aliquam augue eros, for pulvinar et rutrum non.',
-    image: '/images/resource/news-10.jpg',
-    author: 'Admin',
-    date: 'July 25, 2019',
-    category: 'Uncategorized',
-    comments: 3,
-  };
+  if (loading) {
+    return (
+      <>
+        <PageTitle
+          title="Blog"
+          breadcrumbs={[{ label: 'Blog', path: '/blog' }, { label: 'Loading...' }]}
+        />
+        <div className="container py-5">
+          <div className="text-center">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (!article) {
+    return (
+      <>
+        <PageTitle
+          title="Article Not Found"
+          breadcrumbs={[{ label: 'Blog', path: '/blog' }, { label: 'Not Found' }]}
+        />
+        <div className="container py-5">
+          <div className="text-center">
+            <h3>Article not found</h3>
+            <Link to="/blog" className="theme-btn btn-style-one mt-3">
+              Back to Blog
+            </Link>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   const recentPosts = [
     { title: 'Business structured nontp frank team', image: '/images/resource/post-thumb-1.jpg', date: 'July 25, 2019' },
@@ -29,10 +57,10 @@ export default function BlogSingle() {
   return (
     <>
       <PageTitle
-        title="Blog"
-        breadcrumbs={[{ label: 'Blog', path: '/blog' }, { label: 'Blog Single' }]}
-        metaTitle={`${post.title} | Greg Law`}
-        metaDescription="Legal insights and expert analysis"
+        title={article.title}
+        breadcrumbs={[{ label: 'Blog', path: '/blog' }, { label: article.title }]}
+        metaTitle={`${article.title} | Greg Law`}
+        metaDescription={article.excerpt || "Legal insights and expert analysis"}
       />
 
       <div className="sidebar-page-container">
@@ -42,57 +70,54 @@ export default function BlogSingle() {
             <div className="content-side col-lg-8 col-md-12 col-sm-12">
               <div className="blog-single">
                 <div className="inner-box">
-                  <div className="image">
-                    <img src={post.image} alt={post.title} />
-                  </div>
+                  {article.featured_image && (
+                    <div className="image">
+                      <img src={article.featured_image} alt={article.title} />
+                    </div>
+                  )}
                   <div className="lower-content">
                     <ul className="post-meta">
-                      <li><span className="fa fa-calendar"></span>{post.date}</li>
-                      <li><span className="fa fa-user"></span>By {post.author}</li>
-                      <li><span className="fa fa-list"></span>{post.category}</li>
-                      <li><span className="fa fa-comment"></span>({post.comments}) Comment</li>
+                      <li>
+                        <span className="fa fa-calendar"></span>
+                        {article.published_at 
+                          ? new Date(article.published_at).toLocaleDateString('en-US', { 
+                              year: 'numeric', 
+                              month: 'long', 
+                              day: 'numeric' 
+                            })
+                          : new Date(article.created_at).toLocaleDateString('en-US', { 
+                              year: 'numeric', 
+                              month: 'long', 
+                              day: 'numeric' 
+                            })
+                        }
+                      </li>
+                      {article.category && (
+                        <li>
+                          <span className="fa fa-folder"></span>
+                          {article.category}
+                        </li>
+                      )}
                     </ul>
-                    <h4>{post.title}</h4>
-                    <div className="text">
-                      <p>The man, who is in a stable condition in hospital, has &quot;potentially life-changing injuries&quot; after the overnight attack in Garvagh, County Londonderry. He was shot in the arms and legs. &quot;What sort of men would think it is acceptable to subject a young girl to this level of brutality and violence?</p>
-                      <p>&quot;Every child has the right to feel safe and protected in their own home - how is this poor child going to sleep tonight or in coming nights? What are the long term effects on her going to be?&quot;</p>
-                      <p>&quot;It&apos;s quite obvious the hypocrites who carried out this dreadful attack don&apos;t care at all about the children in their community. I wonder how they would feel if their own child witnessed such a level of violence?</p>
-                      <p>&quot;There is absolutely no justification for an attack like this in our communities and we must all work together to bring those responsible to justice and to stop this from happening to another child.&quot;</p>
-                      <p>Earlier this month, <a href="#">the PSNI launched a hard-hitting advertisement campaign</a> aimed at changing public attitudes to paramilitary attacks.</p>
-                      <div className="news-gallery">
-                        <div className="row clearfix">
-                          <div className="column col-lg-6 col-md-6 col-sm-12">
-                            <div className="image">
-                              <img src="/images/resource/news-11.jpg" alt="Legal news" />
-                            </div>
-                          </div>
-                          <div className="column col-lg-6 col-md-6 col-sm-12">
-                            <div className="image">
-                              <img src="/images/resource/news-12.jpg" alt="Legal updates" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <h5>A Kentucky woman who was accused last year.</h5>
-                      <p>The intruders chased the girl in the house and threatened her when she hid from them, according to the PSNI Limavady Facebook page.</p>
-                      <p>&quot;She came out petrified with her Piggy Bank, HER PIGGY BANK! hoping that the men would take it and leave her dad alone,&quot; one outraged officer wrote.</p>
-                      <blockquote>
-                        <div className="quote-icon flaticon-left-quote"></div>
-                        <div className="quote-text">What sort of men would think it is acceptable to subject a young girl to this level of brutality and violence? an attack like this in our communities and we must all work together.</div>
-                      </blockquote>
-                      <p>The intruders chased the girl in the house and threatened her when she hid from them, according to the PSNI Limavady Facebook page.</p>
-                      <p>&quot;She came out petrified with her Piggy Bank, HER PIGGY BANK! hoping that the men would take it and leave her dad alone,&quot; one outraged officer wrote.</p>
-                    </div>
+                    <h4>{article.title}</h4>
+                    <div 
+                      className="text" 
+                      dangerouslySetInnerHTML={{ __html: article.content }}
+                    />
                   </div>
                 </div>
 
                 {/* Post Share Options */}
                 <div className="post-share-options">
                   <div className="post-share-inner clearfix">
-                    <div className="pull-left post-tags">
-                      <span>Tags: </span>
-                      <a href="#">Business</a> <a href="#">Life</a> <a href="#">Applin</a> <a href="#">Techniq</a>
-                    </div>
+                    {article.tags && article.tags.length > 0 && (
+                      <div className="pull-left post-tags">
+                        <span>Tags: </span>
+                        {article.tags.map((tag, index) => (
+                          <a key={index} href="#">{tag}</a>
+                        ))}
+                      </div>
+                    )}
                     <ul className="pull-right social-links clearfix">
                       <li className="facebook"><a href="#" className="fa fa-facebook"></a></li>
                       <li className="twitter"><a href="#" className="fa fa-twitter"></a></li>

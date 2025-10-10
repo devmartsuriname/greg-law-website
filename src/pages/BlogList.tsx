@@ -1,52 +1,9 @@
 import { Link } from 'react-router-dom';
 import PageTitle from '../components/PageTitle';
-
-const blogPosts = [
-  {
-    id: 'legal-rights-family-law',
-    title: "Strategy for Norway's Pension Fund Global",
-    image: '/images/resource/news-4.jpg',
-    author: 'Admin',
-    date: 'September 12, 2019',
-  },
-  {
-    id: 'corporate-law-updates',
-    title: 'What we are capable of usually gets discovered',
-    image: '/images/resource/news-5.jpg',
-    author: 'Admin',
-    date: 'September 12, 2019',
-  },
-  {
-    id: 'real-estate-protection',
-    title: 'Food industry leaders often change their promoters',
-    image: '/images/resource/news-6.jpg',
-    author: 'Admin',
-    date: 'September 12, 2019',
-  },
-  {
-    id: 'chief-judge-statement',
-    title: 'DiGENOVA: Chief judge statement blatantly political',
-    image: '/images/resource/news-7.jpg',
-    author: 'Admin',
-    date: 'September 12, 2019',
-  },
-  {
-    id: 'thanksgiving-cocktails',
-    title: 'Thanksgiving-inspired cocktails that your guests',
-    image: '/images/resource/news-8.jpg',
-    author: 'Admin',
-    date: 'September 12, 2019',
-  },
-  {
-    id: 'jennifer-campaign',
-    title: 'Dior call Jennifer campaign backlash not all justified',
-    image: '/images/resource/news-9.jpg',
-    author: 'Admin',
-    date: 'September 12, 2019',
-  },
-];
+import { useNews } from '../hooks/useNews';
 
 export default function BlogList() {
+  const { news, loading } = useNews();
   return (
     <>
       <PageTitle
@@ -59,38 +16,66 @@ export default function BlogList() {
       {/* Blog Page Section */}
       <section className="blog-page-section">
         <div className="container">
-          <div className="row clearfix">
-            {blogPosts.map((post, index) => (
-              <div key={post.id} className="news-block col-lg-4 col-md-6 col-sm-12">
-                <div className="inner-box wow fadeInLeft" data-wow-delay={`${(index % 3) * 300}ms`} data-wow-duration="1500ms">
-                  <div className="image">
-                    <img src={post.image} alt={post.title} />
-                    <div className="overlay-box">
-                      <a href={post.image} data-fancybox="news" data-caption="" className="plus flaticon-plus"></a>
+          {loading ? (
+            <div className="text-center py-5">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          ) : news.length === 0 ? (
+            <div className="text-center py-5">
+              <p>No articles found.</p>
+            </div>
+          ) : (
+            <div className="row clearfix">
+              {news.map((article, index) => (
+                <div key={article.id} className="news-block col-lg-4 col-md-6 col-sm-12">
+                  <div className="inner-box wow fadeInLeft" data-wow-delay={`${(index % 3) * 300}ms`} data-wow-duration="1500ms">
+                    <div className="image">
+                      <img src={article.featured_image || '/images/resource/news-4.jpg'} alt={article.title} />
+                      <div className="overlay-box">
+                        <a href={article.featured_image || '/images/resource/news-4.jpg'} data-fancybox="news" data-caption="" className="plus flaticon-plus"></a>
+                      </div>
+                    </div>
+                    <div className="lower-content">
+                      <ul className="post-meta">
+                        <li>
+                          <span className="fa fa-calendar"></span>
+                          {article.published_at 
+                            ? new Date(article.published_at).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric' 
+                              })
+                            : new Date(article.created_at).toLocaleDateString('en-US', { 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric' 
+                              })
+                          }
+                        </li>
+                        {article.category && (
+                          <li>
+                            <span className="fa fa-folder"></span>
+                            {article.category}
+                          </li>
+                        )}
+                      </ul>
+                      <h5>
+                        <Link to={`/blog/${article.slug}`}>{article.title}</Link>
+                      </h5>
+                      {article.excerpt && (
+                        <p className="text">{article.excerpt}</p>
+                      )}
+                      <Link to={`/blog/${article.slug}`} className="theme-btn btn-style-three">
+                        View more
+                      </Link>
                     </div>
                   </div>
-                  <div className="lower-content">
-                    <ul className="post-meta">
-                      <li>
-                        <span className="fa fa-calendar"></span>
-                        {post.date}
-                      </li>
-                      <li>
-                        <span className="fa fa-user"></span>
-                        {post.author}
-                      </li>
-                    </ul>
-                    <h5>
-                      <Link to={`/blog/${post.id}`}>{post.title}</Link>
-                    </h5>
-                    <Link to={`/blog/${post.id}`} className="theme-btn btn-style-three">
-                      View more
-                    </Link>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
