@@ -287,34 +287,43 @@ export const useQuotes = (featured = false) => {
 
 ## 5. Page Components
 
-### Home.tsx (Dynamic Homepage)
+### Home.tsx (Dynamic Homepage) ✅ IMPLEMENTED
 
 **File:** `src/pages/Home.tsx`
 
+The homepage has been successfully migrated to use fully dynamic content from Supabase.
+
 ```typescript
-import { usePage } from '@/hooks/usePages';
-import { useQuotes } from '@/hooks/useQuotes';
-import { useNews } from '@/hooks/useNews';
-import { useServices } from '@/hooks/useServices';
-import PageSection from '@/components/PageSection';
-import QuotesCarousel from '@/components/QuotesCarousel';
-import ServicesGrid from '@/components/ServicesGrid';
-import NewsPreview from '@/components/NewsPreview';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
+import { usePage } from "@/hooks/usePages";
+import { PageSection } from "@/components/PageSection";
 
 export default function Home() {
-  const { page, loading: pageLoading } = usePage('home');
-  const { quotes } = useQuotes(true); // Featured quotes only
-  const { news } = useNews(3, true); // Latest 3 featured news
-  const { services } = useServices(6, true); // Featured services
+  const { page, loading, error } = usePage('home');
 
-  if (pageLoading) {
-    return <div className="loading">Loading...</div>;
+  if (loading) {
+    return (
+      <div className="container" style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="text-center">
+          <h3>Loading...</h3>
+        </div>
+      </div>
+    );
   }
 
-  if (!page) {
-    return <div className="error">Page not found</div>;
+  if (error || !page) {
+    return (
+      <div className="container" style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="text-center">
+          <h3>Page not found</h3>
+          <p>The homepage content is not yet available. Please configure it in the admin panel.</p>
+        </div>
+      </div>
+    );
   }
+
+  // Sort sections by order
+  const sortedSections = [...page.sections].sort((a, b) => a.order - b.order);
 
   return (
     <>
@@ -323,27 +332,21 @@ export default function Home() {
         <meta name="description" content={page.meta_description || ''} />
       </Helmet>
 
-      <div className="home-page">
-        {/* Render dynamic sections from pages.sections JSONB */}
-        {page.sections && page.sections.map((section: any) => {
-          // Handle special section types
-          if (section.type === 'quotes_carousel') {
-            return <QuotesCarousel key={section.id} quotes={quotes} />;
-          }
-          if (section.type === 'services_grid') {
-            return <ServicesGrid key={section.id} services={services} title={section.title} />;
-          }
-          if (section.type === 'news_list') {
-            return <NewsPreview key={section.id} news={news} title={section.title} />;
-          }
-          // Generic section renderer
-          return <PageSection key={section.id} section={section} />;
-        })}
-      </div>
+      {sortedSections.map((section) => (
+        <PageSection key={section.id} section={section} />
+      ))}
     </>
   );
 }
 ```
+
+**Key Features:**
+- Fully dynamic content driven by database
+- Uses `usePage('home')` hook to fetch page data
+- Renders sections using `PageSection` component
+- SEO meta tags from database
+- Loading and error states
+- Sections ordered by `order` field
 
 ### Blog/BlogList.tsx
 
