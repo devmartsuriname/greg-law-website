@@ -113,7 +113,17 @@ export default function PageSection({ section }: PageSectionProps) {
                   </a>
                 </div>
 
-                {data.metrics && <MetricsCounter metrics={data.metrics} variant="style-two" />}
+                {data.metrics && (
+                  <MetricsCounter
+                    metrics={data.metrics.map((m: any) => ({
+                      count: m.value,
+                      title: m.label,
+                      suffix: m.suffix,
+                      icon: m.icon || '',
+                    }))}
+                    variant="style-two"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -145,6 +155,11 @@ export default function PageSection({ section }: PageSectionProps) {
   // News Preview
   if (type === 'news_preview') {
     return <NewsPreview />;
+  }
+
+  // Quotes Carousel
+  if (type === 'quotes_carousel') {
+    return <TestimonialsCarousel />;
   }
 
   // Contact CTA Enhanced
