@@ -1,7 +1,7 @@
 # Backend Documentation
 
 **Last Updated:** 2025-10-10  
-**Version:** v1.1.0-phase6b-dynamic-homepage
+**Version:** v1.0.0-phase2-5-stabilization
 
 ---
 
@@ -29,14 +29,12 @@ Extends Supabase auth.users with additional user information.
 - `email` (text)
 - `phone` (text)
 - `avatar_url` (text)
-- `status` (text) - 'active' or 'inactive'
-- `last_login` (timestamp) - Last login timestamp
 - `created_at` (timestamp)
 - `updated_at` (timestamp)
 
 **RLS Policies:**
 - Users can view/update their own profile
-- Admins have full access to all profiles
+- Admins can view/update all profiles
 
 ---
 
@@ -607,69 +605,7 @@ All database migrations are stored in `supabase/migrations/` directory:
 - User roles system
 - Audit logging system
 
-**Next Migration:** Phase 6A (user management), Phase 6B (dynamic homepage) - COMPLETED
-
----
-
-## 🏠 Dynamic Homepage & CMS System
-
-### Overview
-The homepage is fully CMS-driven, fetching all content from the database. No hardcoded content remains.
-
-### Page Structure
-**Table:** `pages` (slug: 'home')
-- Sections stored as JSONB array
-- Each section has: type, order, data
-- Editable via Admin → Pages
-
-### Section Types
-
-**Static Content Sections:**
-- `hero` - Banner with image and CTA
-- `about` - About section with features
-- `features` - Feature blocks with icons
-- `text` - Rich text content
-- `image` - Image display
-- `metrics_counter` - Statistics display
-- `contact_cta` - Call-to-action section
-
-**Dynamic Content Sections:**
-- `services_grid_dynamic` - Fetches from `services` table
-- `team_grid` - Fetches from `team_members` table
-- `news_preview` - Fetches latest from `news` table
-- `testimonials_dynamic` - Fetches from `testimonials` table
-- `quotes_dynamic` - Fetches from `quotes` table
-
-### Dynamic Content Hooks (`src/hooks/useDynamicContent.ts`)
-
-**Available Hooks:**
-- `useDynamicServices()` - Published services, ordered by display_order
-- `useDynamicTeam()` - Published team members, ordered by display_order
-- `useDynamicTestimonials()` - Published testimonials, ordered by display_order
-- `useDynamicNews(limit)` - Latest published news, ordered by published_at
-- `useDynamicQuotes(limit)` - Featured published quotes, ordered by display_order
-
-**Caching Strategy:**
-- React Query integration
-- Stale time: 2-10 minutes (varies by content type)
-- Automatic refetch on window focus
-- Cache invalidation on mutations
-
-### Performance Optimizations
-- Parallel data fetching
-- Configurable limits per section
-- Published-only filtering
-- Display order support
-- Efficient re-render prevention
-
-### Admin CMS Workflow
-1. Navigate to Admin → Pages
-2. Edit "Home" page
-3. Modify sections array (JSON)
-4. Save changes
-5. Frontend updates immediately
-
-**For detailed implementation, see:** `/docs/tasks/phase6b-dynamic-homepage.md`
+**Next Migration:** Phase 6 features (menus, settings, user management)
 
 ---
 
