@@ -15,7 +15,7 @@ export default function CareerTimeline({ events }: CareerTimelineProps) {
         <div className="inner-container">
           <div className="row clearfix">
             {events.map((event, index) => (
-              <div key={index} className="feature-block-two col-lg-4 col-md-6 col-sm-12">
+              <div key={index} className="feature-block-two col-lg-3 col-md-6 col-sm-12">
                 <div className="fill-line"></div>
                 <div className="inner-box">
                   <div className="year">{event.year}</div>

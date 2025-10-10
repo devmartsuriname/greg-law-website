@@ -139,7 +139,29 @@ export default function PageSection({ section }: PageSectionProps) {
 
   // Services Grid Dynamic
   if (type === 'services_grid_dynamic') {
-    return <ServicesGrid data={data} />;
+    return (
+      <section className="services-section-three">
+        <div
+          className="icon-one wow fadeInLeft"
+          data-wow-delay="250ms"
+          data-wow-duration="1500ms"
+          style={{ backgroundImage: 'url(/images/icons/icon-6.png)' }}
+        ></div>
+        <div
+          className="icon-two wow fadeInRight"
+          data-wow-delay="500ms"
+          data-wow-duration="1500ms"
+          style={{ backgroundImage: 'url(/images/icons/icon-7.png)' }}
+        ></div>
+        <div className="container">
+          <div className="section-title centered">
+            <div className="title">{data.sectionLabel}</div>
+            <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle }} />
+          </div>
+          <ServicesGrid data={data} />
+        </div>
+      </section>
+    );
   }
 
   // Testimonials
@@ -285,13 +307,7 @@ function ServicesGrid({ data }: { data: any }) {
   const { services, loading, error } = useServices();
 
   if (loading) {
-    return (
-      <section className="services-section-three">
-        <div className="container">
-          <div className="text-center">Loading services...</div>
-        </div>
-      </section>
-    );
+    return <div className="text-center">Loading services...</div>;
   }
 
   if (error || services.length === 0) {
@@ -299,67 +315,51 @@ function ServicesGrid({ data }: { data: any }) {
   }
 
   return (
-    <section className="services-section-three">
-      <div
-        className="icon-one wow fadeInLeft"
-        data-wow-delay="250ms"
-        data-wow-duration="1500ms"
-        style={{ backgroundImage: 'url(/images/icons/icon-6.png)' }}
-      ></div>
-      <div
-        className="icon-two wow fadeInRight"
-        data-wow-delay="500ms"
-        data-wow-duration="1500ms"
-        style={{ backgroundImage: 'url(/images/icons/icon-7.png)' }}
-      ></div>
-      <div className="container">
-        <div className="row clearfix">
-          <div className="blocks-column col-lg-8 col-md-12 col-sm-12">
-            <div className="inner-column">
-              <div className="row clearfix">
-                {services.slice(0, 6).map((service, index) => (
-                  <div key={service.id} className="services-block-three col-lg-6 col-md-6 col-sm-12">
-                    <div
-                      className="inner-box wow fadeInUp"
-                      data-wow-delay={`${(index % 2) * 300}ms`}
-                      data-wow-duration="1500ms"
-                    >
-                      <div className="border-one"></div>
-                      <div className="border-two"></div>
-                      <div className="content">
-                        <div className="icon-box">
-                          <span className={`icon ${service.icon || 'fa fa-briefcase'}`}></span>
-                        </div>
-                        <h6>
-                          <Link to={`/services/${service.id}`}>{service.title}</Link>
-                        </h6>
-                        <div className="text">{service.description}</div>
-                      </div>
+    <div className="row clearfix">
+      <div className="blocks-column col-lg-8 col-md-12 col-sm-12">
+        <div className="inner-column">
+          <div className="row clearfix">
+            {services.slice(0, 6).map((service, index) => (
+              <div key={service.id} className="services-block-three col-lg-6 col-md-6 col-sm-12">
+                <div
+                  className="inner-box wow fadeInUp"
+                  data-wow-delay={`${(index % 2) * 300}ms`}
+                  data-wow-duration="1500ms"
+                >
+                  <div className="border-one"></div>
+                  <div className="border-two"></div>
+                  <div className="content">
+                    <div className="icon-box">
+                      <span className={`icon ${service.icon || 'flaticon-briefcase'}`}></span>
                     </div>
+                    <h6>
+                      <Link to={`/services/${service.id}`}>{service.title}</Link>
+                    </h6>
+                    <div className="text">{service.description}</div>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
+        </div>
+      </div>
 
-          <div className="image-column col-lg-4 col-md-12 col-sm-12">
-            <div className="inner-column clearfix">
-              <div className="image">
-                <img src={data.experienceImage || '/images/resource/about-2.jpg'} alt="Experience" />
-                <div className="overlay-box">
-                  <div className="overlay-inner">
-                    <div className="content">
-                      <h2>
-                        {data.experienceYears} <span>{data.experienceText}</span>
-                      </h2>
-                    </div>
-                  </div>
+      <div className="image-column col-lg-4 col-md-12 col-sm-12">
+        <div className="inner-column clearfix">
+          <div className="image">
+            <img src={data.experienceImage || '/images/resource/about-2.jpg'} alt="Experience" />
+            <div className="overlay-box">
+              <div className="overlay-inner">
+                <div className="content">
+                  <h2>
+                    {data.experienceYears} <span>{data.experienceText}</span>
+                  </h2>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
