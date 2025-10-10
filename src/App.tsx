@@ -14,6 +14,7 @@ const PortfolioSingle = lazy(() => import('./pages/PortfolioSingle'));
 const BlogList = lazy(() => import('./pages/BlogList'));
 const BlogSingle = lazy(() => import('./pages/BlogSingle'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Appointments = lazy(() => import('./pages/Appointments'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route path="portfolio/:id" element={<PortfolioSingle />} />
             <Route path="blog" element={<BlogList />} />
             <Route path="blog/:slug" element={<BlogSingle />} />
+            <Route path="appointments" element={<Appointments />} />
             <Route path="contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Route>

@@ -13,6 +13,7 @@
     "axios": "^1.12.2",
     "bootstrap": "^5.3.8",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "eslint": "^8.57.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.23",

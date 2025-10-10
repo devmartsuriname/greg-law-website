@@ -2,14 +2,17 @@ import { useState, FormEvent } from "react";
 import PageTitle from "../components/PageTitle";
 import { supabase } from "@/integrations/supabase/client";
 
-export default function Contact() {
+export default function Appointments() {
   const [formData, setFormData] = useState({
-    name: "",
+    full_name: "",
     email: "",
     phone: "",
+    organization: "",
     subject: "",
     message: "",
-    honeypot: "", // Anti-spam honeypot
+    preferred_date: "",
+    preferred_time: "",
+    honeypot: "", // Anti-spam honeypot field
   });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -17,7 +20,7 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // Honeypot check
+    // Honeypot check - if filled, it's a bot
     if (formData.honeypot) {
       console.log("Bot detected");
       return;
@@ -27,25 +30,38 @@ export default function Contact() {
     setErrorMessage("");
 
     try {
-      const { error } = await supabase.from("contact_submissions").insert({
-        name: formData.name,
+      const { error } = await supabase.from("appointments").insert({
+        full_name: formData.full_name,
         email: formData.email,
         phone: formData.phone || null,
-        subject: formData.subject || null,
+        organization: formData.organization || null,
+        subject: formData.subject,
         message: formData.message,
-        status: "new",
+        preferred_date: formData.preferred_date || null,
+        preferred_time: formData.preferred_time || null,
+        status: "pending",
       });
 
       if (error) throw error;
 
       setStatus("success");
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "", honeypot: "" });
+      setFormData({
+        full_name: "",
+        email: "",
+        phone: "",
+        organization: "",
+        subject: "",
+        message: "",
+        preferred_date: "",
+        preferred_time: "",
+        honeypot: "",
+      });
 
       setTimeout(() => setStatus("idle"), 5000);
     } catch (error: any) {
-      console.error("Error submitting contact form:", error);
+      console.error("Error submitting appointment:", error);
       setStatus("error");
-      setErrorMessage(error.message || "Failed to send message");
+      setErrorMessage(error.message || "Failed to submit appointment request");
       setTimeout(() => setStatus("idle"), 5000);
     }
   };
@@ -53,57 +69,46 @@ export default function Contact() {
   return (
     <>
       <PageTitle
-        title="Contact Us"
-        breadcrumbs={[{ label: "Contact Us" }]}
-        metaTitle="Contact Us | Greg Law"
-        metaDescription="Get in touch with our experienced legal team for a consultation"
+        title="Book an Appointment"
+        breadcrumbs={[{ label: "Appointments" }]}
+        metaTitle="Book an Appointment | VP Office"
+        metaDescription="Schedule a consultation with the Vice President's office"
       />
 
-      {/* Contact Page Section */}
       <section className="contact-page-section">
-        <div className="map-section">
-          <div className="map-outer">
-            <div
-              className="map-canvas"
-              data-zoom="12"
-              data-lat="-37.817085"
-              data-lng="144.955631"
-              data-type="roadmap"
-              data-hue="#ffc400"
-              data-title="Greg Law"
-              data-icon-path="/images/icons/map-marker.png"
-              data-content="Melbourne VIC 3000, Australia<br><a href='mailto:info@greglaw.com'>info@greglaw.com</a>"
-            ></div>
-          </div>
-        </div>
         <div className="container">
           <div className="inner-container">
             <h2>
-              Contact our support guys or make appointment <br /> with <span>our consultant</span>
+              Request an appointment with <br /> <span>the Vice President</span>
             </h2>
             <div className="row clearfix">
               {/* Info Column */}
               <div className="info-column col-lg-7 col-md-12 col-sm-12">
                 <div className="inner-column">
                   <div className="text">
-                    The Office of the Vice President is committed to maintaining open communication with citizens,
-                    organizations, and international partners. Reach out to us for inquiries, appointments, or official
-                    matters.
+                    <p>
+                      The Office of the Vice President welcomes requests for meetings and consultations. Please
+                      complete the form with your details and the purpose of your visit.
+                    </p>
+                    <p>
+                      Our team will review your request and contact you within 2-3 business days to confirm
+                      availability and finalize the appointment details.
+                    </p>
                   </div>
                   <ul className="list-style-six">
                     <li>
                       <span className="icon fa fa-building"></span> Presidential Palace,
                       <br />
-                      Onafhankelijkheidsplein Paamaribo, <br /> Suriname
+                      Onafhankelijkheidsplein Paramaribo, <br /> Suriname
                     </li>
                     <li>
-                      <span className="icon fa fa-fax"></span> +597 472-000
+                      <span className="icon fa fa-phone"></span> +597 472-000
                     </li>
                     <li>
-                      <span className="icon fa fa-fax"></span> +597 472-001
+                      <span className="icon fa fa-envelope-o"></span> office@president.gov.sr
                     </li>
                     <li>
-                      <span className="icon fa fa-envelope-o"></span>office@president.gov.sr
+                      <span className="icon fa fa-clock-o"></span> Monday - Friday: 8:00 AM - 4:00 PM
                     </li>
                   </ul>
                 </div>
@@ -117,10 +122,10 @@ export default function Contact() {
                       <div className="form-group">
                         <input
                           type="text"
-                          name="name"
-                          placeholder="Full name *"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          name="full_name"
+                          placeholder="Full Name *"
+                          value={formData.full_name}
+                          onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
                           required
                           maxLength={100}
                         />
@@ -130,7 +135,7 @@ export default function Contact() {
                         <input
                           type="email"
                           name="email"
-                          placeholder="Email *"
+                          placeholder="Email Address *"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           required
@@ -142,7 +147,7 @@ export default function Contact() {
                         <input
                           type="tel"
                           name="phone"
-                          placeholder="Phone Number (Optional)"
+                          placeholder="Phone Number"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           maxLength={20}
@@ -152,22 +157,56 @@ export default function Contact() {
                       <div className="form-group">
                         <input
                           type="text"
+                          name="organization"
+                          placeholder="Organization (Optional)"
+                          value={formData.organization}
+                          onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                          maxLength={100}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <input
+                          type="text"
                           name="subject"
-                          placeholder="Subject"
+                          placeholder="Subject of Meeting *"
                           value={formData.subject}
                           onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                          required
                           maxLength={200}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <input
+                          type="date"
+                          name="preferred_date"
+                          placeholder="Preferred Date"
+                          value={formData.preferred_date}
+                          onChange={(e) => setFormData({ ...formData, preferred_date: e.target.value })}
+                          min={new Date().toISOString().split("T")[0]}
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <input
+                          type="time"
+                          name="preferred_time"
+                          placeholder="Preferred Time"
+                          value={formData.preferred_time}
+                          onChange={(e) => setFormData({ ...formData, preferred_time: e.target.value })}
                         />
                       </div>
 
                       <div className="form-group">
                         <textarea
                           name="message"
-                          placeholder="Write your message... *"
+                          placeholder="Message / Purpose of Visit *"
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           required
                           maxLength={1000}
+                          rows={4}
                         ></textarea>
                       </div>
 
@@ -184,73 +223,29 @@ export default function Contact() {
                       </div>
 
                       <div className="form-group">
-                        <button type="submit" className="theme-btn btn-style-one" disabled={status === "sending"}>
-                          {status === "sending" ? "Sending..." : "Submit"}
+                        <button
+                          type="submit"
+                          className="theme-btn btn-style-one"
+                          disabled={status === "sending"}
+                        >
+                          {status === "sending" ? "Submitting..." : "Submit Request"}
                         </button>
                       </div>
 
                       {status === "success" && (
-                        <div className="alert alert-success mt-3">Message sent successfully!</div>
+                        <div className="alert alert-success mt-3">
+                          Appointment request submitted successfully! We'll contact you soon.
+                        </div>
                       )}
                       {status === "error" && (
                         <div className="alert alert-danger mt-3">
-                          {errorMessage || "Failed to send message. Please try again."}
+                          {errorMessage || "Failed to submit request. Please try again."}
                         </div>
                       )}
                     </form>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Info Section */}
-      <section className="contact-info-section" style={{ backgroundImage: "url(/images/background/5.jpg)" }}>
-        <div className="container">
-          <div className="row clearfix">
-            <div className="column col-lg-4 col-md-6 col-sm-12">
-              <h4>United States</h4>
-              <ul className="list-style-seven">
-                <li>
-                  <span className="icon flaticon-map-1"></span> 49488 Avenida Obregon, <br /> La Quinta, CA 92253
-                </li>
-                <li>
-                  <span className="icon flaticon-call-answer"></span> +1-(281)-813 926 <br /> +1-(281)-813 612
-                </li>
-                <li>
-                  <span className="icon fa fa-envelope-o"></span>support@greglaw.com
-                </li>
-              </ul>
-            </div>
-            <div className="column col-lg-4 col-md-6 col-sm-12">
-              <h4>Australia</h4>
-              <ul className="list-style-seven">
-                <li>
-                  <span className="icon flaticon-map-1"></span> 380 St Kilda Road, <br /> Melbourne VIC 3004
-                </li>
-                <li>
-                  <span className="icon flaticon-call-answer"></span> +123 (4567) 890 <br /> +123 (4567) 891
-                </li>
-                <li>
-                  <span className="icon fa fa-envelope-o"></span>info@greglaw.com.au
-                </li>
-              </ul>
-            </div>
-            <div className="column col-lg-4 col-md-6 col-sm-12">
-              <h4>United Kingdom</h4>
-              <ul className="list-style-seven">
-                <li>
-                  <span className="icon flaticon-map-1"></span> 131 Dartmouth Street <br /> London, UK
-                </li>
-                <li>
-                  <span className="icon flaticon-call-answer"></span> +44 20 7946 0958 <br /> +44 20 7946 0959
-                </li>
-                <li>
-                  <span className="icon fa fa-envelope-o"></span>support@greglaw.co.uk
-                </li>
-              </ul>
             </div>
           </div>
         </div>

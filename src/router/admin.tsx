@@ -25,6 +25,10 @@ const QuotesList = lazy(() => import('../admin/pages/quotes/QuotesList'));
 const QuotesForm = lazy(() => import('../admin/pages/quotes/QuotesForm'));
 const ServicesList = lazy(() => import('../admin/pages/services/ServicesList'));
 const ServicesForm = lazy(() => import('../admin/pages/services/ServicesForm'));
+const AppointmentsList = lazy(() => import('../admin/pages/appointments/AppointmentsList'));
+const AppointmentDetail = lazy(() => import('../admin/pages/appointments/AppointmentDetail'));
+const ContactsList = lazy(() => import('../admin/pages/contacts/ContactsList'));
+const ContactDetail = lazy(() => import('../admin/pages/contacts/ContactDetail'));
 
 export const AdminRoutes = () => {
   return (
@@ -54,6 +58,10 @@ export const AdminRoutes = () => {
           <Route path="services" element={<ServicesList />} />
           <Route path="services/new" element={<ServicesForm />} />
           <Route path="services/:id" element={<ServicesForm />} />
+          <Route path="appointments" element={<AppointmentsList />} />
+          <Route path="appointments/:id" element={<AppointmentDetail />} />
+          <Route path="contacts" element={<ContactsList />} />
+          <Route path="contacts/:id" element={<ContactDetail />} />
           <Route path="projects" element={<ProjectsList />} />
           <Route path="projects/new" element={<ProjectsForm />} />
           <Route path="projects/:id" element={<ProjectsForm />} />

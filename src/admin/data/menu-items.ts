@@ -54,6 +54,23 @@ export const MENU_ITEMS: MenuItemType[] = [
     url: '/admin/services',
   },
   {
+    key: 'engagement',
+    label: 'ENGAGEMENT',
+    isTitle: true,
+  },
+  {
+    key: 'appointments',
+    label: 'Appointments',
+    icon: 'mingcute:calendar-line',
+    url: '/admin/appointments',
+  },
+  {
+    key: 'contacts',
+    label: 'Contact Forms',
+    icon: 'mingcute:mail-line',
+    url: '/admin/contacts',
+  },
+  {
     key: 'media',
     label: 'Media Library',
     icon: 'mingcute:pic-line',
