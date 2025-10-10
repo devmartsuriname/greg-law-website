@@ -1,7 +1,7 @@
 # VP Website — Technical Architecture
 
-**Version:** v1.0  
-**Last Updated:** 2025-10-09  
+**Version:** v1.1  
+**Last Updated:** 2025-10-10 (Post-Auth Implementation)  
 **Related PRD:** [PRD.md](./PRD.md) | [Backend.md](./Backend.md) | [Frontend.md](./Frontend.md)
 
 ---
@@ -270,6 +270,50 @@ $$;
 
 ### 5.2 Authentication Flow
 
+#### Sign-Up Flow
+```
+┌──────────────────┐
+│ /admin/sign-up   │
+│ Sign Up Form     │
+└──────┬───────────┘
+       │
+       │ 1. User submits (email, password, name)
+       │
+       ▼
+┌──────────────────┐
+│ Client Validation│
+│ - Email format   │
+│ - Password 8+    │
+│ - Name required  │
+│ - Terms accepted │
+└──────┬───────────┘
+       │
+       │ 2. supabase.auth.signUp()
+       │
+       ▼
+┌──────────────────┐
+│ Supabase Auth    │
+│ - Create user    │
+│ - Send confirm   │
+└──────┬───────────┘
+       │
+       │ 3. Trigger: handle_new_user()
+       │
+       ▼
+┌──────────────────┐
+│ profiles table   │
+│ Auto-created     │
+└──────┬───────────┘
+       │
+       │ 4. Email confirmation
+       │
+       ▼
+┌──────────────────┐
+│ User can login   │
+└──────────────────┘
+```
+
+#### Login Flow
 ```
 ┌─────────────┐
 │ Login Page  │
@@ -284,7 +328,7 @@ $$;
 │ - Create Session │
 └──────┬───────────┘
        │
-       │ 2. Fetch User Profile + Roles
+       │ 2. Fetch User Role
        │
        ▼
 ┌─────────────────┐
@@ -300,6 +344,31 @@ $$;
 │ Admin Panel  │  OR   │ Access Denied│
 └──────────────┘       └──────────────┘
 ```
+
+#### Password Reset Flow
+```
+┌─────────────────────┐
+│ /admin/forgot-pwd   │
+└──────┬──────────────┘
+       │
+       │ 1. Enter email
+       │
+       ▼
+┌─────────────────────┐
+│ Supabase sends      │
+│ reset email         │
+└──────┬──────────────┘
+       │
+       │ 2. Click link
+       │
+       ▼
+┌─────────────────────┐
+│ Set new password    │
+│ → Redirect to login │
+└─────────────────────┘
+```
+
+**Security**: New users have NO role by default. Admin must assign roles manually.
 
 ### 5.3 Media Upload Flow
 
@@ -388,8 +457,12 @@ NO CROSS-IMPORTS ALLOWED ❌
 ### 7.2 Backend Routes (Darkone)
 
 ```typescript
+// Authentication routes (no auth required)
+/admin/login → Login Page
+/admin/sign-up → Sign Up Page
+/admin/forgot-password → Password Reset Page
+
 // Admin routes (authentication required)
-/admin/login → Login Page (public)
 /admin → Dashboard (protected)
 /admin/news → News Management
 /admin/news/new → Create News

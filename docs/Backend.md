@@ -1,8 +1,145 @@
 # VP Website — Backend Documentation
 
-**Version:** v1.0  
-**Last Updated:** 2025-10-09  
+**Version:** v1.1  
+**Last Updated:** 2025-10-10 (Post-Auth Implementation)  
 **Related PRD:** [PRD.md](./PRD.md) | [Architecture.md](./Architecture.md) | [Security.md](./Security.md)
+
+---
+
+## 📝 Table of Contents
+1. [Database Schema](#1-database-schema)
+2. [Authentication System](#2-authentication-system)
+3. [RLS Policies](#3-row-level-security-rls)
+4. [Edge Functions](#4-edge-functions)
+5. [Storage Configuration](#5-storage-configuration)
+
+---
+
+## 2. Authentication System
+
+### 2.1 Overview
+The VP Website uses Supabase Authentication with email/password sign-up and login. Authentication is handled entirely by Supabase with custom triggers for profile creation.
+
+### 2.2 Authentication Pages
+
+#### Sign-Up (`/admin/sign-up`)
+- **Location**: `src/admin/pages/auth/SignUp.tsx`
+- **Template**: Darkone authentication design
+- **Features**:
+  - Email/password validation (Yup schema)
+  - Password requirements: 8+ chars, uppercase, lowercase, numbers
+  - Full name field (stored in user metadata)
+  - Terms & Conditions checkbox
+  - Error handling for duplicate emails, weak passwords
+  - Success messages with auto-redirect
+  - Auto-redirect if already authenticated
+
+#### Login (`/admin/login`)
+- **Location**: `src/admin/pages/Login.tsx`
+- **Template**: Darkone authentication design
+- **Features**:
+  - Email/password authentication
+  - "Remember me" checkbox
+  - Error handling for invalid credentials
+  - Role-based dashboard redirect
+  - Links to sign-up and forgot password
+
+#### Forgot Password (`/admin/forgot-password`)
+- **Location**: `src/admin/pages/auth/ForgotPassword.tsx`
+- **Template**: Darkone authentication design
+- **Features**:
+  - Email validation
+  - Password reset email via Supabase
+  - Success message with auto-redirect
+  - Link back to login
+
+### 2.3 Authentication Flow
+
+```typescript
+// Sign-Up
+const { data, error } = await supabase.auth.signUp({
+  email: values.email,
+  password: values.password,
+  options: {
+    emailRedirectTo: `${window.location.origin}/admin/login`,
+    data: {
+      full_name: values.name,
+    },
+  },
+});
+
+// Login
+const { data, error } = await supabase.auth.signInWithPassword({
+  email: values.email,
+  password: values.password,
+});
+
+// Password Reset
+const { error } = await supabase.auth.resetPasswordForEmail(values.email, {
+  redirectTo: `${window.location.origin}/admin/login`,
+});
+```
+
+### 2.4 Session Management
+- **Storage**: localStorage (Supabase default)
+- **Persistence**: Enabled (`persistSession: true`)
+- **Auto-Refresh**: Enabled (`autoRefreshToken: true`)
+- **Location**: `src/integrations/supabase/client.ts`
+
+```typescript
+export const supabase = createClient<Database>(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY,
+  {
+    auth: {
+      storage: localStorage,
+      persistSession: true,
+      autoRefreshToken: true,
+    }
+  }
+);
+```
+
+### 2.5 Auth Context Provider
+- **Location**: `src/admin/hooks/useAuth.tsx`
+- **Features**:
+  - Manages user, session, and role state
+  - Listens for auth state changes
+  - Fetches user role from `user_roles` table
+  - Provides `signIn`, `signOut`, `refreshRole` methods
+
+```typescript
+const { user, session, role, loading, signIn, signOut } = useAuth();
+```
+
+### 2.6 Protected Routes
+- **Location**: `src/admin/components/ProtectedRoute.tsx`
+- **Features**:
+  - Redirects unauthenticated users to `/admin/login`
+  - Enforces role-based access control
+  - Shows loading spinner during auth check
+  - Displays "Access Denied" for insufficient permissions
+
+```typescript
+<ProtectedRoute requiredRole="editor">
+  <NewsForm />
+</ProtectedRoute>
+```
+
+### 2.7 Role Assignment
+
+**⚠️ CRITICAL: First Admin User**
+New users have NO role by default. The first admin must be created manually:
+
+```sql
+-- After user signs up, get their UUID from Supabase Dashboard
+-- Then run this SQL:
+INSERT INTO public.user_roles (user_id, role)
+VALUES ('[user-uuid-here]', 'admin'::app_role);
+```
+
+**Subsequent Role Assignments:**
+Once an admin user exists, they can assign roles via the Users page in the admin panel.
 
 ---
 
