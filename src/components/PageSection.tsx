@@ -1,6 +1,8 @@
 import { PageSection as PageSectionType } from '@/hooks/usePages';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { useDynamicTeam, useDynamicNews } from '@/hooks/useDynamicContent';
+import { useQuotes } from '@/hooks/useQuotes';
 
 interface PageSectionProps {
   section: PageSectionType;
@@ -170,26 +172,31 @@ export const PageSection = ({ section }: PageSectionProps) => {
     );
   }
 
-  // Testimonials/Quotes section
+  // Testimonials/Quotes section - Fetch from quotes table
   if (type === 'testimonials') {
+    const { quotes, loading } = useQuotes({ featured: true });
+    
+    if (loading) return <div className="text-center py-5">Loading quotes...</div>;
+    if (!quotes || quotes.length === 0) return null;
+    
     return (
       <section className="testimonial-section">
         <div className="container">
-          {data.sectionTitle && (
+          {(data.sectionTitle || data.sectionLabel) && (
             <div className="section-title">
               {data.sectionLabel && <div className="title">{data.sectionLabel}</div>}
-              <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle || '' }} />
+              <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle || 'Testimonials' }} />
             </div>
           )}
           <div className="testimonial-carousel owl-carousel owl-theme">
-            {data.testimonials && Array.isArray(data.testimonials) && data.testimonials.map((testimonial: any, index: number) => (
-              <div key={index} className="testimonial-block-two">
+            {quotes.slice(0, data.limit || 3).map((quote) => (
+              <div key={quote.id} className="testimonial-block-two">
                 <div className="inner-box">
-                  <div className="text">{testimonial.quote}</div>
+                  <div className="text">{quote.quote_text}</div>
                   <div className="author-post">
                     <div className="author-inner">
-                      <h3>{testimonial.author}</h3>
-                      <div className="designation">{testimonial.position}</div>
+                      <h3>{quote.author_name}</h3>
+                      <div className="designation">{quote.author_title}</div>
                     </div>
                   </div>
                 </div>
@@ -461,9 +468,11 @@ export const PageSection = ({ section }: PageSectionProps) => {
   }
 
   // Team Grid (fetch from team_members table)
-  // TODO: Connect dynamic data once useDynamicContent.ts is implemented (Phase 6B Step 2)
   if (type === 'team_grid') {
-    if (!data || !data.members || data.members.length === 0) return null;
+    const { data: team, loading } = useDynamicTeam(data.limit || 4);
+    
+    if (loading) return <div className="text-center py-5">Loading team...</div>;
+    if (!team || team.length === 0) return null;
     
     return (
       <section className="team-section">
@@ -485,19 +494,19 @@ export const PageSection = ({ section }: PageSectionProps) => {
           )}
 
           <div className="clearfix">
-            {data.members.map((member: any, index: number) => (
-              <div key={index} className="team-block col-lg-3 col-md-6 col-sm-12">
+            {team.map((member: any, index: number) => (
+              <div key={member.id} className="team-block col-lg-3 col-md-6 col-sm-12">
                 <div className="inner-box wow fadeInUp" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
                   <div className="image">
                     <a href="#">
-                      <img src={member.photo_url || member.image} alt={member.name} />
+                      <img src={member.photo_url || '/images/resource/team-1.jpg'} alt={member.name} />
                     </a>
                   </div>
                   <div className="lower-content">
                     <h3>
                       <a href="#">{member.name}</a>
                     </h3>
-                    <div className="designation">{member.title || member.position}</div>
+                    <div className="designation">{member.title}</div>
                     {member.social_links && (
                       <div className="overlay-box">
                         <div className="overlay-content">
@@ -538,10 +547,12 @@ export const PageSection = ({ section }: PageSectionProps) => {
     );
   }
 
-  // News Preview (latest 3 posts from news table)
-  // TODO: Connect dynamic data once useDynamicContent.ts is implemented (Phase 6B Step 2)
+  // News Preview (latest posts from news table)
   if (type === 'news_preview') {
-    if (!data || !data.news || data.news.length === 0) return null;
+    const { data: news, loading } = useDynamicNews(data.limit || 3);
+    
+    if (loading) return <div className="text-center py-5">Loading news...</div>;
+    if (!news || news.length === 0) return null;
     
     return (
       <section className="news-section style-two">
@@ -563,17 +574,17 @@ export const PageSection = ({ section }: PageSectionProps) => {
           )}
 
           <div className="row clearfix">
-            {data.news.map((newsItem: any, index: number) => (
-              <div key={index} className="news-block col-lg-4 col-md-6 col-sm-12">
+            {news.map((newsItem: any, index: number) => (
+              <div key={newsItem.id} className="news-block col-lg-4 col-md-6 col-sm-12">
                 <div
                   className="inner-box wow fadeInLeft"
                   data-wow-delay={`${index * 300}ms`}
                   data-wow-duration="1500ms"
                 >
                   <div className="image">
-                    <img src={newsItem.featured_image || newsItem.image} alt={newsItem.title} />
+                    <img src={newsItem.featured_image || '/images/resource/news-1.jpg'} alt={newsItem.title} />
                     <div className="overlay-box">
-                      <a href={newsItem.featured_image || newsItem.image} data-fancybox="news" data-caption="" className="plus flaticon-plus"></a>
+                      <a href={newsItem.featured_image || '/images/resource/news-1.jpg'} data-fancybox="news" data-caption="" className="plus flaticon-plus"></a>
                     </div>
                   </div>
                   <div className="lower-content">
@@ -593,9 +604,9 @@ export const PageSection = ({ section }: PageSectionProps) => {
                       </li>
                     </ul>
                     <h5>
-                      <Link to={`/news/${newsItem.slug}`}>{newsItem.title}</Link>
+                      <Link to={`/blog/${newsItem.slug}`}>{newsItem.title}</Link>
                     </h5>
-                    <Link to={`/news/${newsItem.slug}`} className="theme-btn btn-style-two">
+                    <Link to={`/blog/${newsItem.slug}`} className="theme-btn btn-style-two">
                       View more
                     </Link>
                   </div>

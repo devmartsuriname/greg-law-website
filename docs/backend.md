@@ -365,6 +365,17 @@ For detailed data structures and examples, see `docs/tasks/phase6b-section-types
 - Static homepage (unchanged): `/` (renders `src/pages/Home.tsx`)
 - Side-by-side comparison for QA before production cutover
 
+**Dynamic Data Integration (Step 4):**
+- Testimonials section: Uses `useQuotes()` hook to fetch from `quotes` table
+- Team Grid section: Uses `useDynamicTeam()` hook to fetch from `team_members` table
+- News Preview section: Uses `useDynamicNews()` hook to fetch from `news` table
+- All sections support loading states and graceful error handling
+
+**Database Seeding:**
+- SQL script: `docs/tasks/phase6b-step4-seeding.sql`
+- Run in Supabase SQL Editor to populate section configurations
+- Creates backup table: `pages_backup_20251210`
+
 ---
 
 #### 13. **team_members**
