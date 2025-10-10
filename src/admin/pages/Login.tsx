@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import TextFormInput from '../components/form/TextFormInput';
+import { useAuth } from '../hooks/useAuth';
 
 const loginFormSchema = yup.object({
   email: yup.string().email('Please enter a valid email').required('Please enter your email'),
@@ -15,6 +16,7 @@ type LoginFormFields = yup.InferType<typeof loginFormSchema>;
 
 const Login = () => {
   const navigate = useNavigate();
+  const { signIn, user, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -24,6 +26,13 @@ const Login = () => {
       document.body.classList.remove('authentication-bg');
     };
   }, []);
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (user && !authLoading) {
+      navigate('/admin');
+    }
+  }, [user, authLoading, navigate]);
 
   const { control, handleSubmit } = useForm({
     resolver: yupResolver(loginFormSchema),
@@ -37,16 +46,27 @@ const Login = () => {
     setError('');
     setLoading(true);
 
-    // Mock login - TODO: Replace with actual auth
-    setTimeout(() => {
-      if (values.email && values.password) {
-        localStorage.setItem('adminToken', 'dev');
-        navigate('/admin');
-      } else {
-        setError('Please enter both email and password');
+    try {
+      const { error: signInError } = await signIn(values.email, values.password);
+      
+      if (signInError) {
+        if (signInError.message.includes('Invalid login credentials')) {
+          setError('Invalid email or password. Please try again.');
+        } else if (signInError.message.includes('Email not confirmed')) {
+          setError('Please verify your email address before logging in.');
+        } else {
+          setError(signInError.message || 'An error occurred during sign in.');
+        }
         setLoading(false);
+      } else {
+        // Navigation will happen via useEffect when user state updates
+        navigate('/admin');
       }
-    }, 500);
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An unexpected error occurred. Please try again.');
+      setLoading(false);
+    }
   });
 
   return (

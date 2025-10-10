@@ -3,12 +3,14 @@ import { Container, Dropdown } from 'react-bootstrap';
 import LeftSideBarToggle from './LeftSideBarToggle';
 import ThemeModeToggle from './ThemeModeToggle';
 import IconifyIcon from './wrapper/IconifyIcon';
+import { useAuth } from '../hooks/useAuth';
 
 export const Topbar = () => {
   const navigate = useNavigate();
+  const { signOut, user, role } = useAuth();
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminToken');
+  const handleLogout = async () => {
+    await signOut();
     navigate('/admin/login');
   };
 
@@ -39,6 +41,11 @@ export const Topbar = () => {
                   <IconifyIcon icon="mingcute:user-3-line" className="fs-22 align-middle" />
                 </Dropdown.Toggle>
                 <Dropdown.Menu align="end">
+                  <Dropdown.Header>
+                    <div className="fw-semibold">{user?.email}</div>
+                    {role && <div className="text-muted small text-capitalize">Role: {role}</div>}
+                  </Dropdown.Header>
+                  <Dropdown.Divider />
                   <Dropdown.Item onClick={handleLogout}>
                     <IconifyIcon icon="mingcute:exit-line" className="me-2" />
                     Logout

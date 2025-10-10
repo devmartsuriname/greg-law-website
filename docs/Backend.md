@@ -523,11 +523,14 @@ CREATE POLICY "System can insert audit logs"
 
 ### has_role()
 
+**Status:** ✅ Implemented
+
 ```sql
 CREATE OR REPLACE FUNCTION public.has_role(required_role public.app_role)
 RETURNS boolean
 LANGUAGE plpgsql
 SECURITY DEFINER
+SET search_path = public
 AS $$
 BEGIN
   RETURN EXISTS (
@@ -538,6 +541,15 @@ BEGIN
   );
 END;
 $$;
+```
+
+**Purpose:** Security definer function that checks if the current user has a specific role. Uses `SET search_path = public` to prevent recursive RLS issues.
+
+**Usage in RLS Policies:**
+```sql
+CREATE POLICY "Editors can manage news"
+  ON public.news FOR ALL
+  USING (public.has_role('editor') OR public.has_role('admin'));
 ```
 
 ### log_audit()
@@ -583,14 +595,20 @@ $$;
 
 ## 3. Storage Buckets
 
+**Status:** ✅ Implemented
+
 ### media-uploads
+
+**Purpose:** Store uploaded images, photos, and media files  
+**Public:** Yes (read-only)  
+**Size Limit:** 5MB per file
 
 ```sql
 -- Create bucket
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('media-uploads', 'media-uploads', true);
 
--- RLS Policies
+-- RLS Policies (✅ Implemented)
 CREATE POLICY "Public can view uploaded media"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'media-uploads');
@@ -599,32 +617,36 @@ CREATE POLICY "Editors can upload media"
   ON storage.objects FOR INSERT
   WITH CHECK (
     bucket_id = 'media-uploads'
-    AND (has_role('editor') OR has_role('admin'))
+    AND (public.has_role('editor') OR public.has_role('admin'))
   );
 
 CREATE POLICY "Editors can update media"
   ON storage.objects FOR UPDATE
   USING (
     bucket_id = 'media-uploads'
-    AND (has_role('editor') OR has_role('admin'))
+    AND (public.has_role('editor') OR public.has_role('admin'))
   );
 
 CREATE POLICY "Editors can delete media"
   ON storage.objects FOR DELETE
   USING (
     bucket_id = 'media-uploads'
-    AND (has_role('editor') OR has_role('admin'))
+    AND (public.has_role('editor') OR public.has_role('admin'))
   );
 ```
 
 ### documents
+
+**Purpose:** Store PDF files, Word documents, and other document types  
+**Public:** Yes (read-only)  
+**Size Limit:** 10MB per file
 
 ```sql
 -- Create bucket
 INSERT INTO storage.buckets (id, name, public)
 VALUES ('documents', 'documents', true);
 
--- RLS Policies (same as media-uploads)
+-- RLS Policies (same as media-uploads) - ✅ Implemented
 CREATE POLICY "Public can view documents"
   ON storage.objects FOR SELECT
   USING (bucket_id = 'documents');
@@ -633,21 +655,21 @@ CREATE POLICY "Editors can upload documents"
   ON storage.objects FOR INSERT
   WITH CHECK (
     bucket_id = 'documents'
-    AND (has_role('editor') OR has_role('admin'))
+    AND (public.has_role('editor') OR public.has_role('admin'))
   );
 
 CREATE POLICY "Editors can update documents"
   ON storage.objects FOR UPDATE
   USING (
     bucket_id = 'documents'
-    AND (has_role('editor') OR has_role('admin'))
+    AND (public.has_role('editor') OR public.has_role('admin'))
   );
 
 CREATE POLICY "Editors can delete documents"
   ON storage.objects FOR DELETE
   USING (
     bucket_id = 'documents'
-    AND (has_role('editor') OR has_role('admin'))
+    AND (public.has_role('editor') OR public.has_role('admin'))
   );
 ```
 

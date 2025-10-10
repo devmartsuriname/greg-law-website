@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { supabase } from '@/integrations/supabase/client';
 
 const baseURL = import.meta.env.VITE_API_URL || '/api';
 
@@ -9,11 +10,11 @@ export const apiClient = axios.create({
   },
 });
 
-// Add auth token to requests
-apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('adminToken');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+// Add Supabase auth token to requests
+apiClient.interceptors.request.use(async (config) => {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session?.access_token) {
+    config.headers.Authorization = `Bearer ${session.access_token}`;
   }
   return config;
 });
@@ -21,9 +22,9 @@ apiClient.interceptors.request.use((config) => {
 // Handle auth errors
 apiClient.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('adminToken');
+      await supabase.auth.signOut();
       window.location.href = '/admin/login';
     }
     return Promise.reject(error);

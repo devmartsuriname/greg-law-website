@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { ProtectedRoute } from './guards';
+import { ProtectedRoute } from '../admin/components/ProtectedRoute';
+import { AuthProvider } from '../admin/hooks/useAuth';
 
 // Lazy load admin pages
 const AdminLogin = lazy(() => import('../admin/pages/Login'));
@@ -19,32 +20,34 @@ const Settings = lazy(() => import('../admin/pages/settings/Settings'));
 
 export const AdminRoutes = () => {
   return (
-    <Routes>
-      <Route path="login" element={<AdminLogin />} />
-      <Route
-        path="/*"
-        element={
-          <ProtectedRoute>
-            <AdminLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<Dashboard />} />
-        <Route path="news" element={<NewsList />} />
-        <Route path="news/new" element={<NewsForm />} />
-        <Route path="news/:id" element={<NewsForm />} />
-        <Route path="projects" element={<ProjectsList />} />
-        <Route path="projects/new" element={<ProjectsForm />} />
-        <Route path="projects/:id" element={<ProjectsForm />} />
-        <Route path="speeches" element={<SpeechesList />} />
-        <Route path="speeches/new" element={<SpeechesForm />} />
-        <Route path="speeches/:id" element={<SpeechesForm />} />
-        <Route path="media" element={<MediaLibrary />} />
-        <Route path="users" element={<UsersList />} />
-        <Route path="menus" element={<MenusList />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="*" element={<Navigate to="/admin" replace />} />
-      </Route>
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="login" element={<AdminLogin />} />
+        <Route
+          path="/*"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="news" element={<NewsList />} />
+          <Route path="news/new" element={<NewsForm />} />
+          <Route path="news/:id" element={<NewsForm />} />
+          <Route path="projects" element={<ProjectsList />} />
+          <Route path="projects/new" element={<ProjectsForm />} />
+          <Route path="projects/:id" element={<ProjectsForm />} />
+          <Route path="speeches" element={<SpeechesList />} />
+          <Route path="speeches/new" element={<SpeechesForm />} />
+          <Route path="speeches/:id" element={<SpeechesForm />} />
+          <Route path="media" element={<MediaLibrary />} />
+          <Route path="users" element={<UsersList />} />
+          <Route path="menus" element={<MenusList />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<Navigate to="/admin" replace />} />
+        </Route>
+      </Routes>
+    </AuthProvider>
   );
 };
