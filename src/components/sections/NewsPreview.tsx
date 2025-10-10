@@ -89,33 +89,6 @@ export default function NewsPreview() {
         </div>
       </section>
 
-      {/* Counter Section */}
-      <section className="counter-section">
-        <div className="container">
-          <div className="fact-counter style-three">
-            <div className="row clearfix">
-              {[
-                { icon: 'fa fa-briefcase', count: '125', title: 'Community Programs' },
-                { icon: 'flaticon-teamwork', count: '45', title: 'Policy Initiatives' },
-                { icon: 'flaticon-ribbon-badge-award', count: '18', title: 'Regional Partnerships' },
-                { icon: 'flaticon-multiple-users-silhouette', count: '85', title: 'Government Officials' },
-              ].map((counter, index) => (
-                <div key={index} className="column counter-column col-lg-3 col-md-6 col-sm-12">
-                  <div className="inner wow fadeInLeft" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
-                    <div className="count-outer count-box">
-                      <div className={`icon ${counter.icon}`}></div>
-                      <span className="count-text" data-speed="3000" data-stop={counter.count}>
-                        0
-                      </span>
-                      +<div className="counter-title">{counter.title}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }
