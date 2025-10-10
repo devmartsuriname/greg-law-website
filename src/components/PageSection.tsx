@@ -154,10 +154,6 @@ export default function PageSection({ section }: PageSectionProps) {
           style={{ backgroundImage: 'url(/images/icons/icon-7.png)' }}
         ></div>
         <div className="container">
-          <div className="section-title centered">
-            <div className="title">{data.sectionLabel}</div>
-            <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle }} />
-          </div>
           <ServicesGrid data={data} />
         </div>
       </section>
