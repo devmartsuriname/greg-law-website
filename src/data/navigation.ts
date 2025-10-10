@@ -11,10 +11,7 @@ export const navigationItems: NavItem[] = [
   },
   {
     label: 'About Us',
-    children: [
-      { label: 'About Us', path: '/about' },
-      { label: 'Testimonial', path: '/testimonial' },
-    ],
+    path: '/about',
   },
   {
     label: 'Services',
@@ -26,8 +23,6 @@ export const navigationItems: NavItem[] = [
   {
     label: 'Portfolio',
     children: [
-      { label: 'Portfolio Two Column', path: '/portfolio/2-col' },
-      { label: 'Portfolio Masonry', path: '/portfolio/masonry' },
       { label: 'Portfolio Single', path: '/portfolio/1' },
     ],
   },
