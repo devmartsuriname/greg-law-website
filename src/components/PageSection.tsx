@@ -4,8 +4,7 @@ import HeroCards from './sections/HeroCards';
 import CareerTimeline from './sections/CareerTimeline';
 import MetricsCounter from './sections/MetricsCounter';
 import TeamGrid from './sections/TeamGrid';
-import TestimonialsSection from './sections/TestimonialsSection';
-import QuotesCarousel from './sections/QuotesCarousel';
+import TestimonialsCarousel from './sections/TestimonialsCarousel';
 import NewsPreview from './sections/NewsPreview';
 
 interface PageSectionProps {
@@ -163,7 +162,7 @@ export default function PageSection({ section }: PageSectionProps) {
 
   // Testimonials
   if (type === 'testimonials') {
-    return <TestimonialsSection />;
+    return <TestimonialsCarousel />;
   }
 
   // Team Grid
@@ -178,7 +177,7 @@ export default function PageSection({ section }: PageSectionProps) {
 
   // Quotes Carousel
   if (type === 'quotes_carousel') {
-    return <QuotesCarousel />;
+    return <TestimonialsCarousel />;
   }
 
   // Contact CTA Enhanced
