@@ -360,6 +360,11 @@ For detailed data structures and examples, see `docs/tasks/phase6b-section-types
 - Fetched via `usePage(slug)` hook from `src/hooks/usePages.ts`
 - Dynamic data sourced from related tables (services, team_members, news, quotes)
 
+**Preview Route (Phase 6B):**
+- Dynamic homepage preview: `/preview/home` (renders `src/pages/HomeDynamic.tsx`)
+- Static homepage (unchanged): `/` (renders `src/pages/Home.tsx`)
+- Side-by-side comparison for QA before production cutover
+
 ---
 
 #### 13. **team_members**

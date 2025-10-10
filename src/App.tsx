@@ -7,6 +7,7 @@ import { AdminRoutes } from './router/admin';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
+const HomeDynamic = lazy(() => import('./pages/HomeDynamic'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const ServicesDetail = lazy(() => import('./pages/ServicesDetail'));
@@ -34,6 +35,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
+            <Route path="preview/home" element={<HomeDynamic />} />
             <Route path="about" element={<About />} />
             <Route path="services" element={<Services />} />
             <Route path="services/:slug" element={<ServicesDetail />} />
