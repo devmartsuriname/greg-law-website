@@ -1,6 +1,8 @@
 import { PageSection as PageSectionType } from '@/hooks/usePages';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { QuotesCarousel } from '@/components/QuotesCarousel';
+import { ServicesGrid } from '@/components/ServicesGrid';
 
 interface PageSectionProps {
   section: PageSectionType;
@@ -220,6 +222,62 @@ export const PageSection = ({ section }: PageSectionProps) => {
         <div className="container">
           <img src={data.url} alt={data.alt || ''} className="img-fluid" />
           {data.caption && <p className="text-center mt-3">{data.caption}</p>}
+        </div>
+      </section>
+    );
+  }
+
+  // Quotes carousel (dynamic from DB)
+  if (type === 'quotes_carousel') {
+    return (
+      <section className="testimonial-section">
+        <div className="container">
+          {(data.sectionLabel || data.sectionTitle) && (
+            <div className="section-title">
+              {data.sectionLabel && <div className="title">{data.sectionLabel}</div>}
+              {data.sectionTitle && <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle || '' }} />}
+            </div>
+          )}
+          <QuotesCarousel />
+        </div>
+      </section>
+    );
+  }
+
+  // Services grid (dynamic from DB)
+  if (type === 'services_grid_dynamic') {
+    return (
+      <section className="services-section-three">
+        <div className="container">
+          {(data.sectionLabel || data.sectionTitle) && (
+            <div className="section-title text-center">
+              {data.sectionLabel && <div className="title">{data.sectionLabel}</div>}
+              {data.sectionTitle && <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle || '' }} />}
+            </div>
+          )}
+          <ServicesGrid featured={true} limit={6} />
+        </div>
+      </section>
+    );
+  }
+
+  // Contact CTA
+  if (type === 'contact_cta') {
+    return (
+      <section 
+        className="call-to-action-section" 
+        style={{ backgroundImage: `url(${data.backgroundImage || ''})` }}
+      >
+        <div className="container">
+          <div className="inner-container">
+            <h2>{data.title}</h2>
+            <div className="text">{data.content}</div>
+            {data.buttonText && data.buttonLink && (
+              <Link to={data.buttonLink} className="theme-btn btn-style-one">
+                <span className="txt">{data.buttonText}</span>
+              </Link>
+            )}
+          </div>
         </div>
       </section>
     );
