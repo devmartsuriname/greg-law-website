@@ -203,6 +203,36 @@ export type Database = {
         }
         Relationships: []
       }
+      integrations_config: {
+        Row: {
+          config: Json
+          created_at: string | null
+          created_by: string | null
+          enabled: boolean | null
+          id: string
+          integration_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          config?: Json
+          created_at?: string | null
+          created_by?: string | null
+          enabled?: boolean | null
+          id?: string
+          integration_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          config?: Json
+          created_at?: string | null
+          created_by?: string | null
+          enabled?: boolean | null
+          id?: string
+          integration_type?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       media: {
         Row: {
           alt_text: string | null
@@ -596,6 +626,90 @@ export type Database = {
           title?: string
           updated_at?: string | null
           youtube_url?: string | null
+        }
+        Relationships: []
+      }
+      team_members: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          created_by: string | null
+          display_order: number | null
+          id: string
+          name: string
+          photo_url: string | null
+          published: boolean | null
+          social_links: Json | null
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          id?: string
+          name: string
+          photo_url?: string | null
+          published?: boolean | null
+          social_links?: Json | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          id?: string
+          name?: string
+          photo_url?: string | null
+          published?: boolean | null
+          social_links?: Json | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          client_company: string | null
+          client_name: string
+          client_photo_url: string | null
+          created_at: string | null
+          created_by: string | null
+          display_order: number | null
+          featured: boolean | null
+          id: string
+          published: boolean | null
+          testimonial_text: string
+          updated_at: string | null
+        }
+        Insert: {
+          client_company?: string | null
+          client_name: string
+          client_photo_url?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          featured?: boolean | null
+          id?: string
+          published?: boolean | null
+          testimonial_text: string
+          updated_at?: string | null
+        }
+        Update: {
+          client_company?: string | null
+          client_name?: string
+          client_photo_url?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          featured?: boolean | null
+          id?: string
+          published?: boolean | null
+          testimonial_text?: string
+          updated_at?: string | null
         }
         Relationships: []
       }

@@ -635,5 +635,14 @@ All database migrations are stored in `supabase/migrations/` directory:
 
 ---
 
-**For detailed implementation tasks, see:** `/docs/tasks/phase2-5.md`  
+## 🔗 Integrations Configuration
+
+**YouTube Sync**: Active (manual config required)  
+**Google Calendar**: Placeholder (awaiting implementation)  
+
+Config stored in `integrations_config` table with admin-only access via Settings > Integrations tab.
+
+---
+
+**For detailed implementation tasks, see:** `/docs/tasks/`  
 **For restore points, see:** `/docs/restorepoints/`

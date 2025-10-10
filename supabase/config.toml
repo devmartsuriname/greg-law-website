@@ -2,3 +2,6 @@ project_id = "lokofoekwbjjxmzwyasa"
 
 [functions.youtube-sync]
 verify_jwt = true
+
+[functions.calendar-sync]
+verify_jwt = true
