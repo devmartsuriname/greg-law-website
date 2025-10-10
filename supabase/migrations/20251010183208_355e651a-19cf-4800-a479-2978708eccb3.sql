@@ -1,0 +1,15 @@
+-- Update homepage sections with all restored sections
+UPDATE pages
+SET sections = '[
+  {"id": "hero-1", "type": "hero", "order": 1, "data": {"title": "Gregory Allan <span>Rusland</span>", "subtitle": "Vice President of the Republic of Suriname", "image": "/images/main-slider/content-image-1.png", "backgroundImage": "/images/main-slider/2.jpg", "buttonText": "Learn More", "buttonLink": "/about"}},
+  {"id": "hero-cards-1", "type": "hero_cards", "order": 2, "data": {"cards": [{"icon": "mdi:calendar-check", "title": "Book an Appointment", "description": "Schedule a meeting with our office.", "link": "/appointments"}, {"icon": "mdi:account-group", "title": "Join Our Team", "description": "Explore opportunities to contribute.", "link": "/contact"}, {"icon": "mdi:phone-in-talk", "title": "Contact Us", "description": "Reach out to our office.", "link": "/contact"}]}},
+  {"id": "about-1", "type": "about_enhanced", "order": 3, "data": {"sectionLabel": "About the Vice President", "title": "Leading with <span>Vision & Purpose</span>", "content": "<p>Gregory Allan Rusland serves as Vice President, dedicated to advancing economic development and democratic governance.</p>", "features": ["Economic Development", "Social Progress", "International Relations", "Democratic Governance"], "videoImage": "/images/resource/video-img.jpg", "signature_name": "Gregory Allan Rusland", "phone": "+597 472-051", "metrics": [{"value": 1250, "label": "Satisfied Citizens", "suffix": "+"}, {"value": 89, "label": "Initiatives Completed", "suffix": ""}, {"value": 15, "label": "International Awards", "suffix": ""}, {"value": 98, "label": "Success Rate", "suffix": "%"}]}},
+  {"id": "career-1", "type": "career_timeline", "order": 4, "data": {"events": [{"year": "2020", "title": "Vice President of Suriname", "description": "Elected as Vice President."}, {"year": "2015", "title": "Minister of Natural Resources", "description": "Led sustainable resource management."}, {"year": "2010", "title": "Parliamentary Representative", "description": "Served in parliament."}, {"year": "2005", "title": "Started Political Journey", "description": "Began public service career."}]}},
+  {"id": "services-1", "type": "services_grid_dynamic", "order": 5, "data": {"sectionLabel": "Key Focus Areas", "sectionTitle": "Working for <span>Suriname''s Future</span>"}},
+  {"id": "testimonials-1", "type": "testimonials", "order": 6, "data": {}},
+  {"id": "team-1", "type": "team_grid", "order": 7, "data": {}},
+  {"id": "news-1", "type": "news_preview", "order": 8, "data": {}},
+  {"id": "quotes-1", "type": "quotes_carousel", "order": 9, "data": {"sectionLabel": "Leadership Vision", "sectionTitle": "Words that guide our <span>vision</span>"}},
+  {"id": "cta-1", "type": "contact_cta_enhanced", "order": 10, "data": {"title": "Have Questions?", "content": "The Office is here to serve.", "buttonText": "Contact Us", "buttonLink": "/contact", "contact_info": {"address": "Presidential Palace, Paramaribo", "phone": "+597 472-051", "email": "office@vicepresident.sr"}}}
+]'::jsonb
+WHERE slug = 'home';
