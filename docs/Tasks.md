@@ -141,7 +141,7 @@
 | 1.5 | Implement SEO meta fields | ✅ | Dev | Title, description editable |
 | 1.6 | Add publish/unpublish toggle | ✅ | Dev | Published flag works |
 | 1.7 | Create preview functionality | 🟡 | Dev | Preview shows page before publish (deferred to Phase 1.1) |
-| 1.8 | Update frontend Home.tsx to use Supabase | ✅ | Dev | Home page shows dynamic content |
+| 1.8 | Restore homepage sections with dynamic data | ✅ | Dev | All homepage sections render with DB content (2025-10-10) |
 | 1.9 | Create usePage() hook for frontend | ✅ | Dev | Hook fetches page by slug |
 | 1.10 | Test full pages workflow | ✅ | Dev | Edit page in admin, see changes on frontend |
 

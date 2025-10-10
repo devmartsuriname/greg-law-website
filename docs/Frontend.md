@@ -348,6 +348,93 @@ export default function Home() {
 - Loading and error states
 - Sections ordered by `order` field
 
+### Homepage Section Types
+
+The homepage dynamically renders sections from the `pages` table (slug='home'). Each section has a `type` and `data` structure.
+
+**Supported Section Types:**
+
+1. **hero** - Main banner with title, subtitle, image, CTA
+2. **about** - About section with content, features list, optional video
+3. **services_grid** - Static services from section.data
+4. **services_grid_dynamic** - Dynamic services from services table (featured=true)
+5. **quotes_carousel** - Dynamic quotes from quotes table (featured=true)
+6. **testimonials** - Static testimonials from section.data
+7. **contact_cta** - Call-to-action with button
+8. **text** - Generic text content
+9. **image** - Single image with caption
+10. **features** - Feature blocks with icons
+
+**Example Homepage Sections Structure:**
+
+```json
+{
+  "sections": [
+    {
+      "id": "hero-1",
+      "type": "hero",
+      "order": 1,
+      "data": {
+        "title": "Gregory Allan <span>Rusland</span>",
+        "subtitle": "Vice President of the Republic of Suriname",
+        "backgroundImage": "/images/main-slider/2.jpg",
+        "image": "/images/main-slider/content-image-1.png",
+        "buttonText": "Learn More",
+        "buttonLink": "/about"
+      }
+    },
+    {
+      "id": "about-1",
+      "type": "about",
+      "order": 2,
+      "data": {
+        "sectionLabel": "About the Vice President",
+        "title": "Leading with <span>Vision & Purpose</span>",
+        "content": "<p>Gregory Allan Rusland serves as Vice President...</p>",
+        "features": ["Economic Development", "Social Progress"],
+        "videoImage": "/images/resource/video-img.jpg"
+      }
+    },
+    {
+      "id": "services-1",
+      "type": "services_grid_dynamic",
+      "order": 3,
+      "data": {
+        "sectionLabel": "Key Focus Areas",
+        "sectionTitle": "Working for <span>Suriname's Future</span>"
+      }
+    },
+    {
+      "id": "quotes-1",
+      "type": "quotes_carousel",
+      "order": 4,
+      "data": {
+        "sectionLabel": "Leadership Vision",
+        "sectionTitle": "Words that guide our <span>vision</span>"
+      }
+    },
+    {
+      "id": "cta-1",
+      "type": "contact_cta",
+      "order": 5,
+      "data": {
+        "title": "Have Questions or Concerns?",
+        "content": "The Office of the Vice President is here to serve the people of Suriname.",
+        "buttonText": "Contact Us",
+        "buttonLink": "/contact",
+        "backgroundImage": "/images/background/pattern-1.png"
+      }
+    }
+  ]
+}
+```
+
+**Dynamic Components:**
+
+- `services_grid_dynamic` uses `<ServicesGrid featured={true} limit={6} />` to fetch services from database
+- `quotes_carousel` uses `<QuotesCarousel />` to fetch featured quotes from database
+- These components automatically handle loading states and empty states
+
 ### Blog/BlogList.tsx
 
 **File:** `src/pages/Blog/BlogList.tsx`
