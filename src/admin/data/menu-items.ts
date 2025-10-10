@@ -42,6 +42,18 @@ export const MENU_ITEMS: MenuItemType[] = [
     url: '/admin/speeches',
   },
   {
+    key: 'quotes',
+    label: 'Quotes',
+    icon: 'mingcute:quote-left-line',
+    url: '/admin/quotes',
+  },
+  {
+    key: 'services',
+    label: 'Services',
+    icon: 'mingcute:certificate-line',
+    url: '/admin/services',
+  },
+  {
     key: 'media',
     label: 'Media Library',
     icon: 'mingcute:pic-line',

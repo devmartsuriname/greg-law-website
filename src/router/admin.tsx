@@ -21,6 +21,10 @@ const MenusList = lazy(() => import('../admin/pages/menus/MenusList'));
 const Settings = lazy(() => import('../admin/pages/settings/Settings'));
 const PagesList = lazy(() => import('../admin/pages/pages/PagesList'));
 const PagesForm = lazy(() => import('../admin/pages/pages/PagesForm'));
+const QuotesList = lazy(() => import('../admin/pages/quotes/QuotesList'));
+const QuotesForm = lazy(() => import('../admin/pages/quotes/QuotesForm'));
+const ServicesList = lazy(() => import('../admin/pages/services/ServicesList'));
+const ServicesForm = lazy(() => import('../admin/pages/services/ServicesForm'));
 
 export const AdminRoutes = () => {
   return (
@@ -44,6 +48,12 @@ export const AdminRoutes = () => {
           <Route path="news" element={<NewsList />} />
           <Route path="news/new" element={<NewsForm />} />
           <Route path="news/:id" element={<NewsForm />} />
+          <Route path="quotes" element={<QuotesList />} />
+          <Route path="quotes/new" element={<QuotesForm />} />
+          <Route path="quotes/:id" element={<QuotesForm />} />
+          <Route path="services" element={<ServicesList />} />
+          <Route path="services/new" element={<ServicesForm />} />
+          <Route path="services/:id" element={<ServicesForm />} />
           <Route path="projects" element={<ProjectsList />} />
           <Route path="projects/new" element={<ProjectsForm />} />
           <Route path="projects/:id" element={<ProjectsForm />} />

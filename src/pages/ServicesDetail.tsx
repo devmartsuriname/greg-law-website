@@ -1,12 +1,33 @@
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Icon } from '@iconify/react';
 import PageTitle from '../components/PageTitle';
-import { services } from '../data/services';
+import { useService } from '../hooks/useService';
+import { useServices } from '../hooks/useServices';
 
 export default function ServicesDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const service = services.find((s) => s.id === slug);
+  const { service, loading } = useService(slug || '');
+  const { services } = useServices({ limit: 6 });
   const [activeTab, setActiveTab] = useState('audit');
+
+  if (loading) {
+    return (
+      <>
+        <PageTitle
+          title="Services"
+          breadcrumbs={[{ label: 'Services', path: '/services' }, { label: 'Loading...' }]}
+        />
+        <div className="container py-5">
+          <div className="text-center">
+            <div className="spinner-border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (!service) {
     return <Navigate to="/services" replace />;
@@ -15,7 +36,6 @@ export default function ServicesDetail() {
   const currentIndex = services.findIndex((s) => s.id === slug);
   const prevService = currentIndex > 0 ? services[currentIndex - 1] : null;
   const nextService = currentIndex < services.length - 1 ? services[currentIndex + 1] : null;
-
   const relatedServices = services.filter((s) => s.id !== service.id).slice(0, 2);
 
   return (
@@ -33,7 +53,7 @@ export default function ServicesDetail() {
             {/* Sidebar Side */}
             <div className="sidebar-side col-lg-4 col-md-12 col-sm-12">
               <aside className="sidebar padding-right">
-                {/* Blog Category Widget */}
+                {/* Services List Widget */}
                 <div className="sidebar-widget sidebar-blog-category">
                   <ul className="blog-cat">
                     {services.map((s) => (
@@ -91,12 +111,18 @@ export default function ServicesDetail() {
               <div className="services-single">
                 <h4>{service.title}</h4>
                 <div className="text">
-                  <p>
-                    Our {service.title.toLowerCase()} practice provides comprehensive legal solutions tailored to your specific needs. With years of experience and a proven track record, our attorneys are dedicated to protecting your rights and achieving the best possible outcomes.
-                  </p>
-                  <p>
-                    We understand the complexities involved and work diligently to provide clear guidance throughout the entire legal process, ensuring you are informed and confident every step of the way.
-                  </p>
+                  {service.description ? (
+                    <p>{service.description}</p>
+                  ) : (
+                    <>
+                      <p>
+                        Our {service.title.toLowerCase()} practice provides comprehensive legal solutions tailored to your specific needs. With years of experience and a proven track record, our attorneys are dedicated to protecting your rights and achieving the best possible outcomes.
+                      </p>
+                      <p>
+                        We understand the complexities involved and work diligently to provide clear guidance throughout the entire legal process, ensuring you are informed and confident every step of the way.
+                      </p>
+                    </>
+                  )}
                 </div>
                 <ul className="list-style-five">
                   <li>Expert legal consultation and representation</li>
@@ -196,14 +222,22 @@ export default function ServicesDetail() {
                     <div key={relatedService.id} className="services-block-two style-two col-lg-6 col-md-6 col-sm-12">
                       <div className="inner-box">
                         <div className="icon-box">
-                          <span className={`icon ${relatedService.icon}`}></span>
+                          {relatedService.icon ? (
+                            <Icon icon={relatedService.icon} width={48} />
+                          ) : (
+                            <span className="icon flaticon-law"></span>
+                          )}
                         </div>
                         <h3>{relatedService.title}</h3>
                         <div className="text">{relatedService.description}</div>
                         <div className="overlay-box" style={{ backgroundImage: 'url(/images/resource/service-1.jpg)' }}>
                           <div className="overlay-inner">
                             <div className="content">
-                              <span className={`icon ${relatedService.icon}`}></span>
+                              {relatedService.icon ? (
+                                <Icon icon={relatedService.icon} width={48} className="text-white" />
+                              ) : (
+                                <span className="icon flaticon-law"></span>
+                              )}
                               <h4>
                                 <Link to={`/services/${relatedService.id}`}>{relatedService.title}</Link>
                               </h4>
