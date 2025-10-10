@@ -29,6 +29,7 @@ const AppointmentsList = lazy(() => import('../admin/pages/appointments/Appointm
 const AppointmentDetail = lazy(() => import('../admin/pages/appointments/AppointmentDetail'));
 const ContactsList = lazy(() => import('../admin/pages/contacts/ContactsList'));
 const ContactDetail = lazy(() => import('../admin/pages/contacts/ContactDetail'));
+const YouTubeSync = lazy(() => import('../admin/pages/media/YouTubeSync'));
 
 export const AdminRoutes = () => {
   return (
@@ -69,6 +70,7 @@ export const AdminRoutes = () => {
           <Route path="speeches/new" element={<SpeechesForm />} />
           <Route path="speeches/:id" element={<SpeechesForm />} />
           <Route path="media" element={<MediaLibrary />} />
+          <Route path="media/youtube-sync" element={<YouTubeSync />} />
           <Route path="users" element={<UsersList />} />
           <Route path="menus" element={<MenusList />} />
           <Route path="settings" element={<Settings />} />
