@@ -1,26 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
-interface Service {
+export interface Service {
   id: string;
   title: string;
-  description: string;
-  icon: string;
+  description?: string;
+  icon?: string;
   category?: string;
   featured: boolean;
   published: boolean;
   display_order: number;
-  created_at: string;
-  updated_at: string;
 }
 
-interface UseServicesResult {
-  services: Service[];
-  loading: boolean;
-  error: Error | null;
+interface UseServicesOptions {
+  featured?: boolean;
+  category?: string;
+  limit?: number;
 }
 
-export const useServices = (limit?: number, featured?: boolean): UseServicesResult => {
+export const useServices = (options: UseServicesOptions = {}) => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -37,28 +35,32 @@ export const useServices = (limit?: number, featured?: boolean): UseServicesResu
           .eq('published', true)
           .order('display_order', { ascending: true });
 
-        if (featured !== undefined) {
-          query = query.eq('featured', featured);
+        if (options.featured) {
+          query = query.eq('featured', true);
         }
 
-        if (limit) {
-          query = query.limit(limit);
+        if (options.category) {
+          query = query.eq('category', options.category);
+        }
+
+        if (options.limit) {
+          query = query.limit(options.limit);
         }
 
         const { data, error: fetchError } = await query;
 
         if (fetchError) throw fetchError;
-
-        setServices(data || []);
+        setServices(data as Service[]);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Failed to fetch services'));
+        setError(err as Error);
+        console.error('Error fetching services:', err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchServices();
-  }, [limit, featured]);
+  }, [options.featured, options.category, options.limit]);
 
   return { services, loading, error };
 };

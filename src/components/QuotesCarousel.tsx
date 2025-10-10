@@ -1,13 +1,13 @@
 import { useQuotes } from '@/hooks/useQuotes';
 
-export default function TestimonialsCarousel() {
-  const { quotes, loading, error } = useQuotes();
+export const QuotesCarousel = () => {
+  const { quotes, loading, error } = useQuotes({ featured: true });
 
   if (loading) {
     return (
       <section className="testimonial-section">
         <div className="container">
-          <div className="text-center">Loading testimonials...</div>
+          <div className="text-center">Loading quotes...</div>
         </div>
       </section>
     );
@@ -45,4 +45,4 @@ export default function TestimonialsCarousel() {
       </div>
     </section>
   );
-}
+};

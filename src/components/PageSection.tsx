@@ -1,47 +1,195 @@
+import { PageSection as PageSectionType } from '@/hooks/usePages';
 import { Link } from 'react-router-dom';
-import { useServices } from '@/hooks/useServices';
-import HeroCards from './sections/HeroCards';
-import CareerTimeline from './sections/CareerTimeline';
-import MetricsCounter from './sections/MetricsCounter';
-import TeamGrid from './sections/TeamGrid';
-import TestimonialsCarousel from './sections/TestimonialsCarousel';
-import NewsPreview from './sections/NewsPreview';
+import { Icon } from '@iconify/react';
 
 interface PageSectionProps {
-  section: {
-    id: string;
-    type: string;
-    data: any;
-  };
+  section: PageSectionType;
 }
 
-export default function PageSection({ section }: PageSectionProps) {
+export const PageSection = ({ section }: PageSectionProps) => {
   const { type, data } = section;
 
-  // Hero Banner
+  // Hero section
   if (type === 'hero') {
     return (
-      <section className="banner-section-two" style={{ backgroundImage: `url(${data.backgroundImage})` }}>
+      <section className="banner-section-two" style={{ backgroundImage: `url(${data.backgroundImage || '/images/main-slider/2.jpg'})` }}>
         <div className="left-side">
           <div className="icon-image"></div>
         </div>
         <div className="container">
           <div className="main-slider-carousel owl-carousel owl-theme">
-            {[1, 2, 3].map((num) => (
-              <div key={num} className="slide">
-                <div className="row clearfix">
-                  <div className="image-column col-lg-7 col-md-12 col-sm-12">
-                    <div className="image">
-                      <img src={data.image} alt={data.title} />
-                    </div>
+            <div className="slide">
+              <div className="row clearfix">
+                <div className="image-column col-lg-7 col-md-12 col-sm-12">
+                  <div className="image">
+                    <img src={data.image || '/images/main-slider/content-image-1.png'} alt={data.title} />
                   </div>
-                  <div className="content-column col-lg-5 col-md-12 col-sm-12">
-                    <div className="inner-column">
-                      <h2 dangerouslySetInnerHTML={{ __html: data.title }} />
-                      <div className="text">{data.subtitle}</div>
+                </div>
+                <div className="content-column col-lg-5 col-md-12 col-sm-12">
+                  <div className="inner-column">
+                    <h2 dangerouslySetInnerHTML={{ __html: data.title || '' }} />
+                    <div className="text">{data.subtitle}</div>
+                    {data.buttonText && data.buttonLink && (
                       <Link to={data.buttonLink} className="theme-btn btn-style-one">
                         {data.buttonText}
                       </Link>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // About section
+  if (type === 'about') {
+    return (
+      <section className="about-section style-two">
+        <div className="container">
+          <div className="row clearfix">
+            <div className="content-column col-lg-6 col-md-12 col-sm-12">
+              <div className="inner-column">
+                <div className="section-title">
+                  <div className="title">{data.sectionLabel}</div>
+                  <h3 dangerouslySetInnerHTML={{ __html: data.title || '' }} />
+                </div>
+                <div className="text" dangerouslySetInnerHTML={{ __html: data.content || '' }} />
+                {data.features && Array.isArray(data.features) && (
+                  <div className="row clearfix">
+                    {data.features.map((feature: string, index: number) => (
+                      <div key={index} className="column col-lg-6 col-md-6 col-sm-12">
+                        <ul className="list-style-one">
+                          <li>{feature}</li>
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="image-column col-lg-6 col-md-12 col-sm-12">
+              <div className="inner-column">
+                {data.videoImage && (
+                  <div className="video-box">
+                    <figure className="video-image">
+                      <img src={data.videoImage} alt="" />
+                    </figure>
+                    {data.videoUrl && (
+                      <a href={data.videoUrl} className="lightbox-image overlay-box">
+                        <span className="flaticon-play-button"></span>
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Services Grid section
+  if (type === 'services_grid') {
+    return (
+      <section className="services-section-three">
+        <div className="container">
+          <div className="row clearfix">
+            <div className="blocks-column col-lg-8 col-md-12 col-sm-12">
+              <div className="inner-column">
+                <div className="row clearfix">
+                  {data.services && Array.isArray(data.services) && data.services.map((service: any, index: number) => (
+                    <div key={index} className="services-block-three col-lg-6 col-md-6 col-sm-12">
+                      <div className="inner-box wow fadeInUp" data-wow-delay={`${(index % 2) * 300}ms`} data-wow-duration="1500ms">
+                        <div className="border-one"></div>
+                        <div className="border-two"></div>
+                        <div className="content">
+                          <div className="icon-box">
+                            {service.icon && <Icon icon={service.icon} className="icon" />}
+                          </div>
+                          <h6>
+                            {service.link ? (
+                              <Link to={service.link}>{service.title}</Link>
+                            ) : (
+                              service.title
+                            )}
+                          </h6>
+                          <div className="text">{service.description}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            {data.sideImage && (
+              <div className="image-column col-lg-4 col-md-12 col-sm-12">
+                <div className="inner-column clearfix">
+                  <div className="image">
+                    <img src={data.sideImage} alt="" />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Features section
+  if (type === 'features') {
+    return (
+      <section className="feature-section">
+        <div className="container">
+          <div className="inner-container">
+            <div className="clearfix">
+              {data.features && Array.isArray(data.features) && data.features.map((feature: any, index: number) => (
+                <div key={index} className="feature-block col-lg-4 col-md-6 col-sm-12">
+                  <div className="inner-box">
+                    {feature.icon && <div className={`big-icon ${feature.icon}`}></div>}
+                    <div className="content">
+                      {feature.icon && (
+                        <div className="icon-box">
+                          <span className={`icon ${feature.icon}`}></span>
+                        </div>
+                      )}
+                      {feature.label && <div className="title">{feature.label}</div>}
+                      <h4>{feature.title}</h4>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Testimonials/Quotes section
+  if (type === 'testimonials') {
+    return (
+      <section className="testimonial-section">
+        <div className="container">
+          {data.sectionTitle && (
+            <div className="section-title">
+              {data.sectionLabel && <div className="title">{data.sectionLabel}</div>}
+              <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle || '' }} />
+            </div>
+          )}
+          <div className="testimonial-carousel owl-carousel owl-theme">
+            {data.testimonials && Array.isArray(data.testimonials) && data.testimonials.map((testimonial: any, index: number) => (
+              <div key={index} className="testimonial-block-two">
+                <div className="inner-box">
+                  <div className="text">{testimonial.quote}</div>
+                  <div className="author-post">
+                    <div className="author-inner">
+                      <h3>{testimonial.author}</h3>
+                      <div className="designation">{testimonial.position}</div>
                     </div>
                   </div>
                 </div>
@@ -53,298 +201,30 @@ export default function PageSection({ section }: PageSectionProps) {
     );
   }
 
-  // Hero Cards
-  if (type === 'hero_cards') {
-    return <HeroCards cards={data.cards} />;
-  }
-
-  // About Enhanced
-  if (type === 'about_enhanced') {
+  // Text section
+  if (type === 'text') {
     return (
-      <section className="about-section style-two">
+      <section className="text-section">
         <div className="container">
-          <div className="row clearfix">
-            <div className="content-column col-lg-6 col-md-12 col-sm-12">
-              <div className="inner-column">
-                <div className="section-title">
-                  <div className="title">{data.sectionTitle}</div>
-                  <h3 dangerouslySetInnerHTML={{ __html: data.mainTitle }} />
-                </div>
-
-                <div className="text">
-                  {data.paragraphs?.map((paragraph: string, index: number) => (
-                    <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
-                  ))}
-                </div>
-
-                <div className="row clearfix">
-                  {data.features?.map((feature: string, index: number) => (
-                    <div key={index} className="column col-lg-6 col-md-6 col-sm-12">
-                      <ul className="list-style-one">
-                        <li>{feature}</li>
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="question">
-                  {data.contactText} <strong>{data.phone1}</strong> <span className="or">or</span>{' '}
-                  <strong>{data.phone2}</strong>
-                </div>
-
-                <div className="signature">
-                  <div className="signature-img">
-                    <img src={data.signatureImage} alt="Signature" />
-                  </div>
-                  <h5>{data.signatureName}</h5>
-                  <div className="designation">{data.signatureTitle}</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="image-column col-lg-6 col-md-12 col-sm-12">
-              <div className="inner-column">
-                <div className="video-box">
-                  <figure className="video-image">
-                    <img src={data.videoImage} alt="" />
-                  </figure>
-                  <a href={data.videoUrl} className="lightbox-image overlay-box">
-                    <span className="flaticon-play-button"></span>
-                  </a>
-                </div>
-
-                {data.metrics && <MetricsCounter metrics={data.metrics} variant="style-two" />}
-              </div>
-            </div>
-          </div>
+          {data.title && <h2>{data.title}</h2>}
+          <div dangerouslySetInnerHTML={{ __html: data.content || '' }} />
         </div>
       </section>
     );
   }
 
-  // Career Timeline
-  if (type === 'career_timeline') {
-    return <CareerTimeline events={data.events} />;
-  }
-
-  // Services Grid Dynamic
-  if (type === 'services_grid_dynamic') {
-    return <ServicesGrid data={data} />;
-  }
-
-  // Testimonials
-  if (type === 'testimonials') {
-    return <TestimonialsCarousel />;
-  }
-
-  // Team Grid
-  if (type === 'team_grid') {
-    return <TeamGrid />;
-  }
-
-  // News Preview
-  if (type === 'news_preview') {
-    return <NewsPreview />;
-  }
-
-  // Contact CTA Enhanced
-  if (type === 'contact_cta_enhanced') {
+  // Image section
+  if (type === 'image') {
     return (
-      <>
-        <section className="contact-form-section">
-          <div className="map-section">
-            <div className="map-outer">
-              <div
-                className="map-canvas"
-                data-zoom="12"
-                data-lat={data.mapLat}
-                data-lng={data.mapLng}
-                data-type="roadmap"
-                data-hue="#ffc400"
-                data-title={data.mapTitle}
-                data-icon-path="/images/icons/map-marker.png"
-                data-content={data.mapContent}
-              ></div>
-            </div>
-          </div>
-          <div className="container">
-            <div className="inner-container">
-              <div className="upper-content">
-                <div className="row clearfix">
-                  <div className="title-column col-lg-5 col-md-12 col-sm-12">
-                    <div className="inner-column">
-                      <div className="section-title">
-                        <div className="title">{data.title}</div>
-                        <h3 dangerouslySetInnerHTML={{ __html: data.heading }} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="info-column col-lg-7 col-md-12 col-sm-12">
-                    <div className="inner-column">
-                      <div className="row clearfix">
-                        <div className="column col-lg-6 col-md-6 col-sm-12">
-                          <ul className="list-style-two style-two">
-                            <li>
-                              <span className="icon flaticon-placeholder-1"></span>
-                              {data.address}
-                            </li>
-                          </ul>
-                        </div>
-                        <div className="column col-lg-6 col-md-6 col-sm-12">
-                          <ul className="list-style-two style-two">
-                            <li>
-                              <span className="icon flaticon-phone-call"></span>
-                              {data.phone}
-                            </li>
-                            <li>
-                              <span className="icon flaticon-chat"></span>
-                              {data.email}
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="default-form style-two">
-                <form method="post" action="/contact">
-                  <div className="row clearfix">
-                    <div className="form-group col-lg-4 col-md-6 col-sm-12">
-                      <input type="text" name="firstname" placeholder="First name.." required />
-                    </div>
-
-                    <div className="form-group col-lg-4 col-md-6 col-sm-12">
-                      <input type="text" name="lastname" placeholder="Last name.." required />
-                    </div>
-
-                    <div className="form-group col-lg-4 col-md-12 col-sm-12">
-                      <input type="email" name="email" placeholder="Email Address.." required />
-                    </div>
-
-                    <div className="form-group col-lg-12 col-md-12 col-sm-12">
-                      <textarea name="message" placeholder="Write your message..."></textarea>
-                    </div>
-
-                    <div className="form-group col-lg-12 col-md-12 col-sm-12">
-                      <button type="submit" className="theme-btn btn-style-one">
-                        Submit
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="subscribe-section style-two">
-          <div className="container">
-            <div className="inner-container" style={{ backgroundImage: `url(${data.subscribeBackground})` }}>
-              <h2 dangerouslySetInnerHTML={{ __html: data.subscribeHeading }} />
-              <div className="subscribe-form">
-                <form method="post" action="/contact">
-                  <div className="form-group">
-                    <input type="email" name="email" placeholder="Email address.." required />
-                    <button type="submit" className="theme-btn subscribe-btn">
-                      Subscribe
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-      </>
+      <section className="image-section">
+        <div className="container">
+          <img src={data.url} alt={data.alt || ''} className="img-fluid" />
+          {data.caption && <p className="text-center mt-3">{data.caption}</p>}
+        </div>
+      </section>
     );
   }
 
   // Default fallback
   return null;
-}
-
-// Services Grid Component
-function ServicesGrid({ data }: { data: any }) {
-  const { services, loading, error } = useServices();
-
-  if (loading) {
-    return (
-      <section className="services-section-three">
-        <div className="container">
-          <div className="text-center">Loading services...</div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error || services.length === 0) {
-    return null;
-  }
-
-  return (
-    <section className="services-section-three">
-      <div
-        className="icon-one wow fadeInLeft"
-        data-wow-delay="250ms"
-        data-wow-duration="1500ms"
-        style={{ backgroundImage: 'url(/images/icons/icon-6.png)' }}
-      ></div>
-      <div
-        className="icon-two wow fadeInRight"
-        data-wow-delay="500ms"
-        data-wow-duration="1500ms"
-        style={{ backgroundImage: 'url(/images/icons/icon-7.png)' }}
-      ></div>
-      <div className="container">
-        <div className="row clearfix">
-          <div className="blocks-column col-lg-8 col-md-12 col-sm-12">
-            <div className="inner-column">
-              <div className="row clearfix">
-                {services.slice(0, 6).map((service, index) => (
-                  <div key={service.id} className="services-block-three col-lg-6 col-md-6 col-sm-12">
-                    <div
-                      className="inner-box wow fadeInUp"
-                      data-wow-delay={`${(index % 2) * 300}ms`}
-                      data-wow-duration="1500ms"
-                    >
-                      <div className="border-one"></div>
-                      <div className="border-two"></div>
-                      <div className="content">
-                        <div className="icon-box">
-                          <span className={`icon ${service.icon || 'fa fa-briefcase'}`}></span>
-                        </div>
-                        <h6>
-                          <Link to={`/services/${service.id}`}>{service.title}</Link>
-                        </h6>
-                        <div className="text">{service.description}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="image-column col-lg-4 col-md-12 col-sm-12">
-            <div className="inner-column clearfix">
-              <div className="image">
-                <img src={data.experienceImage || '/images/resource/about-2.jpg'} alt="Experience" />
-                <div className="overlay-box">
-                  <div className="overlay-inner">
-                    <div className="content">
-                      <h2>
-                        {data.experienceYears} <span>{data.experienceText}</span>
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+};

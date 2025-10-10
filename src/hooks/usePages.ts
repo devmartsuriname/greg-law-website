@@ -1,32 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
-interface PageSection {
+export interface PageSection {
   id: string;
   type: string;
+  data: Record<string, any>;
   order: number;
-  data: any;
 }
 
-interface Page {
+export interface Page {
   id: string;
   slug: string;
   title: string;
+  sections: PageSection[];
   meta_title?: string;
   meta_description?: string;
-  sections: PageSection[];
   published: boolean;
   created_at: string;
   updated_at: string;
 }
 
-interface UsePageResult {
-  page: Page | null;
-  loading: boolean;
-  error: Error | null;
-}
-
-export const usePage = (slug: string): UsePageResult => {
+export const usePage = (slug: string) => {
   const [page, setPage] = useState<Page | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -42,19 +36,21 @@ export const usePage = (slug: string): UsePageResult => {
           .select('*')
           .eq('slug', slug)
           .eq('published', true)
-          .maybeSingle();
+          .single();
 
         if (fetchError) throw fetchError;
-
-        setPage(data);
+        setPage(data as Page);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Failed to fetch page'));
+        setError(err as Error);
+        console.error('Error fetching page:', err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPage();
+    if (slug) {
+      fetchPage();
+    }
   }, [slug]);
 
   return { page, loading, error };

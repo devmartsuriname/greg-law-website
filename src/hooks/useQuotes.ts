@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
-interface Quote {
+export interface Quote {
   id: string;
   quote_text: string;
   author_name: string;
@@ -11,17 +11,14 @@ interface Quote {
   featured: boolean;
   published: boolean;
   display_order: number;
-  created_at: string;
-  updated_at: string;
 }
 
-interface UseQuotesResult {
-  quotes: Quote[];
-  loading: boolean;
-  error: Error | null;
+interface UseQuotesOptions {
+  featured?: boolean;
+  limit?: number;
 }
 
-export const useQuotes = (featured?: boolean): UseQuotesResult => {
+export const useQuotes = (options: UseQuotesOptions = {}) => {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -38,24 +35,28 @@ export const useQuotes = (featured?: boolean): UseQuotesResult => {
           .eq('published', true)
           .order('display_order', { ascending: true });
 
-        if (featured !== undefined) {
-          query = query.eq('featured', featured);
+        if (options.featured) {
+          query = query.eq('featured', true);
+        }
+
+        if (options.limit) {
+          query = query.limit(options.limit);
         }
 
         const { data, error: fetchError } = await query;
 
         if (fetchError) throw fetchError;
-
-        setQuotes(data || []);
+        setQuotes(data as Quote[]);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Failed to fetch quotes'));
+        setError(err as Error);
+        console.error('Error fetching quotes:', err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchQuotes();
-  }, [featured]);
+  }, [options.featured, options.limit]);
 
   return { quotes, loading, error };
 };
