@@ -25,8 +25,8 @@ export default function HeroCards({ cards }: HeroCardsProps) {
                     <div className="icon-box">
                       <span className={`icon ${card.icon}`}></span>
                     </div>
-                    <div className="title">{card.title}</div>
-                    <h4>{card.subtitle}</h4>
+                    <h4>{card.title}</h4>
+                    <div className="text">{card.subtitle}</div>
                   </div>
                 </div>
               </div>
