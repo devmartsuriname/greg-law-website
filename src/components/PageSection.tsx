@@ -1,6 +1,7 @@
 import { PageSection as PageSectionType } from '@/hooks/usePages';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { useDynamicServices, useDynamicTeam, useDynamicTestimonials, useDynamicNews, useDynamicQuotes } from '@/hooks/useDynamicContent';
 
 interface PageSectionProps {
   section: PageSectionType;
@@ -8,6 +9,13 @@ interface PageSectionProps {
 
 export const PageSection = ({ section }: PageSectionProps) => {
   const { type, data } = section;
+
+  // Dynamic data hooks
+  const { data: services } = useDynamicServices();
+  const { data: team } = useDynamicTeam();
+  const { data: testimonials } = useDynamicTestimonials();
+  const { data: news } = useDynamicNews(3);
+  const { data: quotes } = useDynamicQuotes(1);
 
   // Hero section
   if (type === 'hero') {
@@ -220,6 +228,238 @@ export const PageSection = ({ section }: PageSectionProps) => {
         <div className="container">
           <img src={data.url} alt={data.alt || ''} className="img-fluid" />
           {data.caption && <p className="text-center mt-3">{data.caption}</p>}
+        </div>
+      </section>
+    );
+  }
+
+  // Services Grid Dynamic (fetch from database)
+  if (type === 'services_grid_dynamic') {
+    return (
+      <section className="services-section-three">
+        <div className="container">
+          <div className="section-title centered">
+            {data.sectionLabel && <div className="title">{data.sectionLabel}</div>}
+            {data.sectionTitle && <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle }} />}
+          </div>
+          <div className="row clearfix">
+            {services && services.slice(0, data.limit || 6).map((service, index) => (
+              <div key={service.id} className="services-block-three col-lg-4 col-md-6 col-sm-12">
+                <div className="inner-box wow fadeInUp" data-wow-delay={`${(index % 3) * 150}ms`} data-wow-duration="1500ms">
+                  <div className="border-one"></div>
+                  <div className="border-two"></div>
+                  <div className="content">
+                    <div className="icon-box">
+                      {service.icon && <Icon icon={service.icon} className="icon" />}
+                    </div>
+                    <h6>{service.title}</h6>
+                    <div className="text">{service.description}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Team Grid (fetch from database)
+  if (type === 'team_grid') {
+    return (
+      <section className="team-section">
+        <div className="container">
+          {(data.sectionTitle || data.sectionLabel) && (
+            <div className="section-title centered">
+              {data.sectionLabel && <div className="title">{data.sectionLabel}</div>}
+              {data.sectionTitle && <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle }} />}
+            </div>
+          )}
+          <div className="row clearfix">
+            {team && team.slice(0, data.limit || 4).map((member, index) => (
+              <div key={member.id} className="team-block col-lg-3 col-md-6 col-sm-12">
+                <div className="inner-box wow fadeInUp" data-wow-delay={`${index * 150}ms`}>
+                  <div className="image">
+                    <img src={member.photo_url || '/images/team/default.jpg'} alt={member.name} />
+                  </div>
+                  <div className="lower-content">
+                    <h6>{member.name}</h6>
+                    <div className="designation">{member.title}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // News Preview (fetch latest from database)
+  if (type === 'news_preview') {
+    return (
+      <section className="news-section">
+        <div className="container">
+          {(data.sectionTitle || data.sectionLabel) && (
+            <div className="section-title">
+              {data.sectionLabel && <div className="title">{data.sectionLabel}</div>}
+              {data.sectionTitle && <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle }} />}
+            </div>
+          )}
+          <div className="row clearfix">
+            {news && news.map((article, index) => (
+              <div key={article.id} className="news-block col-lg-4 col-md-6 col-sm-12">
+                <div className="inner-box wow fadeInUp" data-wow-delay={`${index * 150}ms`}>
+                  {article.featured_image && (
+                    <div className="image">
+                      <Link to={`/news/${article.slug}`}>
+                        <img src={article.featured_image} alt={article.title} />
+                      </Link>
+                    </div>
+                  )}
+                  <div className="lower-content">
+                    <div className="post-date">
+                      {new Date(article.published_at || article.created_at).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric'
+                      })}
+                    </div>
+                    <h6>
+                      <Link to={`/news/${article.slug}`}>{article.title}</Link>
+                    </h6>
+                    <div className="text">{article.excerpt}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {data.showViewAll && (
+            <div className="text-center mt-4">
+              <Link to="/news" className="theme-btn btn-style-one">
+                View All News
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
+    );
+  }
+
+  // Testimonials Dynamic (fetch from database)
+  if (type === 'testimonials_dynamic') {
+    return (
+      <section className="testimonial-section">
+        <div className="container">
+          {(data.sectionTitle || data.sectionLabel) && (
+            <div className="section-title">
+              {data.sectionLabel && <div className="title">{data.sectionLabel}</div>}
+              {data.sectionTitle && <h3 dangerouslySetInnerHTML={{ __html: data.sectionTitle }} />}
+            </div>
+          )}
+          <div className="testimonial-carousel owl-carousel owl-theme">
+            {testimonials && testimonials.map((testimonial) => (
+              <div key={testimonial.id} className="testimonial-block-two">
+                <div className="inner-box">
+                  <div className="text">{testimonial.testimonial_text}</div>
+                  <div className="author-post">
+                    {testimonial.client_photo_url && (
+                      <div className="author-image">
+                        <img src={testimonial.client_photo_url} alt={testimonial.client_name} />
+                      </div>
+                    )}
+                    <div className="author-inner">
+                      <h3>{testimonial.client_name}</h3>
+                      {testimonial.client_company && <div className="designation">{testimonial.client_company}</div>}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Quotes Dynamic (fetch from database)
+  if (type === 'quotes_dynamic') {
+    return (
+      <section className="quote-section">
+        <div className="container">
+          {quotes && quotes.map((quote) => (
+            <div key={quote.id} className="quote-box">
+              <blockquote className="quote-text">
+                <p>{quote.quote_text}</p>
+                <footer>
+                  <cite>
+                    <strong>{quote.author_name}</strong>
+                    {quote.author_title && <span className="d-block">{quote.author_title}</span>}
+                    {quote.context && <span className="text-muted d-block">{quote.context}</span>}
+                  </cite>
+                </footer>
+              </blockquote>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // Metrics Counter
+  if (type === 'metrics_counter') {
+    return (
+      <section className="counter-section">
+        <div className="container">
+          <div className="inner-container">
+            <div className="row clearfix">
+              {data.metrics && Array.isArray(data.metrics) && data.metrics.map((metric: any, index: number) => (
+                <div key={index} className="counter-column col-lg-3 col-md-6 col-sm-12">
+                  <div className="inner wow fadeInUp" data-wow-delay={`${index * 150}ms`}>
+                    <div className="content">
+                      {metric.icon && <div className={`icon ${metric.icon}`}></div>}
+                      <div className="counter-title">{metric.label}</div>
+                      <div className="count-outer count-box">
+                        <span className="count-text" data-speed="2500" data-stop={metric.value}>
+                          {metric.value}
+                        </span>
+                        {metric.suffix && <span>{metric.suffix}</span>}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Contact CTA
+  if (type === 'contact_cta') {
+    return (
+      <section className="contact-cta-section" style={data.backgroundImage ? { backgroundImage: `url(${data.backgroundImage})` } : {}}>
+        <div className="container">
+          <div className="inner-container">
+            <div className="row clearfix">
+              <div className="content-column col-lg-8 col-md-12 col-sm-12">
+                <div className="inner-column">
+                  {data.title && <h2>{data.title}</h2>}
+                  {data.subtitle && <div className="text">{data.subtitle}</div>}
+                </div>
+              </div>
+              <div className="button-column col-lg-4 col-md-12 col-sm-12">
+                <div className="inner-column">
+                  {data.buttonText && data.buttonLink && (
+                    <Link to={data.buttonLink} className="theme-btn btn-style-one">
+                      {data.buttonText}
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     );
