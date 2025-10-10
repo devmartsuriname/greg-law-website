@@ -599,6 +599,90 @@ export type Database = {
         }
         Relationships: []
       }
+      team_members: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          created_by: string | null
+          display_order: number | null
+          id: string
+          name: string
+          photo_url: string | null
+          published: boolean | null
+          social_links: Json | null
+          title: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          id?: string
+          name: string
+          photo_url?: string | null
+          published?: boolean | null
+          social_links?: Json | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          id?: string
+          name?: string
+          photo_url?: string | null
+          published?: boolean | null
+          social_links?: Json | null
+          title?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          client_company: string | null
+          client_name: string
+          client_photo_url: string | null
+          created_at: string | null
+          created_by: string | null
+          display_order: number | null
+          featured: boolean | null
+          id: string
+          published: boolean | null
+          testimonial_text: string
+          updated_at: string | null
+        }
+        Insert: {
+          client_company?: string | null
+          client_name: string
+          client_photo_url?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          featured?: boolean | null
+          id?: string
+          published?: boolean | null
+          testimonial_text: string
+          updated_at?: string | null
+        }
+        Update: {
+          client_company?: string | null
+          client_name?: string
+          client_photo_url?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          display_order?: number | null
+          featured?: boolean | null
+          id?: string
+          published?: boolean | null
+          testimonial_text?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null

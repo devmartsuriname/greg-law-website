@@ -45,7 +45,7 @@ export default function MetricsCounter({ metrics, variant = 'style-two' }: Metri
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {

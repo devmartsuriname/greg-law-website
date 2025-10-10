@@ -16,7 +16,7 @@ export default function HeroCards({ cards }: HeroCardsProps) {
     <section className="feature-section">
       <div className="container">
         <div className="inner-container">
-          <div className="clearfix">
+          <div className="row clearfix">
             {cards.map((card, index) => (
               <div key={index} className="feature-block col-lg-4 col-md-6 col-sm-12">
                 <div className="inner-box">
