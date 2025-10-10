@@ -5,6 +5,8 @@ import { AuthProvider } from '../admin/hooks/useAuth';
 
 // Lazy load admin pages
 const AdminLogin = lazy(() => import('../admin/pages/Login'));
+const AdminSignUp = lazy(() => import('../admin/pages/auth/SignUp'));
+const ForgotPassword = lazy(() => import('../admin/pages/auth/ForgotPassword'));
 const AdminLayout = lazy(() => import('../admin/layouts/AdminLayout'));
 const Dashboard = lazy(() => import('../admin/pages/Dashboard'));
 const NewsList = lazy(() => import('../admin/pages/news/NewsList'));
@@ -23,6 +25,8 @@ export const AdminRoutes = () => {
     <AuthProvider>
       <Routes>
         <Route path="login" element={<AdminLogin />} />
+        <Route path="sign-up" element={<AdminSignUp />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
         <Route
           path="/*"
           element={

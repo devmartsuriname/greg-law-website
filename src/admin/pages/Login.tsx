@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardBody, Col, Row, Alert } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -114,12 +114,28 @@ const Login = () => {
                       Remember me
                     </label>
                   </div>
+                  
+                  <div className="mb-3 text-end">
+                    <Link to="/admin/forgot-password" className="text-muted text-decoration-none">
+                      <small>Forgot Password?</small>
+                    </Link>
+                  </div>
+
                   <div className="d-grid">
                     <button disabled={loading} className="btn btn-dark btn-lg fw-medium" type="submit">
                       {loading ? 'Signing in...' : 'Sign In'}
                     </button>
                   </div>
                 </form>
+
+                <div className="text-center mt-4">
+                  <p className="text-muted mb-0">
+                    Don't have an account?{' '}
+                    <Link to="/admin/sign-up" className="text-decoration-none fw-bold">
+                      Sign Up
+                    </Link>
+                  </p>
+                </div>
               </CardBody>
             </Card>
           </Col>
