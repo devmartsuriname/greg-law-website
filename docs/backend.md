@@ -537,6 +537,38 @@ import { projectsService } from '@/admin/api/projects';
 
 // List all projects
 const projects = await projectsService.list();
+```
+
+#### **Dynamic Content Hooks** (`src/hooks/useDynamicContent.ts`) - Phase 6B
+Lightweight Supabase hooks for fetching dynamic homepage content:
+
+```typescript
+import { 
+  useDynamicServices, 
+  useDynamicTeam, 
+  useDynamicTestimonials, 
+  useDynamicNews 
+} from '@/hooks/useDynamicContent';
+
+// Fetch published services
+const { data: services, loading, error } = useDynamicServices();
+
+// Fetch published team members (default limit: 4)
+const { data: team, loading, error } = useDynamicTeam(4);
+
+// Fetch published testimonials (default limit: 3)
+const { data: testimonials, loading, error } = useDynamicTestimonials(3);
+
+// Fetch published news (default limit: 3)
+const { data: news, loading, error } = useDynamicNews(3);
+```
+
+**Hook Characteristics:**
+- Pattern: `useDynamic[Entity](limit?)`
+- Return: `{ data, loading, error }`
+- Auto-fetch on mount with `useEffect`
+- Filter: `published = true`
+- Ordering: By `display_order` (team/services) or `published_at` (news)
 
 // Get single project
 const project = await projectsService.get(slugOrId);
