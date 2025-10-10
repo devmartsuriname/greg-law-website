@@ -10,9 +10,13 @@ const Home = lazy(() => import('./pages/Home'));
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
 const ServicesDetail = lazy(() => import('./pages/ServicesDetail'));
+const Portfolio = lazy(() => import('./pages/Portfolio'));
 const PortfolioSingle = lazy(() => import('./pages/PortfolioSingle'));
+const Speeches = lazy(() => import('./pages/Speeches'));
+const SpeechDetail = lazy(() => import('./pages/SpeechDetail'));
 const BlogList = lazy(() => import('./pages/BlogList'));
 const BlogSingle = lazy(() => import('./pages/BlogSingle'));
+const Appointments = lazy(() => import('./pages/Appointments'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Events = lazy(() => import('./pages/Events'));
@@ -33,7 +37,10 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="services" element={<Services />} />
             <Route path="services/:slug" element={<ServicesDetail />} />
-            <Route path="portfolio/:id" element={<PortfolioSingle />} />
+            <Route path="portfolio" element={<Portfolio />} />
+            <Route path="portfolio/:slug" element={<PortfolioSingle />} />
+            <Route path="speeches" element={<Speeches />} />
+            <Route path="speeches/:slug" element={<SpeechDetail />} />
             <Route path="blog" element={<BlogList />} />
             <Route path="blog/:slug" element={<BlogSingle />} />
             <Route path="appointments" element={<Appointments />} />
