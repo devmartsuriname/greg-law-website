@@ -18,12 +18,6 @@ export const MENU_ITEMS: MenuItemType[] = [
     isTitle: true,
   },
   {
-    key: 'pages',
-    label: 'Pages',
-    icon: 'mingcute:file-line',
-    url: '/admin/pages',
-  },
-  {
     key: 'news',
     label: 'News',
     icon: 'mingcute:news-line',

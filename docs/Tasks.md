@@ -128,32 +128,27 @@
 
 **Duration:** 2-3 days  
 **Priority:** HIGH  
-**Status:** ✅ COMPLETED (2025-10-10)
+**Status:** ❌ Not Started
 
 ### Tasks
 
 | # | Task | Status | Assignee | DoD |
 |---|------|--------|----------|-----|
-| 1.1 | Create PagesList admin component | ✅ | Dev | List view shows all pages |
-| 1.2 | Create PageForm admin component | ✅ | Dev | Form for create/edit pages |
-| 1.3 | Implement pages CRUD API (Supabase) | ✅ | Dev | Create, read, update, delete working |
-| 1.4 | Add section builder UI (add/remove/reorder) | ✅ | Dev | Dynamic sections work |
-| 1.5 | Implement SEO meta fields | ✅ | Dev | Title, description editable |
-| 1.6 | Add publish/unpublish toggle | ✅ | Dev | Published flag works |
-| 1.7 | Create preview functionality | 🟡 | Dev | Preview shows page before publish (deferred to Phase 1.1) |
-| 1.8 | Restore homepage sections with dynamic data | ✅ | Dev | All homepage sections render with DB content (2025-10-10) |
-| 1.9 | Create usePage() hook for frontend | ✅ | Dev | Hook fetches page by slug |
-| 1.10 | Test full pages workflow | ✅ | Dev | Edit page in admin, see changes on frontend |
+| 1.1 | Create PagesList admin component | ❌ | Dev | List view shows all pages |
+| 1.2 | Create PageForm admin component | ❌ | Dev | Form for create/edit pages |
+| 1.3 | Implement pages CRUD API (Supabase) | ❌ | Dev | Create, read, update, delete working |
+| 1.4 | Add section builder UI (add/remove/reorder) | ❌ | Dev | Dynamic sections work |
+| 1.5 | Implement SEO meta fields | ❌ | Dev | Title, description editable |
+| 1.6 | Add publish/unpublish toggle | ❌ | Dev | Published flag works |
+| 1.7 | Create preview functionality | ❌ | Dev | Preview shows page before publish |
+| 1.8 | Update frontend Home.tsx to use Supabase | ❌ | Dev | Home page shows dynamic content |
+| 1.9 | Create usePage() hook for frontend | ❌ | Dev | Hook fetches page by slug |
+| 1.10 | Test full pages workflow | ❌ | Dev | Edit page in admin, see changes on frontend |
 
 **Phase 1 Deliverables:**
 - ✅ Pages admin interface working
+- ✅ Homepage dynamically rendered from database
 - ✅ Content editable without code changes
-- ✅ Homepage migration complete (uses `usePage('home')`)
-- 🟡 Preview functionality (deferred to Phase 1.1)
-
-**Documentation:**
-- ✅ [PHASE1_PAGES_IMPLEMENTATION.md](./PHASE1_PAGES_IMPLEMENTATION.md)
-- ✅ [RESTOREPOINT_PHASE1.md](./restore/RESTOREPOINT_PHASE1.md)
 
 ---
 

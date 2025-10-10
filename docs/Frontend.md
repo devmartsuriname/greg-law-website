@@ -287,43 +287,34 @@ export const useQuotes = (featured = false) => {
 
 ## 5. Page Components
 
-### Home.tsx (Dynamic Homepage) ✅ IMPLEMENTED
+### Home.tsx (Dynamic Homepage)
 
 **File:** `src/pages/Home.tsx`
 
-The homepage has been successfully migrated to use fully dynamic content from Supabase.
-
 ```typescript
-import { Helmet } from "react-helmet-async";
-import { usePage } from "@/hooks/usePages";
-import { PageSection } from "@/components/PageSection";
+import { usePage } from '@/hooks/usePages';
+import { useQuotes } from '@/hooks/useQuotes';
+import { useNews } from '@/hooks/useNews';
+import { useServices } from '@/hooks/useServices';
+import PageSection from '@/components/PageSection';
+import QuotesCarousel from '@/components/QuotesCarousel';
+import ServicesGrid from '@/components/ServicesGrid';
+import NewsPreview from '@/components/NewsPreview';
+import { Helmet } from 'react-helmet-async';
 
 export default function Home() {
-  const { page, loading, error } = usePage('home');
+  const { page, loading: pageLoading } = usePage('home');
+  const { quotes } = useQuotes(true); // Featured quotes only
+  const { news } = useNews(3, true); // Latest 3 featured news
+  const { services } = useServices(6, true); // Featured services
 
-  if (loading) {
-    return (
-      <div className="container" style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="text-center">
-          <h3>Loading...</h3>
-        </div>
-      </div>
-    );
+  if (pageLoading) {
+    return <div className="loading">Loading...</div>;
   }
 
-  if (error || !page) {
-    return (
-      <div className="container" style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="text-center">
-          <h3>Page not found</h3>
-          <p>The homepage content is not yet available. Please configure it in the admin panel.</p>
-        </div>
-      </div>
-    );
+  if (!page) {
+    return <div className="error">Page not found</div>;
   }
-
-  // Sort sections by order
-  const sortedSections = [...page.sections].sort((a, b) => a.order - b.order);
 
   return (
     <>
@@ -332,108 +323,27 @@ export default function Home() {
         <meta name="description" content={page.meta_description || ''} />
       </Helmet>
 
-      {sortedSections.map((section) => (
-        <PageSection key={section.id} section={section} />
-      ))}
+      <div className="home-page">
+        {/* Render dynamic sections from pages.sections JSONB */}
+        {page.sections && page.sections.map((section: any) => {
+          // Handle special section types
+          if (section.type === 'quotes_carousel') {
+            return <QuotesCarousel key={section.id} quotes={quotes} />;
+          }
+          if (section.type === 'services_grid') {
+            return <ServicesGrid key={section.id} services={services} title={section.title} />;
+          }
+          if (section.type === 'news_list') {
+            return <NewsPreview key={section.id} news={news} title={section.title} />;
+          }
+          // Generic section renderer
+          return <PageSection key={section.id} section={section} />;
+        })}
+      </div>
     </>
   );
 }
 ```
-
-**Key Features:**
-- Fully dynamic content driven by database
-- Uses `usePage('home')` hook to fetch page data
-- Renders sections using `PageSection` component
-- SEO meta tags from database
-- Loading and error states
-- Sections ordered by `order` field
-
-### Homepage Section Types
-
-The homepage dynamically renders sections from the `pages` table (slug='home'). Each section has a `type` and `data` structure.
-
-**Supported Section Types:**
-
-1. **hero** - Main banner with title, subtitle, image, CTA
-2. **about** - About section with content, features list, optional video
-3. **services_grid** - Static services from section.data
-4. **services_grid_dynamic** - Dynamic services from services table (featured=true)
-5. **quotes_carousel** - Dynamic quotes from quotes table (featured=true)
-6. **testimonials** - Static testimonials from section.data
-7. **contact_cta** - Call-to-action with button
-8. **text** - Generic text content
-9. **image** - Single image with caption
-10. **features** - Feature blocks with icons
-
-**Example Homepage Sections Structure:**
-
-```json
-{
-  "sections": [
-    {
-      "id": "hero-1",
-      "type": "hero",
-      "order": 1,
-      "data": {
-        "title": "Gregory Allan <span>Rusland</span>",
-        "subtitle": "Vice President of the Republic of Suriname",
-        "backgroundImage": "/images/main-slider/2.jpg",
-        "image": "/images/main-slider/content-image-1.png",
-        "buttonText": "Learn More",
-        "buttonLink": "/about"
-      }
-    },
-    {
-      "id": "about-1",
-      "type": "about",
-      "order": 2,
-      "data": {
-        "sectionLabel": "About the Vice President",
-        "title": "Leading with <span>Vision & Purpose</span>",
-        "content": "<p>Gregory Allan Rusland serves as Vice President...</p>",
-        "features": ["Economic Development", "Social Progress"],
-        "videoImage": "/images/resource/video-img.jpg"
-      }
-    },
-    {
-      "id": "services-1",
-      "type": "services_grid_dynamic",
-      "order": 3,
-      "data": {
-        "sectionLabel": "Key Focus Areas",
-        "sectionTitle": "Working for <span>Suriname's Future</span>"
-      }
-    },
-    {
-      "id": "quotes-1",
-      "type": "quotes_carousel",
-      "order": 4,
-      "data": {
-        "sectionLabel": "Leadership Vision",
-        "sectionTitle": "Words that guide our <span>vision</span>"
-      }
-    },
-    {
-      "id": "cta-1",
-      "type": "contact_cta",
-      "order": 5,
-      "data": {
-        "title": "Have Questions or Concerns?",
-        "content": "The Office of the Vice President is here to serve the people of Suriname.",
-        "buttonText": "Contact Us",
-        "buttonLink": "/contact",
-        "backgroundImage": "/images/background/pattern-1.png"
-      }
-    }
-  ]
-}
-```
-
-**Dynamic Components:**
-
-- `services_grid_dynamic` uses `<ServicesGrid featured={true} limit={6} />` to fetch services from database
-- `quotes_carousel` uses `<QuotesCarousel />` to fetch featured quotes from database
-- These components automatically handle loading states and empty states
 
 ### Blog/BlogList.tsx
 

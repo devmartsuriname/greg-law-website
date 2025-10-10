@@ -19,8 +19,6 @@ const MediaLibrary = lazy(() => import('../admin/pages/media/MediaLibrary'));
 const UsersList = lazy(() => import('../admin/pages/users/UsersList'));
 const MenusList = lazy(() => import('../admin/pages/menus/MenusList'));
 const Settings = lazy(() => import('../admin/pages/settings/Settings'));
-const PagesList = lazy(() => import('../admin/pages/pages/PagesList'));
-const PagesForm = lazy(() => import('../admin/pages/pages/PagesForm'));
 
 export const AdminRoutes = () => {
   return (
@@ -38,9 +36,6 @@ export const AdminRoutes = () => {
           }
         >
           <Route index element={<Dashboard />} />
-          <Route path="pages" element={<PagesList />} />
-          <Route path="pages/new" element={<PagesForm />} />
-          <Route path="pages/:id" element={<PagesForm />} />
           <Route path="news" element={<NewsList />} />
           <Route path="news/new" element={<NewsForm />} />
           <Route path="news/:id" element={<NewsForm />} />
