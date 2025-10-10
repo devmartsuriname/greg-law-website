@@ -321,6 +321,45 @@ Dynamic page builder system.
 - Public can view published pages
 - Editors/Admins can manage all pages
 
+**Section Types (Phase 6B Extended):**
+
+The `sections` field is a JSONB array containing page sections. Each section has:
+```json
+{
+  "id": "uuid",
+  "type": "section_type",
+  "data": { /* section-specific data */ },
+  "order": 0
+}
+```
+
+**Supported Section Types:**
+
+Core Sections (Existing):
+- `hero` - Main hero banner with portrait and CTA
+- `features` - 3 action tiles (Meeting / Services / Contact)
+- `about` - Basic about section (legacy)
+- `services_grid` - Static services grid (legacy)
+- `testimonials` - Testimonials carousel
+- `text` - Simple text section
+- `image` - Simple image section
+
+Enhanced Sections (Phase 6B New):
+- `about_enhanced` - About with signature, phones, checklist, video, and KPIs
+- `services_grid_dynamic` - 6 services + side image with experience overlay
+- `career_timeline` - 3 career milestone periods
+- `metrics_counter` - Animated KPI counters (standalone)
+- `team_grid` - Team members display (fetches from `team_members` table)
+- `news_preview` - Latest 3 news items (fetches from `news` table)
+- `contact_cta_enhanced` - Contact form with office info and map
+
+For detailed data structures and examples, see `docs/tasks/phase6b-section-types.md`.
+
+**Implementation:**
+- Rendered by `src/components/PageSection.tsx`
+- Fetched via `usePage(slug)` hook from `src/hooks/usePages.ts`
+- Dynamic data sourced from related tables (services, team_members, news, quotes)
+
 ---
 
 #### 13. **team_members**
