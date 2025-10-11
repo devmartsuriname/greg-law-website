@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Card, Button, Form, Row, Col, Spinner, Badge } from 'react-bootstrap';
+import { Card, Button, Form, Row, Col, Spinner, Badge, Dropdown } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { pagesService, Page, PageSection } from '../../api/pages';
 import { useToast } from '../../../hooks/use-toast';
@@ -219,31 +219,23 @@ const PagesForm = () => {
             <Card className="mb-4">
               <Card.Header className="d-flex justify-content-between align-items-center">
                 <h5 className="mb-0">Page Sections</h5>
-                <div className="dropdown">
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
+                <Dropdown align="end">
+                  <Dropdown.Toggle variant="primary" size="sm">
                     <Icon icon="mingcute:add-line" className="me-1" />
                     Add Section
-                  </Button>
-                  <ul className="dropdown-menu">
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
                     {SECTION_TYPES.map((type) => (
-                      <li key={type.value}>
-                        <button
-                          className="dropdown-item"
-                          type="button"
-                          onClick={() => handleAddSection(type.value)}
-                        >
-                          <Icon icon={type.icon} className="me-2" />
-                          {type.label}
-                        </button>
-                      </li>
+                      <Dropdown.Item 
+                        key={type.value}
+                        onClick={() => handleAddSection(type.value)}
+                      >
+                        <Icon icon={type.icon} className="me-2" />
+                        {type.label}
+                      </Dropdown.Item>
                     ))}
-                  </ul>
-                </div>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Card.Header>
               <Card.Body>
                 {formData.sections.length === 0 ? (

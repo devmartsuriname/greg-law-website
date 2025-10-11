@@ -1,9 +1,12 @@
 import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 import { PageSection } from '@/components/PageSection';
 import { usePage } from '@/hooks/usePages';
 
 export default function HomeDynamic() {
-  const { page, loading, error } = usePage('home');
+  const location = useLocation();
+  const slug = location.pathname.startsWith('/preview/home') ? 'preview/home' : 'home';
+  const { page, loading, error } = usePage(slug);
 
   if (loading) {
     return (
