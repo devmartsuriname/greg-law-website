@@ -110,6 +110,36 @@ const PagesForm = () => {
     }));
   };
 
+  const handleMoveUp = (index: number) => {
+    if (index === 0) return;
+    
+    const newSections = [...formData.sections];
+    const temp = newSections[index];
+    newSections[index] = newSections[index - 1];
+    newSections[index - 1] = temp;
+    
+    newSections.forEach((section, idx) => {
+      section.order = idx;
+    });
+    
+    setFormData((prev) => ({ ...prev, sections: newSections }));
+  };
+
+  const handleMoveDown = (index: number) => {
+    if (index === formData.sections.length - 1) return;
+    
+    const newSections = [...formData.sections];
+    const temp = newSections[index];
+    newSections[index] = newSections[index + 1];
+    newSections[index + 1] = temp;
+    
+    newSections.forEach((section, idx) => {
+      section.order = idx;
+    });
+    
+    setFormData((prev) => ({ ...prev, sections: newSections }));
+  };
+
   const handleDragStart = (e: React.DragEvent, index: number) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/html', index.toString());
@@ -297,6 +327,22 @@ const PagesForm = () => {
                             </span>
                           </div>
                           <div className="btn-group btn-group-sm">
+                            <Button
+                              variant="outline-secondary"
+                              onClick={() => handleMoveUp(index)}
+                              disabled={index === 0}
+                              title="Move Up"
+                            >
+                              <Icon icon="mingcute:arrow-up-line" />
+                            </Button>
+                            <Button
+                              variant="outline-secondary"
+                              onClick={() => handleMoveDown(index)}
+                              disabled={index === formData.sections.length - 1}
+                              title="Move Down"
+                            >
+                              <Icon icon="mingcute:arrow-down-line" />
+                            </Button>
                             <Button
                               variant="outline-info"
                               onClick={() => setPreviewSection(section)}
