@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Card, Button, Form, Row, Col, Spinner, Badge, Dropdown } from 'react-bootstrap';
+import { Card, Button, Form, Row, Col, Spinner, Badge, Dropdown, Modal } from 'react-bootstrap';
 import { Icon } from '@iconify/react';
 import { pagesService, Page, PageSection } from '../../api/pages';
 import { useToast } from '../../../hooks/use-toast';
 import { v4 as uuidv4 } from 'uuid';
+import { SectionDataEditor } from '../../components/SectionEditors/SectionDataEditor';
+import { PageSection as PageSectionRenderer } from '../../../components/PageSection';
 
 const SECTION_TYPES = [
   { value: 'hero', label: 'Hero Banner', icon: 'mingcute:star-line' },
@@ -22,6 +24,8 @@ const PagesForm = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [previewSection, setPreviewSection] = useState<PageSection | null>(null);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -98,18 +102,38 @@ const PagesForm = () => {
     }));
   };
 
-  const handleMoveSection = (index: number, direction: 'up' | 'down') => {
+  const handleDragStart = (e: React.DragEvent, index: number) => {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', index.toString());
+    setDragging(true);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e: React.DragEvent, dropIndex: number) => {
+    e.preventDefault();
+    const dragIndex = parseInt(e.dataTransfer.getData('text/html'));
+    
+    if (dragIndex === dropIndex) {
+      setDragging(false);
+      return;
+    }
+
     const newSections = [...formData.sections];
-    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    const draggedItem = newSections[dragIndex];
+    newSections.splice(dragIndex, 1);
+    newSections.splice(dropIndex, 0, draggedItem);
 
-    if (targetIndex < 0 || targetIndex >= newSections.length) return;
-
-    [newSections[index], newSections[targetIndex]] = [newSections[targetIndex], newSections[index]];
+    // Update order
     newSections.forEach((section, idx) => {
       section.order = idx;
     });
 
     setFormData((prev) => ({ ...prev, sections: newSections }));
+    setDragging(false);
   };
 
   const handleSectionDataChange = (sectionId: string, data: Record<string, any>) => {
@@ -246,9 +270,22 @@ const PagesForm = () => {
                 ) : (
                   <div className="sections-list">
                     {formData.sections.map((section, index) => (
-                      <Card key={section.id} className="mb-3">
+                      <Card 
+                        key={section.id} 
+                        className="mb-3"
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, index)}
+                        onDragOver={handleDragOver}
+                        onDrop={(e) => handleDrop(e, index)}
+                        style={{ 
+                          cursor: 'move', 
+                          opacity: dragging ? 0.5 : 1,
+                          transition: 'opacity 0.2s'
+                        }}
+                      >
                         <Card.Header className="d-flex justify-content-between align-items-center">
-                          <div>
+                          <div className="d-flex align-items-center">
+                            <Icon icon="mingcute:menu-line" className="me-2 text-muted" style={{ cursor: 'grab' }} />
                             <Badge bg="secondary" className="me-2">
                               #{index + 1}
                             </Badge>
@@ -258,20 +295,11 @@ const PagesForm = () => {
                           </div>
                           <div className="btn-group btn-group-sm">
                             <Button
-                              variant="outline-secondary"
-                              onClick={() => handleMoveSection(index, 'up')}
-                              disabled={index === 0}
-                              title="Move up"
+                              variant="outline-info"
+                              onClick={() => setPreviewSection(section)}
+                              title="Preview"
                             >
-                              <Icon icon="mingcute:arrow-up-line" />
-                            </Button>
-                            <Button
-                              variant="outline-secondary"
-                              onClick={() => handleMoveSection(index, 'down')}
-                              disabled={index === formData.sections.length - 1}
-                              title="Move down"
-                            >
-                              <Icon icon="mingcute:arrow-down-line" />
+                              <Icon icon="mingcute:eye-line" />
                             </Button>
                             <Button
                               variant="outline-danger"
@@ -283,24 +311,10 @@ const PagesForm = () => {
                           </div>
                         </Card.Header>
                         <Card.Body>
-                          <Form.Group>
-                            <Form.Label className="small text-muted">Section Data (JSON)</Form.Label>
-                            <Form.Control
-                              as="textarea"
-                              rows={4}
-                              value={JSON.stringify(section.data, null, 2)}
-                              onChange={(e) => {
-                                try {
-                                  const data = JSON.parse(e.target.value);
-                                  handleSectionDataChange(section.id, data);
-                                } catch (error) {
-                                  // Invalid JSON, ignore
-                                }
-                              }}
-                              style={{ fontFamily: 'monospace', fontSize: '0.85rem' }}
-                            />
-                            <Form.Text>Edit section data as JSON</Form.Text>
-                          </Form.Group>
+                          <SectionDataEditor
+                            section={section}
+                            onChange={(data) => handleSectionDataChange(section.id, data)}
+                          />
                         </Card.Body>
                       </Card>
                     ))}
@@ -382,6 +396,23 @@ const PagesForm = () => {
           </Col>
         </Row>
       </Form>
+
+      {/* Preview Modal */}
+      <Modal show={!!previewSection} onHide={() => setPreviewSection(null)} size="xl">
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Section Preview: {SECTION_TYPES.find((t) => t.value === previewSection?.type)?.label || previewSection?.type}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ maxHeight: '70vh', overflow: 'auto' }}>
+          {previewSection && <PageSectionRenderer section={previewSection} />}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setPreviewSection(null)}>
+            Close Preview
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
