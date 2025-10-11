@@ -21,7 +21,7 @@ const SECTION_TYPES = [
   // Legacy types (for backward compatibility)
   { value: 'about', label: 'About (Legacy)', icon: 'mingcute:information-line' },
   { value: 'services_grid', label: 'Services Grid (Legacy)', icon: 'mingcute:grid-line' },
-  { value: 'features', label: 'Features', icon: 'mingcute:list-check-line' },
+  { value: 'features', label: 'Quick Action Cards', icon: 'mingcute:grid-line' },
   { value: 'text', label: 'Text Content', icon: 'mingcute:align-left-line' },
   { value: 'image', label: 'Image', icon: 'mingcute:pic-line' },
 ];

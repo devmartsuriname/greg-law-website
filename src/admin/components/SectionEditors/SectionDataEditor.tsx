@@ -8,6 +8,7 @@ import { TestimonialsEditor } from './TestimonialsEditor';
 import { TeamGridEditor } from './TeamGridEditor';
 import { NewsPreviewEditor } from './NewsPreviewEditor';
 import { ContactCTAEditor } from './ContactCTAEditor';
+import { FeaturesEditor } from './FeaturesEditor';
 import { Form } from 'react-bootstrap';
 
 interface SectionDataEditorProps {
@@ -38,6 +39,8 @@ export const SectionDataEditor = ({ section, onChange }: SectionDataEditorProps)
       return <NewsPreviewEditor data={data} onChange={onChange} />;
     case 'contact_cta_enhanced':
       return <ContactCTAEditor data={data} onChange={onChange} />;
+    case 'features':
+      return <FeaturesEditor data={data} onChange={onChange} />;
     default:
       // Fallback to JSON editor for unknown types
       return (

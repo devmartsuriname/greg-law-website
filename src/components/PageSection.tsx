@@ -149,8 +149,8 @@ export const PageSection = ({ section }: PageSectionProps) => {
         <div className="container">
           <div className="inner-container">
             <div className="clearfix">
-              {data.features && Array.isArray(data.features) && data.features.map((feature: any, index: number) => (
-                <div key={index} className="feature-block col-lg-4 col-md-6 col-sm-12">
+              {data.features && Array.isArray(data.features) && data.features.map((feature: any, index: number) => {
+                const CardContent = () => (
                   <div className="inner-box">
                     {feature.icon && <div className={`big-icon ${feature.icon}`}></div>}
                     <div className="content">
@@ -163,8 +163,20 @@ export const PageSection = ({ section }: PageSectionProps) => {
                       <h4>{feature.title}</h4>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+
+                return (
+                  <div key={index} className="feature-block col-lg-4 col-md-6 col-sm-12">
+                    {feature.link ? (
+                      <a href={feature.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <CardContent />
+                      </a>
+                    ) : (
+                      <CardContent />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
