@@ -10,10 +10,18 @@ import { PageSection as PageSectionRenderer } from '../../../components/PageSect
 
 const SECTION_TYPES = [
   { value: 'hero', label: 'Hero Banner', icon: 'mingcute:star-line' },
-  { value: 'about', label: 'About Section', icon: 'mingcute:information-line' },
-  { value: 'services_grid', label: 'Services Grid', icon: 'mingcute:grid-line' },
-  { value: 'features', label: 'Features', icon: 'mingcute:list-check-line' },
+  { value: 'about_enhanced', label: 'About (Enhanced)', icon: 'mingcute:information-line' },
+  { value: 'services_grid_dynamic', label: 'Services Grid (Dynamic)', icon: 'mingcute:grid-line' },
+  { value: 'career_timeline', label: 'Career Timeline', icon: 'mingcute:timeline-line' },
+  { value: 'metrics_counter', label: 'Metrics Counter', icon: 'mingcute:calculator-line' },
   { value: 'testimonials', label: 'Testimonials/Quotes', icon: 'mingcute:quote-left-line' },
+  { value: 'team_grid', label: 'Team Grid', icon: 'mingcute:group-line' },
+  { value: 'news_preview', label: 'News Preview', icon: 'mingcute:news-line' },
+  { value: 'contact_cta_enhanced', label: 'Contact CTA', icon: 'mingcute:mail-send-line' },
+  // Legacy types (for backward compatibility)
+  { value: 'about', label: 'About (Legacy)', icon: 'mingcute:information-line' },
+  { value: 'services_grid', label: 'Services Grid (Legacy)', icon: 'mingcute:grid-line' },
+  { value: 'features', label: 'Features', icon: 'mingcute:list-check-line' },
   { value: 'text', label: 'Text Content', icon: 'mingcute:align-left-line' },
   { value: 'image', label: 'Image', icon: 'mingcute:pic-line' },
 ];
@@ -272,20 +280,15 @@ const PagesForm = () => {
                     {formData.sections.map((section, index) => (
                       <Card 
                         key={section.id} 
-                        className="mb-3"
+                        className={`section-card mb-3 ${dragging ? 'dragging-active' : ''}`}
                         draggable
                         onDragStart={(e) => handleDragStart(e, index)}
                         onDragOver={handleDragOver}
                         onDrop={(e) => handleDrop(e, index)}
-                        style={{ 
-                          cursor: 'move', 
-                          opacity: dragging ? 0.5 : 1,
-                          transition: 'opacity 0.2s'
-                        }}
                       >
                         <Card.Header className="d-flex justify-content-between align-items-center">
                           <div className="d-flex align-items-center">
-                            <Icon icon="mingcute:menu-line" className="me-2 text-muted" style={{ cursor: 'grab' }} />
+                            <Icon icon="mingcute:menu-line" className="me-2 text-muted drag-handle" />
                             <Badge bg="secondary" className="me-2">
                               #{index + 1}
                             </Badge>

@@ -1,0 +1,45 @@
+//
+// _page-editor.scss
+// Custom styles for the visual page builder
+//
+
+.section-card {
+  transition: all 0.2s ease;
+  
+  &.dragging-active {
+    opacity: 0.5;
+    border: 2px dashed var(--bs-primary) !important;
+    background-color: rgba(var(--bs-primary-rgb), 0.05);
+  }
+  
+  .drag-handle {
+    cursor: grab;
+    
+    &:active {
+      cursor: grabbing;
+    }
+  }
+}
+
+// Section list container
+.sections-list {
+  .card {
+    position: relative;
+    
+    &[draggable="true"] {
+      cursor: move;
+      
+      &:hover {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      }
+    }
+  }
+}
+
+// Preview modal enhancements
+.modal-body {
+  &:has(.page-section) {
+    padding: 0;
+    background: var(--bs-body-bg);
+  }
+}
