@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useDynamicTeam, useDynamicNews } from '@/hooks/useDynamicContent';
 import { useQuotes } from '@/hooks/useQuotes';
+import { useRef } from 'react';
+import { useOwlCarousel } from '@/hooks/useOwlCarousel';
 
 interface PageSectionProps {
   section: PageSectionType;
@@ -10,6 +12,10 @@ interface PageSectionProps {
 
 export const PageSection = ({ section }: PageSectionProps) => {
   const { type, data } = section;
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Initialize Owl Carousel for hero section
+  useOwlCarousel(type === 'hero' ? carouselRef : { current: null });
 
   // Hero section
   if (type === 'hero') {
@@ -21,7 +27,7 @@ export const PageSection = ({ section }: PageSectionProps) => {
           <div className="icon-image"></div>
         </div>
         <div className="container">
-          <div className="main-slider-carousel owl-carousel owl-theme">
+          <div ref={carouselRef} className="main-slider-carousel owl-carousel owl-theme">
             {slides.map((slide: any, index: number) => (
               <div key={index} className="slide">
                 <div className="row clearfix">

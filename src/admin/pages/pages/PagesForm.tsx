@@ -454,7 +454,7 @@ const PagesForm = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: '70vh', overflow: 'auto' }}>
-          {previewSection && <PageSectionRenderer section={previewSection} />}
+          {previewSection && <PageSectionRenderer key={previewSection.id} section={previewSection} />}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setPreviewSection(null)}>

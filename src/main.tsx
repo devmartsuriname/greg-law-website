@@ -19,10 +19,20 @@ const loadScripts = () => {
     '/js/script.js',
   ];
 
+  let loadedCount = 0;
+  const totalScripts = scripts.length;
+
   scripts.forEach((src) => {
     const script = document.createElement('script');
     script.src = src;
     script.async = false;
+    script.onload = () => {
+      loadedCount++;
+      // When all scripts are loaded, mark as ready
+      if (loadedCount === totalScripts) {
+        (window as any).scriptsLoaded = true;
+      }
+    };
     document.body.appendChild(script);
   });
 };
