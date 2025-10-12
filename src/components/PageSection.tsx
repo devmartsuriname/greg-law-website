@@ -313,69 +313,57 @@ export const PageSection = ({ section }: PageSectionProps) => {
                     )}
                   </div>
                 )}
-
-                {data.kpis && Array.isArray(data.kpis) && data.kpis.length > 0 && (
-                  <div className="fact-counter" style={{ marginTop: '50px' }}>
-                    <div className="row clearfix">
-                      {data.kpis.map((kpi: any, index: number) => (
-                        <div key={index} className="column counter-column col-lg-4 col-md-4 col-sm-12">
-                          <div className="inner wow fadeInUp" data-wow-delay={`${index * 200}ms`} data-wow-duration="1500ms">
-                            <div className="count-outer count-box text-center">
-                              <span 
-                                className="count-text theme_color" 
-                                data-speed="2000" 
-                                data-stop={kpi.value}
-                                style={{ 
-                                  color: '#c5a05e', 
-                                  fontSize: '48px', 
-                                  fontWeight: 'bold',
-                                  display: 'inline-block'
-                                }}
-                              >
-                                {kpi.value}
-                              </span>
-                              {kpi.suffix && (
-                                <span style={{ 
-                                  color: '#c5a05e', 
-                                  fontSize: '48px', 
-                                  fontWeight: 'bold' 
-                                }}>
-                                  {kpi.suffix}
-                                </span>
-                              )}
-                              <div 
-                                className="counter-title" 
-                                style={{ 
-                                  fontSize: '18px', 
-                                  fontWeight: '600', 
-                                  color: '#1a1a1a', 
-                                  marginTop: '10px' 
-                                }}
-                              >
-                                {kpi.label}
-                              </div>
-                              {kpi.description && (
-                                <div 
-                                  className="text" 
-                                  style={{ 
-                                    fontSize: '14px', 
-                                    color: '#666', 
-                                    marginTop: '5px' 
-                                  }}
-                                >
-                                  {kpi.description}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
+
+          {/* KPIs Section - Full Width Below */}
+          {data.kpis && Array.isArray(data.kpis) && data.kpis.length > 0 && (
+            <div className="row clearfix" style={{ marginTop: '60px' }}>
+              {data.kpis.map((kpi: any, index: number) => (
+                <div key={index} className="column counter-column col-lg-4 col-md-4 col-sm-12">
+                  <div className="inner wow fadeInUp" data-wow-delay={`${index * 200}ms`}>
+                    <div className="count-outer count-box text-center">
+                      <span 
+                        className="count-text" 
+                        style={{ 
+                          color: '#c5a05e', 
+                          fontSize: '60px', 
+                          fontWeight: '700',
+                          lineHeight: '1',
+                          display: 'inline-block'
+                        }}
+                      >
+                        {kpi.value}
+                        {kpi.suffix && <span>{kpi.suffix}</span>}
+                      </span>
+                      <div 
+                        className="counter-title" 
+                        style={{ 
+                          fontSize: '18px', 
+                          fontWeight: '700', 
+                          color: '#1a1a1a', 
+                          marginTop: '15px',
+                          textTransform: 'capitalize'
+                        }}
+                      >
+                        {kpi.label}
+                      </div>
+                      {kpi.description && (
+                        <div style={{ 
+                          fontSize: '14px', 
+                          color: '#666', 
+                          marginTop: '8px' 
+                        }}>
+                          {kpi.description}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     );
