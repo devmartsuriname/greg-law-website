@@ -395,6 +395,48 @@ export type Database = {
         }
         Relationships: []
       }
+      pages_backup_20251010: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          id: string | null
+          meta_description: string | null
+          meta_title: string | null
+          published: boolean | null
+          sections: Json | null
+          slug: string | null
+          title: string | null
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          published?: boolean | null
+          sections?: Json | null
+          slug?: string | null
+          title?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          id?: string | null
+          meta_description?: string | null
+          meta_title?: string | null
+          published?: boolean | null
+          sections?: Json | null
+          slug?: string | null
+          title?: string | null
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

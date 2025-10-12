@@ -43,6 +43,22 @@ export const AboutEnhancedEditor = ({ data, onChange }: AboutEnhancedEditorProps
     updateField('phones', phones);
   };
 
+  const updateKpi = (index: number, field: string, value: any) => {
+    const kpis = [...(data.kpis || [])];
+    kpis[index] = { ...kpis[index], [field]: value };
+    updateField('kpis', kpis);
+  };
+
+  const addKpi = () => {
+    updateField('kpis', [...(data.kpis || []), { value: 0, suffix: '', label: '', description: '' }]);
+  };
+
+  const removeKpi = (index: number) => {
+    const kpis = [...(data.kpis || [])];
+    kpis.splice(index, 1);
+    updateField('kpis', kpis);
+  };
+
   return (
     <>
       <Form.Group className="mb-3">
@@ -197,6 +213,73 @@ export const AboutEnhancedEditor = ({ data, onChange }: AboutEnhancedEditorProps
           </Form.Group>
         </Col>
       </Row>
+
+      <hr className="my-4" />
+      <h6>KPIs / Metrics</h6>
+
+      <Form.Group className="mb-3">
+        <Form.Label className="d-flex justify-content-between align-items-center">
+          Key Performance Indicators
+          <Button size="sm" variant="outline-primary" onClick={addKpi}>
+            <Icon icon="mingcute:add-line" className="me-1" />
+            Add KPI
+          </Button>
+        </Form.Label>
+        {(data.kpis || []).map((kpi: any, index: number) => (
+          <div key={index} className="mb-3 p-3 border rounded">
+            <div className="d-flex justify-content-between align-items-center mb-2">
+              <strong>KPI {index + 1}</strong>
+              <Button size="sm" variant="outline-danger" onClick={() => removeKpi(index)}>
+                <Icon icon="mingcute:delete-line" />
+              </Button>
+            </div>
+            <Row>
+              <Col md={3}>
+                <Form.Group className="mb-2">
+                  <Form.Label>Value</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={kpi.value || 0}
+                    onChange={(e) => updateKpi(index, 'value', parseInt(e.target.value) || 0)}
+                    placeholder="25"
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={3}>
+                <Form.Group className="mb-2">
+                  <Form.Label>Suffix</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={kpi.suffix || ''}
+                    onChange={(e) => updateKpi(index, 'suffix', e.target.value)}
+                    placeholder="+, %, etc."
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group className="mb-2">
+                  <Form.Label>Label</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={kpi.label || ''}
+                    onChange={(e) => updateKpi(index, 'label', e.target.value)}
+                    placeholder="Years of Service"
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                value={kpi.description || ''}
+                onChange={(e) => updateKpi(index, 'description', e.target.value)}
+                placeholder="Public service dedication"
+              />
+            </Form.Group>
+          </div>
+        ))}
+      </Form.Group>
     </>
   );
 };

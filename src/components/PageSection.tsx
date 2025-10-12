@@ -315,24 +315,61 @@ export const PageSection = ({ section }: PageSectionProps) => {
                 )}
 
                 {data.kpis && Array.isArray(data.kpis) && data.kpis.length > 0 && (
-                  <div className="fact-counter style-two">
-                    <div className="container">
-                      <div className="row clearfix">
-                        {data.kpis.map((kpi: any, index: number) => (
-                          <div key={index} className="column counter-column col-lg-4 col-md-6 col-sm-12">
-                            <div className="inner wow fadeInLeft" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
-                              <div className="count-outer count-box">
-                                <span className="count-text" data-speed="2000" data-stop={kpi.value}>
-                                  0
+                  <div className="fact-counter" style={{ marginTop: '50px' }}>
+                    <div className="row clearfix">
+                      {data.kpis.map((kpi: any, index: number) => (
+                        <div key={index} className="column counter-column col-lg-4 col-md-4 col-sm-12">
+                          <div className="inner wow fadeInUp" data-wow-delay={`${index * 200}ms`} data-wow-duration="1500ms">
+                            <div className="count-outer count-box text-center">
+                              <span 
+                                className="count-text theme_color" 
+                                data-speed="2000" 
+                                data-stop={kpi.value}
+                                style={{ 
+                                  color: '#c5a05e', 
+                                  fontSize: '48px', 
+                                  fontWeight: 'bold',
+                                  display: 'inline-block'
+                                }}
+                              >
+                                {kpi.value}
+                              </span>
+                              {kpi.suffix && (
+                                <span style={{ 
+                                  color: '#c5a05e', 
+                                  fontSize: '48px', 
+                                  fontWeight: 'bold' 
+                                }}>
+                                  {kpi.suffix}
                                 </span>
-                                {kpi.suffix && kpi.suffix}
-                                <div className="counter-title">{kpi.label}</div>
-                                {kpi.description && <div className="text">{kpi.description}</div>}
+                              )}
+                              <div 
+                                className="counter-title" 
+                                style={{ 
+                                  fontSize: '18px', 
+                                  fontWeight: '600', 
+                                  color: '#1a1a1a', 
+                                  marginTop: '10px' 
+                                }}
+                              >
+                                {kpi.label}
                               </div>
+                              {kpi.description && (
+                                <div 
+                                  className="text" 
+                                  style={{ 
+                                    fontSize: '14px', 
+                                    color: '#666', 
+                                    marginTop: '5px' 
+                                  }}
+                                >
+                                  {kpi.description}
+                                </div>
+                              )}
                             </div>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
