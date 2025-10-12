@@ -13,6 +13,8 @@ export const PageSection = ({ section }: PageSectionProps) => {
 
   // Hero section
   if (type === 'hero') {
+    const slides = data.slides || [{ title: data.title, subtitle: data.subtitle, buttonText: data.buttonText, buttonLink: data.buttonLink, image: data.image }];
+    
     return (
       <section className="banner-section-two" style={{ backgroundImage: `url(${data.backgroundImage || '/images/main-slider/2.jpg'})` }}>
         <div className="left-side">
@@ -20,26 +22,28 @@ export const PageSection = ({ section }: PageSectionProps) => {
         </div>
         <div className="container">
           <div className="main-slider-carousel owl-carousel owl-theme">
-            <div className="slide">
-              <div className="row clearfix">
-                <div className="image-column col-lg-7 col-md-12 col-sm-12">
-                  <div className="image">
-                    <img src={data.image || '/images/main-slider/content-image-1.png'} alt={data.title} />
+            {slides.map((slide: any, index: number) => (
+              <div key={index} className="slide">
+                <div className="row clearfix">
+                  <div className="image-column col-lg-7 col-md-12 col-sm-12">
+                    <div className="image">
+                      <img src={slide.image || '/images/main-slider/content-image-1.png'} alt={slide.title} />
+                    </div>
                   </div>
-                </div>
-                <div className="content-column col-lg-5 col-md-12 col-sm-12">
-                  <div className="inner-column">
-                    <h2 dangerouslySetInnerHTML={{ __html: data.title || '' }} />
-                    <div className="text">{data.subtitle}</div>
-                    {data.buttonText && data.buttonLink && (
-                      <Link to={data.buttonLink} className="theme-btn btn-style-one">
-                        {data.buttonText}
-                      </Link>
-                    )}
+                  <div className="content-column col-lg-5 col-md-12 col-sm-12">
+                    <div className="inner-column">
+                      <h2 dangerouslySetInnerHTML={{ __html: slide.title || '' }} />
+                      <div className="text">{slide.subtitle}</div>
+                      {slide.buttonText && slide.buttonLink && (
+                        <Link to={slide.buttonLink} className="theme-btn btn-style-one">
+                          {slide.buttonText}
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

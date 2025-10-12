@@ -3,7 +3,6 @@ import { navigationItems } from "../data/navigation";
 
 export default function Header() {
   const location = useLocation();
-  const isHome = location.pathname === "/";
 
   const isActive = (path?: string, children?: typeof navigationItems) => {
     if (path && location.pathname === path) return true;
@@ -14,15 +13,15 @@ export default function Header() {
   };
 
   return (
-    <header className={`main-header ${isHome ? "header-style-two" : ""}`}>
+    <header className="main-header header-style-two">
       <div className="header-upper">
-        <div className={isHome ? "outer-container" : "container"}>
+        <div className="outer-container">
           <div className="clearfix">
             <div className="pull-left logo-box">
               <div className="logo">
                 <Link to="/">
                   <img
-                    src={isHome ? "/images/logo-2.png" : "/images/logo.png"}
+                    src="/images/logo-2.png"
                     alt="LawSight"
                     title="LawSight"
                     className="logo-img"
@@ -31,11 +30,9 @@ export default function Header() {
               </div>
             </div>
 
-            {isHome && (
-              <div className="phone-number">
-                <span className="icon flaticon-phone-call"></span> +597 472 000
-              </div>
-            )}
+            <div className="phone-number">
+              <span className="icon flaticon-phone-call"></span> +597 472 000
+            </div>
 
             <div className="nav-outer clearfix">
               <nav className="main-menu navbar-expand-md">
@@ -113,14 +110,6 @@ export default function Header() {
                     </ul>
                   </div>
                 </div>
-
-                {!isHome && (
-                  <div className="nav-toggler">
-                    <div className="nav-btn hidden-bar-opener">
-                      <span className="flaticon-menu"></span>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           </div>
