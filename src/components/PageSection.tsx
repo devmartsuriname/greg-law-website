@@ -313,33 +313,33 @@ export const PageSection = ({ section }: PageSectionProps) => {
                     )}
                   </div>
                 )}
+                
+                {/* KPIs Section - Positioned Below Video */}
+                {data.kpis && Array.isArray(data.kpis) && data.kpis.length > 0 && (
+                  <div className="fact-counter style-two">
+                    <div className="container">
+                      <div className="row clearfix">
+                        {data.kpis.map((kpi: any, index: number) => (
+                          <div key={index} className="column counter-column col-lg-4 col-md-6 col-sm-12">
+                            <div className="inner wow fadeInLeft" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
+                              <div className="count-outer count-box">
+                                <span className="count-text" data-speed="2000" data-stop={kpi.value}>
+                                  {kpi.value}
+                                </span>
+                                {kpi.suffix}
+                                <div className="counter-title">{kpi.label}</div>
+                                {kpi.description && <div className="text">{kpi.description}</div>}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-
-          {/* KPIs Section - Full Width Below */}
-          {data.kpis && Array.isArray(data.kpis) && data.kpis.length > 0 && (
-            <div className="fact-counter style-two">
-              <div className="container">
-                <div className="row clearfix">
-                  {data.kpis.map((kpi: any, index: number) => (
-                    <div key={index} className="column counter-column col-lg-4 col-md-6 col-sm-12">
-                      <div className="inner wow fadeInLeft" data-wow-delay={`${index * 300}ms`} data-wow-duration="1500ms">
-                        <div className="count-outer count-box">
-                          <span className="count-text" data-speed="2000" data-stop={kpi.value}>
-                            {kpi.value}
-                          </span>
-                          {kpi.suffix}
-                          <div className="counter-title">{kpi.label}</div>
-                          {kpi.description && <div className="text">{kpi.description}</div>}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
     );
